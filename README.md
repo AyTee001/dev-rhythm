@@ -6,7 +6,7 @@ A forum for tech enthusiasts and developers. Dive deep into the community to exc
 
 1. ***User registration and profile management.*** New users can register on the forum to become members. They create and manage their profiles with information about their skills and interests, as well as analytics.
 
-2. ***Discussion threads with rections.*** Users can start new discussion threads or participate in existing ones, as well as upvote/downvote the posts.
+2. ***Discussion threads with reactions.*** Users can start new discussion threads or participate in existing ones, as well as upvote/downvote the posts.
 
 3. ***Tags and posts.*** Users tag posts with relevant keywords, making it easier to categorize and search for specific content.
 
