@@ -4,7 +4,7 @@
     {
         public long UserId { get; set; }
         public long AchievementId { get; set;}
-        public DateTime EarnedAt { get; set; } = DateTime.UtcNow;
+        public DateTime EarnedAt { get; set; }
         public Achievement? Achievement { get; set;}
     }
 }
