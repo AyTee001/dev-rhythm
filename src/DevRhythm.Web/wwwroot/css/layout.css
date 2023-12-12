@@ -1,0 +1,75 @@
+﻿nav {
+    background-color: var(--primary-color);
+    color: var(--dim-white);
+    height: 100px;
+}
+
+header {
+    background-color: var(--primary-color);
+    z-index: 4;
+    width: 100%;
+    border-bottom: solid 1px rgba(240, 240, 240, 0.2);
+}
+
+.user{ 
+    margin-left: 24px; 
+}
+
+.user img {
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
+}
+
+.aside-main {
+    padding-top: 100px;
+    background-color: var(--primary-color);
+}
+
+aside {
+    background-color: var(--primary-color);
+    top: 100px;
+    bottom: 0;
+    left: 0;
+    border-right: solid 1px rgba(240, 240, 240, 0.2);
+    width: 240px;
+}
+
+.search-bar {
+    width: 60%;
+    border: 10px solid;
+    border: double 4px transparent;
+    border-radius: 80px;
+    background-image: linear-gradient(#555572, #555572), radial-gradient(circle at top left, var(--accent-orange), var(--accent-cambridge-blue));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    flex: 1;
+    outline: none;
+    color: var(--dim-white);
+}
+
+.search-bar i {
+    color: var(--dim-white);
+}
+
+.search-bar input::placeholder {
+    color: rgba(240, 240, 240, 0.6)
+}
+
+.search-button {
+    background: transparent;
+    border: none;
+}
+
+.main-container {
+    width: calc(100% - 240px);
+}
+
+.aside-nav i {
+    margin-left: 16px;
+}

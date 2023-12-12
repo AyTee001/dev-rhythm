@@ -3,47 +3,78 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DevRhythm.Web</title>
+    <title>DevRhythm</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/color-vars.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DevRhythm.Web.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="position-fixed d-flex align-items-center">
+        <nav class="container-fluid p-2 navbar navbar-expand-sm navbar-toggleable-sm container-fluid d-flex align-items-center justify-content-center">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DevRhythm.Web</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DevRhythm</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="search-bar d-flex justify-content-center p-2 m-3 gradient-border-mask">
+                    <form method="post" action="" role="search" class="container-fluid d-flex align-items-center justify-content-between">
+                            <input type="search" placeholder="Search" aria-label="Search for content">
+                            <button class="search-button" aria-label="Search" type="submit">
+                                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                            </button>
+                    </form>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="fa-solid fa-bell fa-lg"></i>
+                            </a>
                         </li>
                     </ul>
+                    <div class="user d-flex align-items-center justify-content-center">
+                        <img src="/images/ben-sweet-2LowviVHZ-E-unsplash.jpg" alt="User Avatar" class="rounded-circle"/>
+                        <span class="username">Username</span>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <div class="aside-main d-flex justify-content-end">
+        <aside class="side-bar position-fixed p-3">
+            <ul class="nav nav-pills flex-column mb-auto list-unstyled p-1 aside-nav">
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <span>Home</span>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - DevRhythm.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <i class="fa-solid fa-house fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tag-filter-section">
+                
+            </div>
+            <div class="sort-section">
+
+            </div>
+        </aside>
+        <div class="main-container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/0e685931d4.js" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
