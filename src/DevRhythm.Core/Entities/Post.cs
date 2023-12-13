@@ -9,7 +9,6 @@ namespace DevRhythm.Core.Entities
         public int VoteResult { get; set; }
         public User? Author { get; set; }
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

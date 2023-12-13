@@ -1,4 +1,8 @@
+using DevRhythm.App.Interfaces;
+using DevRhythm.App.MappingProfiles;
+using DevRhythm.App.Services;
 using DevRhythm.Web.Extensions;
+using System.Reflection;
 
 namespace DevRhythm.Web
 {
@@ -11,15 +15,17 @@ namespace DevRhythm.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDevRhythmContext(builder.Configuration);
+            builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
+            builder.Services.AddCustomServices();
 
             var app = builder.Build();
 
             app.UseLatestDevRhythmDbContext();
-
+            
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Post/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -33,7 +39,7 @@ namespace DevRhythm.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Post}/{action=Index}/{id?}");
 
             app.Run();
         }

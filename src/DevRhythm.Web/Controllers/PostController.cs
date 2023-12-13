@@ -1,27 +1,25 @@
+using DevRhythm.App.Interfaces;
+using DevRhythm.Shared.Settings;
 using DevRhythm.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace DevRhythm.Web.Controllers
 {
-    public class HomeController : Controller
+    public class PostController(IPostService postService) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly IPostService _postService = postService;
 
         public IActionResult Index()
         {
-            return View();
+            return View(
+                new MainPostPageModel
+                {
+                    PostPreviewsCollection = [],
+                    SortSettings = new SortSettings()
+                });
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
