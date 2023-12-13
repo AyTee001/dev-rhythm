@@ -24,6 +24,7 @@ namespace DevRhythm.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Configure();
+            modelBuilder.Seed();
         }
     }
 }

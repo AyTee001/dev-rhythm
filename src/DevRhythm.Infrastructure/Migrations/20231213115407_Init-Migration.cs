@@ -51,6 +51,7 @@ namespace DevRhythm.Infrastructure.Migrations
                     About = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Reputation = table.Column<int>(type: "int", nullable: false),
                     PostCount = table.Column<int>(type: "int", nullable: false),
                     ThreadCount = table.Column<int>(type: "int", nullable: false),
@@ -69,7 +70,7 @@ namespace DevRhythm.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SenderId = table.Column<long>(type: "bigint", nullable: true),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateSending = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    SentAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

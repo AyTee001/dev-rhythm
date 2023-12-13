@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevRhythm.Infrastructure.Migrations
 {
     [DbContext(typeof(DevRhythmDbContext))]
-    [Migration("20231210211042_InitMigration")]
+    [Migration("20231213115407_Init-Migration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -106,14 +106,14 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("DateSending")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SenderId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -272,6 +272,10 @@ namespace DevRhythm.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
