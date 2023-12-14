@@ -1,4 +1,5 @@
 using DevRhythm.App.Interfaces;
+using DevRhythm.Shared.Entities;
 using DevRhythm.Shared.Settings;
 using DevRhythm.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,12 @@ namespace DevRhythm.Web.Controllers
     {
         private readonly IPostService _postService = postService;
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View(
                 new MainPostPageModel
                 {
-                    PostPreviewsCollection = [],
+                    PostPreviewsCollection = await _postService.GetPostPreviewsAsync(new PageSettings() { PageNumber = 1, PageSize = 10 }, null, []),
                     SortSettings = new SortSettings()
                 });
         }

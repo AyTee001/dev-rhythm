@@ -69,14 +69,97 @@ aside {
 .aside-nav i {
   margin-left: 16px;
 }
+.post-section {
+  margin-top: 36px;
+}
+
+.post-preview-card {
+  background-color: #1A1A2E;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  width: 70%;
+  border: 1px solid rgba(240, 240, 240, 0.2);
+}
+
+.user-info {
+  padding: 20px 36px 16px;
+  margin-bottom: 12px;
+  color: #F0F0F0;
+}
+.user-info img {
+  z-index: 1;
+  margin-right: 12px;
+  width: 40px;
+  height: 40px;
+}
+.user-info div {
+  z-index: 1;
+}
+.user-info div span {
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+.user-info:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(85, 85, 114, 0.5), #1A1A2E);
+  border-start-start-radius: 8px;
+  border-start-end-radius: 8px;
+  z-index: 0;
+}
+
+.reputation {
+  color: #82C9A8;
+}
+
+.main-preview-content {
+  margin: 24px;
+  color: #F0F0F0;
+  font-weight: 200;
+  margin-bottom: 12px;
+}
+.main-preview-content h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.main-preview-content p {
+  font-size: 16px;
+}
+
+.tag-section {
+  margin: 24px;
+}
+
+.tag {
+  color: #82C9A8;
+  border-radius: 8px;
+  background-color: rgba(85, 85, 114, 0.5);
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.vote-result {
+  margin-left: 24px;
+  color: #F0F0F0;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.vote-result .vote-arrow-container {
+  margin-left: 8px;
+}
+.vote-result .vote-arrow-container i {
+  font-size: 20px;
+  cursor: pointer;
+}
 html {
   font-size: 14px;
   font-family: "Poppins", sans-serif;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
 }
 
 html, body {
