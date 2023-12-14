@@ -20,4 +20,8 @@
     <ProjectReference Include="..\DevRhythm.Infrastructure\DevRhythm.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\ts-scripts\" />
+  </ItemGroup>
+
 </Project>
