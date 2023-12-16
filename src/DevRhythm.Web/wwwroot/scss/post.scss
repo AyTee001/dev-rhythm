@@ -1,6 +1,6 @@
 ﻿@import 'color-vars';
 
-.post-section{
+#post-section{
     margin-top: 36px;
 }
 
@@ -50,6 +50,9 @@
 
 .reputation{
     color: $accent-cambridge-blue;
+    i{
+        font-size: 110%;
+    }
 }
 
 .main-preview-content {
@@ -95,4 +98,35 @@
             cursor: pointer;
         }
     }
+}
+
+.pagination {
+    li:first-child {
+        border-start-start-radius: 8px;
+        border-end-start-radius: 8px;
+        border-right: none;
+    }
+
+    li:last-child {
+        border-start-end-radius: 8px;
+        border-end-end-radius: 8px;
+        border-left: none;
+    }
+
+    li {
+        border: 2px solid $border-white;
+    }
+
+    a {
+        color: $accent-cambridge-blue;
+        display: block;
+        padding: 10px;
+    }
+}
+
+.page-nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,35 +1,47 @@
 ﻿@model DevRhythm.Web.Models.MainPostPageModel
 
-<div class="post-section d-flex flex-column align-items-center">
-    @foreach(var post in Model.PostPreviewsCollection)
-    {
-        <div class="post-preview-card d-flex flex-column">
-            <div class="user-info d-flex align-items-start position-relative">
-                <img class="rounded-circle" src="@(post.Author?.ImageUrl ?? "/images/account-icon-user-icon-vector-graphics_292645-552.jpg")" />
-                @*Plan to turn it into a tag helper*@
-                <div class="d-flex flex-column">
-                    <span>@post.Author?.UserName</span>
-                    <span>@post.Author?.FirstName @post.Author?.LastName</span>
-                    <span class="reputation">@post.Author?.Reputation</span>
-                </div>
-            </div>
-            <div class="main-preview-content">
-                <h3>@post.Heading</h3>
-                <p>@post.PreviewContent</p>
-            </div>
-            <div class="tag-section">
-                @foreach(var tag in post.Tags)
-                {
-                    <span class="rounded-pill tag">@tag.Name</span>
-                }
-            </div>
-            <div class="vote-result text-center rounded-pill d-flex align-items-center justify-content-start">
-                @post.VoteResult
-                <div class="vote-arrow-container d-flex flex-column justify-content-start">
-                    <i class="fa-solid fa-caret-up"></i>
-                    <i class="fa-solid fa-caret-down"></i>
-                </div>
-            </div>
-        </div>
-    }
+<div id="post-section" class="d-flex flex-column align-items-center">
 </div>
+
+
+@section Scripts {
+    <script>
+        let currentPage = 0;
+        let loading = false;
+        let isEnd = false;
+
+        function loadMorePosts() {
+            if (!loading && !isEnd) {
+                loading = true;
+                $.ajax({
+                    url: '/Post/GetPosts',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        PageNumber: currentPage + 1,
+                    }),
+                    success: function (data) {
+                        if (data) {
+                            $('#post-section').append(data);
+                            currentPage++;
+                            loading = false;
+                        } else {
+                            isEnd = true;
+                        }
+                    },
+                    error: function () {
+                        loading = false;
+                    }
+                });
+            }
+        }
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+                loadMorePosts();
+            }
+        });
+
+        $(document).ready(loadMorePosts());
+    </script>
+}

@@ -18,6 +18,16 @@ namespace DevRhythm.Web
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()    // Allow requests from any origin
+                        .AllowAnyMethod()    // Allow any HTTP method
+                        .AllowAnyHeader();   // Allow any HTTP headers
+                });
+            });
             var app = builder.Build();
 
             app.UseLatestDevRhythmDbContext();
@@ -29,6 +39,7 @@ namespace DevRhythm.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors("AllowAnyOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

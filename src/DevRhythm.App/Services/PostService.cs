@@ -61,7 +61,6 @@ namespace DevRhythm.App.Services
                 { SortOrder: SortOrder.Descending, SortProperty: SortProperty.VoteResult } => posts.OrderByDescending(e => e.VoteResult),
                 { SortOrder: SortOrder.Descending, SortProperty: SortProperty.CreatedAt } => posts.OrderBy(e => e.CreatedAt),
                 { SortOrder: SortOrder.Descending, SortProperty: SortProperty.Title } => posts.OrderBy(e => e.Heading),
-                _ => throw new NotFoundException(nameof(SortProperty))
             };
         } 
     }
