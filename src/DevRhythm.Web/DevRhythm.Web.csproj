@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\ts-scripts\posts.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -17,11 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DevRhythm.App\DevRhythm.App.csproj" />
     <ProjectReference Include="..\DevRhythm.Infrastructure\DevRhythm.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ts-scripts\" />
+    <TypeScriptCompile Include="wwwroot\ts-scripts\posts.ts" />
   </ItemGroup>
 
 </Project>

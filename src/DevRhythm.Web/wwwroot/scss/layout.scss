@@ -42,7 +42,7 @@ aside {
     border: 10px solid;
     border: double 4px transparent;
     border-radius: 80px;
-    background-image: linear-gradient(#555572, #555572), radial-gradient(circle at top left, $accent-orange, $accent-cambridge-blue);
+    background-image: linear-gradient($light-blue-violet, $light-blue-violet), radial-gradient(circle at top left, $accent-orange, $accent-cambridge-blue);
     background-origin: border-box;
     background-clip: padding-box, border-box;
 

@@ -1,4 +1,6 @@
-﻿using DevRhythm.Infrastructure.Data;
+﻿using DevRhythm.App.Interfaces;
+using DevRhythm.App.Services;
+using DevRhythm.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Web.Extensions
@@ -12,6 +14,11 @@ namespace DevRhythm.Web.Extensions
                 configuration.GetConnectionString("DevRhythmDbConnection"),
                 opt => opt.MigrationsAssembly(typeof(DevRhythmDbContext).Assembly.GetName().Name))
             );
+        }
+
+        public static void AddCustomServices(this IServiceCollection services)
+        {
+            services.AddScoped<IPostService, PostService>();
         }
     }
 }
