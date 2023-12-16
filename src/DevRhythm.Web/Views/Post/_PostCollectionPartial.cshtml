@@ -4,15 +4,7 @@
     <div class="post-preview-card d-flex flex-column">
         <div class="user-info d-flex align-items-start position-relative">
             <img class="rounded-circle" src="@(post.Author?.ImageUrl ?? "/images/account-icon-user-icon-vector-graphics_292645-552.jpg")" />
-            @*Plan to turn it into a tag helper*@
-            <div class="d-flex flex-column">
-                <span>@post.Author?.UserName</span>
-                <span>@post.Author?.FirstName @post.Author?.LastName</span>
-                <span class="reputation">
-                    <i class="fa-solid fa-trophy"></i>
-                    <span>@post.Author?.Reputation</span>
-                </span>
-            </div>
+            <user-short-info user="post.Author"></user-short-info>
         </div>
         <div class="main-preview-content">
             <h3>@post.Heading</h3>

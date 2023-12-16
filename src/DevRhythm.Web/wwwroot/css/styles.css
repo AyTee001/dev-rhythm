@@ -92,10 +92,10 @@ aside {
   width: 40px;
   height: 40px;
 }
-.user-info div {
+.user-info user-short-info {
   z-index: 1;
 }
-.user-info div span {
+.user-info user-short-info span {
   margin-bottom: 4px;
   font-size: 12px;
 }
