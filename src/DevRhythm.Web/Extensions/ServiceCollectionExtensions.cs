@@ -19,6 +19,7 @@ namespace DevRhythm.Web.Extensions
         public static void AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ITagService, TagService>();
         }
     }
 }

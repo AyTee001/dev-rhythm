@@ -27,7 +27,6 @@ gulp.task('ts-compile', function () {
 
     return tsResult.js
         .pipe(plumber())
-        .pipe(concat('bundle.js'))
         .pipe(gulp.dest('./wwwroot/js'));
 });
 

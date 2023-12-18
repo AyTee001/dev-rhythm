@@ -1,47 +1,32 @@
 ﻿@model DevRhythm.Web.Models.MainPostPageModel
 
-<div id="post-section" class="d-flex flex-column align-items-center">
+<div class="aside-main d-flex justify-content-end">
+    <aside class="side-bar position-fixed p-3">
+        <ul class="nav nav-pills flex-column mb-auto list-unstyled p-1 aside-nav">
+            <li class="nav-item">
+            </li>
+        </ul>
+        <h3 class="filter-h3">Filter by tags</h3>
+        <div class="tag-filter-section scrollable-container">
+            @foreach (var tag in Model.Tags)
+            {
+                <div class="checkbox-wrapper">
+                        <input type="checkbox" id="tag_@tag.Id" name="selectedTags" value="@tag.Id" />
+                        <label for="tag_@tag.Id">@tag.Name</label>
+                </div>
+            }
+        </div>
+    </aside>
+    <div class="main-container">
+        <main role="main" class="pb-3">
+            <div id="post-section" class="d-flex flex-column align-items-center">
+            </div>
+        </main>
+    </div>
 </div>
 
 
+
 @section Scripts {
-    <script>
-        let currentPage = 0;
-        let loading = false;
-        let isEnd = false;
-
-        function loadMorePosts() {
-            if (!loading && !isEnd) {
-                loading = true;
-                $.ajax({
-                    url: '/Post/GetPosts',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        PageNumber: currentPage + 1,
-                    }),
-                    success: function (data) {
-                        if (data) {
-                            $('#post-section').append(data);
-                            currentPage++;
-                            loading = false;
-                        } else {
-                            isEnd = true;
-                        }
-                    },
-                    error: function () {
-                        loading = false;
-                    }
-                });
-            }
-        }
-
-        $(window).scroll(function () {
-            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
-                loadMorePosts();
-            }
-        });
-
-        $(document).ready(loadMorePosts());
-    </script>
+    <script src="~/js/posts.js"></script>
 }

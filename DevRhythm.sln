@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRhythm.Core", "src\DevRh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRhythm.Infrastructure", "src\DevRhythm.Infrastructure\DevRhythm.Infrastructure.csproj", "{A71CE9E6-6944-4B4A-B4E1-9A4DF1E4F6F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRhythm.App", "src\DevRhythm.App\DevRhythm.App.csproj", "{86EBB1F9-9C70-4367-971E-1C05BE7005C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRhythm.App", "src\DevRhythm.App\DevRhythm.App.csproj", "{86EBB1F9-9C70-4367-971E-1C05BE7005C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRhythm.Shared", "src\DevRhythm.Shared\DevRhythm.Shared.csproj", "{18FD4D71-5CA8-409D-9949-39E3FCFBB707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRhythm.Shared", "src\DevRhythm.Shared\DevRhythm.Shared.csproj", "{18FD4D71-5CA8-409D-9949-39E3FCFBB707}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,7 +13,7 @@
         <div class="tag-section">
             @foreach (var tag in post.Tags)
             {
-                <span class="rounded-pill tag">@tag.Name</span>
+                <button class="rounded-pill tag" onclick="getPostsByTag(@tag.Id)">@tag.Name</button>
             }
         </div>
         <div class="vote-result text-center rounded-pill d-flex align-items-center justify-content-start">
