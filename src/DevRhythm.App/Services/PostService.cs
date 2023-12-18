@@ -59,8 +59,9 @@ namespace DevRhythm.App.Services
                 { SortOrder: SortOrder.Ascending, SortProperty: SortProperty.CreatedAt } => posts.OrderBy(e => e.CreatedAt),
                 { SortOrder: SortOrder.Ascending, SortProperty: SortProperty.Title } => posts.OrderBy(e => e.Heading),
                 { SortOrder: SortOrder.Descending, SortProperty: SortProperty.VoteResult } => posts.OrderByDescending(e => e.VoteResult),
-                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.CreatedAt } => posts.OrderBy(e => e.CreatedAt),
-                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.Title } => posts.OrderBy(e => e.Heading),
+                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.CreatedAt } => posts.OrderByDescending(e => e.CreatedAt),
+                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.Title } => posts.OrderByDescending(e => e.Heading),
+                _ => throw new NotFoundException(nameof(SortSettings))
             };
         } 
     }

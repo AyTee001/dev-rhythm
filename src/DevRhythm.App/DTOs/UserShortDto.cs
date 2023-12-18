@@ -1,9 +1,8 @@
-﻿using DevRhythm.Core.Entities.Base;
-
-namespace DevRhythm.App.DTOs
+﻿namespace DevRhythm.App.DTOs
 {
-    public class UserShortDto : Entity
+    public class UserShortDto
     {
+        public long Id { get; set; }
         public string? UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

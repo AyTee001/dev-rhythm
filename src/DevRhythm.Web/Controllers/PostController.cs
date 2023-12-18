@@ -13,7 +13,6 @@ namespace DevRhythm.Web.Controllers
     {
         private readonly IPostService _postService = postService;
         private readonly ITagService _tagService = tagService;
-        private const int _itemsOnPageCount = 10;
 
         public async Task<IActionResult> Index()
         {
@@ -28,7 +27,7 @@ namespace DevRhythm.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> GetPosts([FromBody] PageGetDto pageGetDto)
         {
-            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = _itemsOnPageCount }, null, pageGetDto.TagIds));
+            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = pageGetDto.PostCount }, null, pageGetDto.TagIds));
         }
 
         private async Task<ICollection<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids)

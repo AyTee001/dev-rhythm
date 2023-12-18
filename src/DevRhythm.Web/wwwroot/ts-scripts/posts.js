@@ -3,6 +3,7 @@ let loading = false;
 let isEnd = false;
 const selectedTagsInput = $("input[name='selectedTags']");
 const SCROLL_THRESHOLD = 100;
+const POST_COUNT_PER_PAGE = 10;
 function loadMorePosts(tagIds) {
     if (!loading && !isEnd) {
         loading = true;
@@ -13,6 +14,7 @@ function loadMorePosts(tagIds) {
             data: JSON.stringify({
                 PageNumber: currentPage + 1,
                 TagIds: tagIds,
+                PostCount: POST_COUNT_PER_PAGE
             }),
             success: function (data) {
                 if (data) {

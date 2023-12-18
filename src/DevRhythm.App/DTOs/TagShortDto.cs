@@ -1,6 +1,4 @@
-﻿using DevRhythm.Core.Entities.Base;
-
-namespace DevRhythm.App.DTOs
+﻿namespace DevRhythm.App.DTOs
 {
     public class TagShortDto
     {
