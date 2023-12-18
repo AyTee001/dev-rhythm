@@ -20,20 +20,6 @@ header {
   margin-right: 8px;
 }
 
-.aside-main {
-  padding-top: 100px;
-  background-color: #1A1A2E;
-}
-
-aside {
-  background-color: #1A1A2E;
-  top: 100px;
-  bottom: 0;
-  left: 0;
-  border-right: solid 1px rgba(240, 240, 240, 0.2);
-  width: 240px;
-}
-
 .search-bar {
   width: 60%;
   border: 10px solid;
@@ -60,14 +46,6 @@ aside {
 .search-button {
   background: transparent;
   border: none;
-}
-
-.main-container {
-  width: calc(100% - 240px);
-}
-
-.aside-nav i {
-  margin-left: 16px;
 }
 #post-section {
   margin-top: 36px;
@@ -142,8 +120,14 @@ aside {
   color: #82C9A8;
   border-radius: 8px;
   background-color: rgba(85, 85, 114, 0.5);
-  padding: 4px 8px;
+  padding: 8px 10px;
   font-size: 12px;
+  border: none;
+  transition: 0.3s all ease;
+}
+.tag:hover {
+  color: #1A1A2E;
+  background-color: #82C9A8;
 }
 
 .vote-result {
@@ -185,6 +169,95 @@ aside {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.filter-h3 {
+  color: #F0F0F0;
+  font-size: 120%;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.tag-filter-section {
+  padding: 10px;
+  height: 400px;
+  overflow-y: scroll;
+  border-bottom: 1px solid rgba(240, 240, 240, 0.2);
+}
+
+.checkbox-wrapper input[type=checkbox] {
+  display: none;
+  visibility: hidden;
+}
+.checkbox-wrapper label {
+  position: relative;
+  padding-left: 2em;
+  padding-right: 1em;
+  line-height: 2;
+  cursor: pointer;
+  display: inline-flex;
+  color: #F0F0F0;
+}
+.checkbox-wrapper label:before {
+  box-sizing: border-box;
+  content: " ";
+  position: absolute;
+  top: 0.3em;
+  left: 0;
+  display: block;
+  width: 1.4em;
+  height: 1.4em;
+  border: 2px solid #555572;
+  border-radius: 6px;
+  z-index: -1;
+}
+.checkbox-wrapper input[type=checkbox]:checked + label {
+  padding-left: 1em;
+  color: #82C9A8;
+}
+.checkbox-wrapper input[type=checkbox]:checked + label:before {
+  top: 0;
+  width: 100%;
+  height: 2em;
+  background: rgba(130, 201, 168, 0.5);
+  border-color: #82C9A8;
+}
+.checkbox-wrapper label,
+.checkbox-wrapper label::before {
+  transition: 0.25s all ease;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollable-container::-webkit-scrollbar-track {
+  background-color: #1A1A2E;
+}
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #555572;
+  border-radius: 4px;
+}
+
+.aside-main {
+  padding-top: 100px;
+  background-color: #1A1A2E;
+}
+
+aside {
+  background-color: #1A1A2E;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  border-right: solid 1px rgba(240, 240, 240, 0.2);
+  width: 240px;
+}
+
+.main-container {
+  width: calc(100% - 240px);
+}
+
+.aside-nav i {
+  margin-left: 16px;
 }
 html {
   font-size: 14px;

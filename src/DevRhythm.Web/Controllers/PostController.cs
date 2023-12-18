@@ -9,29 +9,31 @@ using System.Diagnostics;
 
 namespace DevRhythm.Web.Controllers
 {
-    public class PostController(IPostService postService) : Controller
+    public class PostController(IPostService postService, ITagService tagService) : Controller
     {
         private readonly IPostService _postService = postService;
+        private readonly ITagService _tagService = tagService;
         private const int _itemsOnPageCount = 10;
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View(
                 new MainPostPageModel
                 {
                     SortSettings = null,
+                    Tags = await _tagService.GetTagsAsync()
                 });
         }
          
         [HttpPost]
         public async Task<ActionResult> GetPosts([FromBody] PageGetDto pageGetDto)
         {
-            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = _itemsOnPageCount }, null));
+            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = _itemsOnPageCount }, null, pageGetDto.TagIds));
         }
 
-        private async Task<ICollection<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings)
+        private async Task<ICollection<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids)
         {
-            var posts = await _postService.GetPostPreviewsAsync(pageSettings, sortSettings, []);
+            var posts = await _postService.GetPostPreviewsAsync(pageSettings, sortSettings, tagids);
             return posts;
         }
 
