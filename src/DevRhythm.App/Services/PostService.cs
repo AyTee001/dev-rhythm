@@ -19,7 +19,15 @@ namespace DevRhythm.App.Services
     {
         public async Task<PostFullDto> GetPostByIdAsync(long id)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(x => x.Id == id) 
+            var post = await _context.Posts
+                .Include(p => p.Tags)
+                .Include(p => p.Author)
+                .Include(p => p.Comments)
+                    .ThenInclude(c =>c.Replies)
+                        .ThenInclude(a => a.Author)
+                .Include(c => c.Comments)
+                    .ThenInclude(c => c.Author)
+                .FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new NotFoundException(nameof(Post), id);
 
             return _mapper.Map<PostFullDto>(post);

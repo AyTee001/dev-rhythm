@@ -9,6 +9,8 @@ namespace DevRhythm.App.MappingProfiles
         public TagProfile() 
         { 
             CreateMap<Tag, TagShortDto>();
+            CreateMap<Tag, TagFilterDto>()
+                .ForMember(dest => dest.IsChecked, opt => opt.Ignore());
         }
     }
 }

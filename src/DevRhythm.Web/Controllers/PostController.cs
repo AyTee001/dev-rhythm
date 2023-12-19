@@ -15,15 +15,38 @@ namespace DevRhythm.Web.Controllers
         private readonly ITagService _tagService = tagService;
 
         public async Task<IActionResult> Index()
-        {
+        { 
             return View(
                 new MainPostPageModel
                 {
                     SortSettings = null,
-                    Tags = await _tagService.GetTagsAsync()
+                    Tags = await _tagService.GetTagsForFilterAsync()
                 });
         }
-         
+
+        public async Task<IActionResult> InitPostsWithTags(ICollection<long> tagIds)
+        {
+            var tagDtos = await _tagService.GetTagsForFilterAsync();
+            var checkedTags = tagDtos.Select(t =>
+            {
+                t.IsChecked = tagIds.Contains(t.Id);
+                return t;
+            });
+
+            return View(nameof(Index),
+                new MainPostPageModel
+                {
+                    SortSettings = null,
+                    Tags = checkedTags
+                });
+        }
+
+        [HttpGet("{postId}")]
+        public async Task<IActionResult> ShowPost([FromRoute]long postId)
+        {
+            return View("Post", await _postService.GetPostByIdAsync(postId));
+        }
+
         [HttpPost]
         public async Task<ActionResult> GetPosts([FromBody] PageGetDto pageGetDto)
         {

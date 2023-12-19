@@ -1,0 +1,9 @@
+﻿@model ICollection<DevRhythm.App.DTOs.TagShortDto>
+
+@foreach (var tag in Model)
+{
+    <button class="rounded-pill tag" onclick="window.location.href='@Url.Action("InitPostsWithTags", "Post", new { tagIds = new List<long> { tag.Id } })'">
+        @tag.Name
+    </button>
+}
+
