@@ -1,0 +1,44 @@
+﻿@model DevRhythm.App.DTOs.PostFullDto
+
+<main class="post-main">
+    <div class="heading-container rounded-pill d-flex align-items-center justify-content-between">
+        <h2 class="post-heading">@Model.Heading</h2>
+        <span>@Model.CreatedAt?.ToString("HH:mm:ss")</span>
+    </div>
+    <user-short-info user="Model.Author"></user-short-info>
+    <div class="post-content-container">
+        <p>@Model.Content</p>
+        <div class="tag-section">
+            @await Html.PartialAsync("_TagCollectionPartial", Model.Tags)
+        </div>
+        <div class="comments d-flex flex-column">
+            <h4 class="section-heading-small">Comments</h4>
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment-container">
+                    <div>
+                        <user-short-info user="comment.Author"></user-short-info>
+                        <p class="content-p">
+                            @comment.Content
+                        </p>
+                        <span class="time-published">@comment.CreatedAt?.ToString("HH:mm:ss")</span>
+                    </div>
+
+                    <div class="reply-container">
+                        <h5 class="section-heading-small">Replies</h5>
+                        @foreach (var reply in comment.Replies)
+                        {
+                            <div class="reply-container">
+                                <user-short-info user="reply.Author"></user-short-info>
+                                <p class="content-p">
+                                    @reply.Content
+                                </p>
+                                <span class="time-published">@reply.CreatedAt?.ToString("HH:mm:ss")</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>

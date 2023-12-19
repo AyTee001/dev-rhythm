@@ -11,7 +11,7 @@
             @foreach (var tag in Model.Tags)
             {
                 <div class="checkbox-wrapper">
-                        <input type="checkbox" id="tag_@tag.Id" name="selectedTags" value="@tag.Id" />
+                    <input type="checkbox" id="tag_@tag.Id" name="selectedTags" value="@tag.Id" @(tag.IsChecked ? "checked" : "") />
                         <label for="tag_@tag.Id">@tag.Name</label>
                 </div>
             }

@@ -44,13 +44,6 @@ $(window).on('scroll', function () {
 $(function () {
     loadMorePosts(getAllCheckedTags());
 });
-function getPostsByTag(tagId) {
-    resetPosts();
-    let targetTag = $(`#tag_${tagId}`);
-    selectedTagsInput.not(targetTag).prop('checked', false);
-    targetTag.prop('checked', true);
-    loadMorePosts([tagId]);
-}
 function resetPosts() {
     currentPage = 0;
     isEnd = false;
