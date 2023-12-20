@@ -11,9 +11,6 @@ function loadMorePosts(tagIds: number[]): void {
         sortProperty: $('#SortProperty').val() as number,
         sortOrder: $('#SortOrder').val() as number
     }
-    console.log($('#SortProperty').val());
-    console.log($('#SortOrder').val()); 
-
     if (!loading && !isEnd) {
         loading = true;
         $.ajax({

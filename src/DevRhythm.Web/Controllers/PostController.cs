@@ -19,7 +19,6 @@ namespace DevRhythm.Web.Controllers
             return View(
                 new MainPostPageModel
                 {
-                    SortSettings = null,
                     Tags = await _tagService.GetTagsForFilterAsync()
                 });
         }
@@ -36,7 +35,6 @@ namespace DevRhythm.Web.Controllers
             return View(nameof(Index),
                 new MainPostPageModel
                 {
-                    SortSettings = null,
                     Tags = checkedTags
                 });
         }

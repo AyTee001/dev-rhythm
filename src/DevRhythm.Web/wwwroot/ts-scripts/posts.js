@@ -9,8 +9,6 @@ function loadMorePosts(tagIds) {
         sortProperty: $('#SortProperty').val(),
         sortOrder: $('#SortOrder').val()
     };
-    console.log($('#SortProperty').val());
-    console.log($('#SortOrder').val());
     if (!loading && !isEnd) {
         loading = true;
         $.ajax({

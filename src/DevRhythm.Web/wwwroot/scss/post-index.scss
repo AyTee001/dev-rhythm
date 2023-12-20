@@ -215,3 +215,35 @@ aside {
     width: fit-content;
     padding: 8px;
 }
+
+.sort-section {
+    margin-top: 24px;
+
+    label{
+        padding: 8px;
+        color: $dim-white;
+    }
+
+    select {
+        padding: 8px;
+        margin: 4px;
+        border: 1px solid $border-white;
+        border-radius: 4px;
+        background-color: $primary-dark-blue-violet;
+        color: $dim-white;
+        outline: none;
+
+        option {
+            background-color: $primary-dark-blue-violet;
+            color: $dim-white;
+        }
+
+        &:hover {
+            border-color: $accent-cambridge-blue;
+        }
+
+        &:focus {
+            border-color: $accent-orange;
+        }
+    }
+}

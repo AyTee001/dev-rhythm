@@ -16,8 +16,10 @@
                 </div>
             }
         </div>
-        <div class="sort-section">
+        <div class="sort-section d-flex flex-column">
+            <label for="SortProperty">Sort criteria:</label>
             <select id="SortProperty" asp-items="Html.GetEnumSelectList<DevRhythm.Shared.Enums.SortProperty>()"></select>
+            <label for="SortProperty">Sort order:</label>
             <select id="SortOrder" asp-items="Html.GetEnumSelectList<DevRhythm.Shared.Enums.SortOrder>()"></select>
         </div>
     </aside>
