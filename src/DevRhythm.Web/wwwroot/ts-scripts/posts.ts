@@ -6,9 +6,13 @@ const SCROLL_THRESHOLD = 100;
 const POST_COUNT_PER_PAGE = 10;
 
 function loadMorePosts(tagIds: number[]): void {
+
+    const settings: SortSettings = {
+        sortProperty: $('#SortProperty').val() as number,
+        sortOrder: $('#SortOrder').val() as number
+    }
     if (!loading && !isEnd) {
         loading = true;
-
         $.ajax({
             url: '/Post/GetPosts',
             method: 'POST',
@@ -16,7 +20,8 @@ function loadMorePosts(tagIds: number[]): void {
             data: JSON.stringify({
                 PageNumber: currentPage + 1,
                 TagIds: tagIds,
-                PostCount: POST_COUNT_PER_PAGE
+                PostCount: POST_COUNT_PER_PAGE,
+                SortSettings: settings
             }),
             success: function (data: any) {
                 if (data) {
@@ -34,10 +39,7 @@ function loadMorePosts(tagIds: number[]): void {
     }
 }
 
-selectedTagsInput.on('change', function () {
-    resetPosts();
-    loadMorePosts(getAllCheckedTags());
-});
+selectedTagsInput.on('change', reloadposts);
 
 $(window).on('scroll', function () {
     if ($(window).scrollTop() >= $(document).height() - $(window).height() - SCROLL_THRESHOLD) {
@@ -70,4 +72,27 @@ function getAllCheckedTags() {
     return selectedTagsInput.filter(':checked').map(function (this: HTMLInputElement) {
         return parseInt($(this).val()) as number;
     }).get();
+}
+
+function reloadposts() {
+    resetPosts();
+    loadMorePosts(getAllCheckedTags());
+}
+
+$("#SortProperty, #SortOrder").on('change', reloadposts);
+
+enum SortProperty {
+    None = 0,
+    CreatedAt = 1,
+    VoteResult = 2
+}
+
+enum SortOrder {
+    Ascending = 0,
+    Descending = 1
+}
+
+interface SortSettings {
+    sortProperty: SortProperty,
+    sortOrder: SortOrder
 }

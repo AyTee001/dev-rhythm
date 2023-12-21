@@ -1,9 +1,14 @@
-﻿namespace DevRhythm.Shared.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DevRhythm.Shared.Enums
 {
     public enum SortProperty
     {
+        [Display(Name = "No sort")]
+        None,
+        [Display(Name = "Creation date")]
         CreatedAt,
-        VoteResult,
-        Title
+        [Display(Name = "Popularity")]
+        VoteResult
     }
 }

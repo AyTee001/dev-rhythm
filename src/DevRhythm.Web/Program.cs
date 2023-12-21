@@ -3,6 +3,7 @@ using DevRhythm.App.MappingProfiles;
 using DevRhythm.App.Services;
 using DevRhythm.Web.Extensions;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace DevRhythm.Web
 {
@@ -13,7 +14,11 @@ namespace DevRhythm.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
             builder.Services.AddDevRhythmContext(builder.Configuration);
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();

@@ -243,6 +243,33 @@ aside {
   width: fit-content;
   padding: 8px;
 }
+
+.sort-section {
+  margin-top: 24px;
+}
+.sort-section label {
+  padding: 8px;
+  color: #F0F0F0;
+}
+.sort-section select {
+  padding: 8px;
+  margin: 4px;
+  border: 1px solid rgba(240, 240, 240, 0.2);
+  border-radius: 4px;
+  background-color: #1A1A2E;
+  color: #F0F0F0;
+  outline: none;
+}
+.sort-section select option {
+  background-color: #1A1A2E;
+  color: #F0F0F0;
+}
+.sort-section select:hover {
+  border-color: #82C9A8;
+}
+.sort-section select:focus {
+  border-color: #FF6E40;
+}
 .post-main {
   padding: 136px 36px 36px 36px;
   height: calc(100vh - 100px);

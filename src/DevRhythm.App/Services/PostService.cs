@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure;
 using DevRhythm.App.DTOs;
 using DevRhythm.App.Interfaces;
 using DevRhythm.App.Services.Base;
@@ -10,6 +9,7 @@ using DevRhythm.Shared.Enums;
 using DevRhythm.Shared.Exceptions;
 using DevRhythm.Shared.Settings;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DevRhythm.App.Services
 {
@@ -45,7 +45,7 @@ namespace DevRhythm.App.Services
                 posts = posts.Where(p => tagIds.Intersect(p.Tags.Select(t => t.Id)).Any());
             }
 
-            if(sortSettings is not null)
+            if(sortSettings is not null && sortSettings.SortProperty != SortProperty.None)
             {
                 posts = OrderPosts(posts, sortSettings);
             }
@@ -61,16 +61,27 @@ namespace DevRhythm.App.Services
 
         private static IOrderedQueryable<Post> OrderPosts(IQueryable<Post> posts, SortSettings sortSettings)
         {
-            return sortSettings switch
+            return sortSettings.SortOrder switch
             {
-                { SortOrder: SortOrder.Ascending, SortProperty: SortProperty.VoteResult } => posts.OrderBy(e => e.VoteResult),
-                { SortOrder: SortOrder.Ascending, SortProperty: SortProperty.CreatedAt } => posts.OrderBy(e => e.CreatedAt),
-                { SortOrder: SortOrder.Ascending, SortProperty: SortProperty.Title } => posts.OrderBy(e => e.Heading),
-                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.VoteResult } => posts.OrderByDescending(e => e.VoteResult),
-                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.CreatedAt } => posts.OrderByDescending(e => e.CreatedAt),
-                { SortOrder: SortOrder.Descending, SortProperty: SortProperty.Title } => posts.OrderByDescending(e => e.Heading),
+                SortOrder.Ascending => posts.OrderBy(CreatePostPropSelector(sortSettings.SortProperty)),
+                SortOrder.Descending => posts.OrderByDescending(CreatePostPropSelector(sortSettings.SortProperty)),
                 _ => throw new NotFoundException(nameof(SortSettings))
             };
-        } 
+        }
+
+        private static Expression<Func<Post, object>> CreatePostPropSelector(SortProperty property)
+        {
+            var parameter = Expression.Parameter(typeof(Post), "x");
+            Expression propertyExpression = property switch
+            {
+                SortProperty.CreatedAt => Expression.Property(parameter, nameof(Post.CreatedAt)),
+                SortProperty.VoteResult => Expression.Property(parameter, nameof(Post.VoteResult)),
+                _ => throw new ArgumentException($"Unsupported property: {property}"),
+            };
+
+            var convertedExpression = Expression.Convert(propertyExpression, typeof(object));
+
+            return Expression.Lambda<Func<Post, object>>(convertedExpression, parameter);
+        }
     }
 }

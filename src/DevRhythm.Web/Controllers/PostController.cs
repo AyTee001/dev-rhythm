@@ -15,11 +15,10 @@ namespace DevRhythm.Web.Controllers
         private readonly ITagService _tagService = tagService;
 
         public async Task<IActionResult> Index()
-        { 
+        {
             return View(
                 new MainPostPageModel
                 {
-                    SortSettings = null,
                     Tags = await _tagService.GetTagsForFilterAsync()
                 });
         }
@@ -36,7 +35,6 @@ namespace DevRhythm.Web.Controllers
             return View(nameof(Index),
                 new MainPostPageModel
                 {
-                    SortSettings = null,
                     Tags = checkedTags
                 });
         }
@@ -50,7 +48,7 @@ namespace DevRhythm.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> GetPosts([FromBody] PageGetDto pageGetDto)
         {
-            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = pageGetDto.PostCount }, null, pageGetDto.TagIds));
+            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = pageGetDto.PostCount }, pageGetDto.SortSettings, pageGetDto.TagIds));
         }
 
         private async Task<ICollection<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids)
