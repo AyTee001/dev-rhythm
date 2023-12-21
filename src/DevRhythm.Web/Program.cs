@@ -26,11 +26,11 @@ namespace DevRhythm.Web
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();
 
-            builder.Services.AddIdentity<DevRhythmIdentityUser, IdentityRole>()
+            builder.Services.AddIdentity<User, IdentityRole<long>>()
                 .AddEntityFrameworkStores<DevRhythmDbContext>()
                 .AddDefaultTokenProviders()
-                .AddUserManager<UserManager<DevRhythmIdentityUser>>()
-                .AddSignInManager<SignInManager<DevRhythmIdentityUser>>();
+                .AddUserManager<UserManager<User>>()
+                .AddSignInManager<SignInManager<User>>();
 
             builder.Services.AddScoped(_ => new Mock<IEmailSender>().Object);
 

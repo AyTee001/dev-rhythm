@@ -18,9 +18,9 @@ using DevRhythm.Core.Entities;
 
 namespace DevRhythm.Web.Areas.Identity.Pages.Account
 {
-    public class LoginModel(SignInManager<DevRhythmIdentityUser> signInManager, ILogger<LoginModel> logger) : PageModel
+    public class LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger) : PageModel
     {
-        private readonly SignInManager<DevRhythmIdentityUser> _signInManager = signInManager;
+        private readonly SignInManager<User> _signInManager = signInManager;
         private readonly ILogger<LoginModel> _logger = logger;
 
         /// <summary>

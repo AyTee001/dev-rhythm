@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<DevRhythm.Core.Entities.DevRhythmIdentityUser> SignInManager
-@inject UserManager<DevRhythm.Core.Entities.DevRhythmIdentityUser> UserManager
+@inject SignInManager<DevRhythm.Core.Entities.User> SignInManager
+@inject UserManager<DevRhythm.Core.Entities.User> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
