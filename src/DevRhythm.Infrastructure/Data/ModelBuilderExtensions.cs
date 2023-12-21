@@ -23,9 +23,8 @@ namespace DevRhythm.Infrastructure.Data
             var postTags = GetPostTags(posts);
             var comments = GetComments(posts, users);
             var replies = GetReplies(comments, users);
-            var identityUsers = GetIdentityUsers(users);
 
-            builder.Entity<DevRhythmUser>().HasData(users);
+            builder.Entity<User>().HasData(users);
 
             builder.Entity<Post>().HasData(posts);
 
@@ -35,28 +34,36 @@ namespace DevRhythm.Infrastructure.Data
 
             builder.Entity<Reply>().HasData(replies);
 
-            builder.Entity<DevRhythmIdentityUser>().HasData(identityUsers);
-
         }
 
-        private static List<DevRhythmUser> GetUsers(int count = SeedSettings.UserCount)
+        private static List<User> GetUsers(int count = SeedSettings.UserCount)
         {
             Faker.GlobalUniqueIndex = 0;
 
-            return new Faker<DevRhythmUser>()
-                .CustomInstantiator(f => new DevRhythmUser(f.Person.FirstName, f.Person.LastName, f.Lorem.Sentence(), SeedConstants.DefaultImagePath))
+            return new Faker<User>()
                 .UseSeed(SeedSettings.UserSeed)
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
+                .RuleFor(e => e.FirstName, f => f.Person.FirstName)
+                .RuleFor(e => e.LastName, f => f.Person.LastName)
+                .RuleFor(e => e.About, f => f.Lorem.Sentence())
+                .RuleFor(e => e.ImageUrl, f => SeedConstants.DefaultImagePath)
                 .RuleFor(e => e.BirthDate, f => f.Person.DateOfBirth)
                 .RuleFor(e => e.PostCount, f => f.Random.Number(0, 20))
                 .RuleFor(e => e.Reputation, f => f.Random.Number(0, 10000000))
                 .RuleFor(e => e.ThreadCount, f => f.Random.Number(1, 20))
                 .RuleFor(e => e.PostCount, f => f.Random.Number(1, 20))
                 .RuleFor(e => e.RegisteredAt, f => f.Date.Between(new DateTime(2019, 1, 1, 0, 0, 0, DateTimeKind.Utc), new DateTime(2021, 12, 31, 0, 0, 0, DateTimeKind.Utc)))
+                .RuleFor(e => e.UserName, f => f.Internet.UserName())
+                .RuleFor(e => e.PasswordHash, (f, e) => new PasswordHasher<IdentityUser<long>>().HashPassword(e, "P@ssw0rd"))
+                .RuleFor(e => e.Email, f => f.Internet.Email())
+                .RuleFor(e => e.EmailConfirmed, f => true)
+                .RuleFor(e => e.PhoneNumber, f => f.Phone.PhoneNumber())
+                .RuleFor(e => e.PhoneNumberConfirmed, f => true)
+
                 .Generate(count);
         }
 
-        private static List<Post> GetPosts(List<DevRhythmUser> users, int count = SeedSettings.PostCount)
+        private static List<Post> GetPosts(List<User> users, int count = SeedSettings.PostCount)
         {
             Faker.GlobalUniqueIndex = 0;
 
@@ -86,7 +93,7 @@ namespace DevRhythm.Infrastructure.Data
             return postTags.DistinctBy(c => new { c.PostId, c.TagId }).ToList();
         }
 
-        private static List<Comment> GetComments(List<Post> posts, List<DevRhythmUser> users)
+        private static List<Comment> GetComments(List<Post> posts, List<User> users)
         {
             int count = posts.Count * 2;
             Faker.GlobalUniqueIndex = 0;
@@ -106,7 +113,7 @@ namespace DevRhythm.Infrastructure.Data
 
         }
 
-        private static List<Reply> GetReplies(List<Comment> comments, List<DevRhythmUser> users)
+        private static List<Reply> GetReplies(List<Comment> comments, List<User> users)
         {
             int count = comments.Count * 2;
             Faker.GlobalUniqueIndex = 0;
@@ -123,27 +130,6 @@ namespace DevRhythm.Infrastructure.Data
                     return f.Date.Between(post.CreatedAt, DateTime.Today);
                 })
                 .Generate(count);
-        }
-
-        private static List<DevRhythmIdentityUser> GetIdentityUsers(List<DevRhythmUser> users)
-        {
-            Faker.GlobalUniqueIndex = -1;
-
-            var identityUsers = new Faker<DevRhythmIdentityUser>()
-                .RuleFor(e => e.UserName, f => f.Internet.UserName())
-                .RuleFor(e => e.PasswordHash, (f, e) => new PasswordHasher<IdentityUser>().HashPassword(e, "P@ssw0rd"))
-                .RuleFor(e => e.Email, f => f.Internet.Email())
-                .RuleFor(e => e.EmailConfirmed, f => true)
-                .RuleFor(e => e.PhoneNumber, f => f.Phone.PhoneNumber())
-                .RuleFor(e => e.PhoneNumberConfirmed, f => true)
-                .RuleFor(e => e.DevRhythmUserId, (f, e) =>
-                {
-                    var user = users[f.IndexGlobal];
-                    return user.Id;
-                })
-                .Generate(users.Count);
-
-            return identityUsers;
         }
     }
 }

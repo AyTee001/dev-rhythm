@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Infrastructure.Data
 {
-    public class DevRhythmDbContext : IdentityDbContext<IdentityUser>
+    public class DevRhythmDbContext : IdentityDbContext<User, IdentityRole<long>, long>
     {
         public DbSet<Achievement> Achievements => Set<Achievement>();
         public DbSet<Comment> Comments => Set<Comment>();
@@ -17,7 +17,7 @@ namespace DevRhythm.Infrastructure.Data
         public DbSet<Reply> Replies => Set<Reply>();
         public DbSet<ReplyVote> RepliesVotes => Set<ReplyVote>();
         public DbSet<Tag> Tags => Set<Tag>();
-        public DbSet<DevRhythmUser> DevRhythmUsers => Set<DevRhythmUser>();
+        public DbSet<User> DevRhythmUsers => Set<User>();
         public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
         public DbSet<UserNotification> UserNotifications => Set<UserNotification>();
 

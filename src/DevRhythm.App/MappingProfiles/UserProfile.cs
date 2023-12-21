@@ -8,7 +8,7 @@ namespace DevRhythm.App.MappingProfiles
     {
         public UserProfile() 
         { 
-            CreateMap<DevRhythmUser, UserShortDto>();
+            CreateMap<User, UserShortDto>();
         }
     }
 }

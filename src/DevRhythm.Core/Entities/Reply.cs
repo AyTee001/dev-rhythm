@@ -6,6 +6,6 @@ namespace DevRhythm.Core.Entities
     {
         public long CommentId { get; set; }
         public string Content { get; set; } = content;
-        public DevRhythmUser? Author { get; set; }
+        public User? Author { get; set; }
     }
 }
