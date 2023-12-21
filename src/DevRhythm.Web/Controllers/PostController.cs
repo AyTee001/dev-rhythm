@@ -4,6 +4,7 @@ using DevRhythm.Shared.Entities;
 using DevRhythm.Shared.Settings;
 using DevRhythm.Web.DTOs;
 using DevRhythm.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -39,6 +40,7 @@ namespace DevRhythm.Web.Controllers
                 });
         }
 
+        [Authorize]
         [HttpGet("{postId}")]
         public async Task<IActionResult> ShowPost([FromRoute]long postId)
         {

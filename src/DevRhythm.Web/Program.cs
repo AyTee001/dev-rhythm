@@ -1,13 +1,12 @@
-using DevRhythm.App.Interfaces;
 using DevRhythm.App.MappingProfiles;
-using DevRhythm.App.Services;
 using DevRhythm.Core.Entities;
 using DevRhythm.Infrastructure.Data;
 using DevRhythm.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Moq;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Web
 {
@@ -28,7 +27,12 @@ namespace DevRhythm.Web
             builder.Services.AddCustomServices();
 
             builder.Services.AddIdentity<DevRhythmIdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<DevRhythmDbContext>();
+                .AddEntityFrameworkStores<DevRhythmDbContext>()
+                .AddDefaultTokenProviders()
+                .AddUserManager<UserManager<DevRhythmIdentityUser>>()
+                .AddSignInManager<SignInManager<DevRhythmIdentityUser>>();
+
+            builder.Services.AddScoped(_ => new Mock<IEmailSender>().Object);
 
             builder.Services.AddCors(options =>
             {
@@ -40,6 +44,13 @@ namespace DevRhythm.Web
                         .AllowAnyHeader();
                 });
             });
+
+            builder.Services.AddControllers();
+
+            builder.Services.AddRazorPages(options =>
+                {
+                });
+
             var app = builder.Build();
 
             app.UseLatestDevRhythmDbContext();
@@ -58,11 +69,18 @@ namespace DevRhythm.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Post}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }
