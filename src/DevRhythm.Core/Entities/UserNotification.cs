@@ -6,6 +6,6 @@
         public long NotificationId { get; set; }
         public bool IsRead { get; set; }
         public Notification? Notification { get; set; }
-        public User? Receiver { get; set; }
+        public DevRhythmUser? Receiver { get; set; }
     }
 }

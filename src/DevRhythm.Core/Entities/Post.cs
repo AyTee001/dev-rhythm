@@ -7,7 +7,7 @@ namespace DevRhythm.Core.Entities
         public string Heading { get; set; } = heading;
         public string Content { get; set; } = content;
         public int VoteResult { get; set; }
-        public User? Author { get; set; }
+        public DevRhythmUser? Author { get; set; }
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }

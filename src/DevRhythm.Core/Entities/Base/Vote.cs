@@ -4,6 +4,6 @@
     {
         public long UserId { get; set; }
         public bool IsUpvote { get; set; }
-        public User? User { get; set; }
+        public DevRhythmUser? User { get; set; }
     }
 }

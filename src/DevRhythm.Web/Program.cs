@@ -1,9 +1,13 @@
 using DevRhythm.App.Interfaces;
 using DevRhythm.App.MappingProfiles;
 using DevRhythm.App.Services;
+using DevRhythm.Core.Entities;
+using DevRhythm.Infrastructure.Data;
 using DevRhythm.Web.Extensions;
+using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Web
 {
@@ -23,20 +27,23 @@ namespace DevRhythm.Web
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();
 
+            builder.Services.AddIdentity<DevRhythmIdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<DevRhythmDbContext>();
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin", builder =>
                 {
                     builder
-                        .AllowAnyOrigin()    // Allow requests from any origin
-                        .AllowAnyMethod()    // Allow any HTTP method
-                        .AllowAnyHeader();   // Allow any HTTP headers
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 });
             });
             var app = builder.Build();
 
             app.UseLatestDevRhythmDbContext();
-            
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

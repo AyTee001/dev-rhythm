@@ -2,6 +2,7 @@
 using DevRhythm.Core.Entities;
 using DevRhythm.Infrastructure.Data.Configs;
 using DevRhythm.Infrastructure.Data.SeedDefaults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Infrastructure.Data
@@ -22,8 +23,9 @@ namespace DevRhythm.Infrastructure.Data
             var postTags = GetPostTags(posts);
             var comments = GetComments(posts, users);
             var replies = GetReplies(comments, users);
+            var identityUsers = GetIdentityUsers(users);
 
-            builder.Entity<User>().HasData(users);
+            builder.Entity<DevRhythmUser>().HasData(users);
 
             builder.Entity<Post>().HasData(posts);
 
@@ -33,14 +35,16 @@ namespace DevRhythm.Infrastructure.Data
 
             builder.Entity<Reply>().HasData(replies);
 
+            builder.Entity<DevRhythmIdentityUser>().HasData(identityUsers);
+
         }
 
-        private static List<User> GetUsers(int count = SeedSettings.UserCount)
+        private static List<DevRhythmUser> GetUsers(int count = SeedSettings.UserCount)
         {
             Faker.GlobalUniqueIndex = 0;
 
-            return new Faker<User>()
-                .CustomInstantiator(f => new User(f.Internet.UserName(), f.Person.FirstName, f.Person.LastName, f.Lorem.Sentence(), f.Person.Email, SeedConstants.DefaultImagePath))
+            return new Faker<DevRhythmUser>()
+                .CustomInstantiator(f => new DevRhythmUser(f.Person.FirstName, f.Person.LastName, f.Lorem.Sentence(), SeedConstants.DefaultImagePath))
                 .UseSeed(SeedSettings.UserSeed)
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.BirthDate, f => f.Person.DateOfBirth)
@@ -52,7 +56,7 @@ namespace DevRhythm.Infrastructure.Data
                 .Generate(count);
         }
 
-        private static List<Post> GetPosts(List<User> users, int count = SeedSettings.PostCount)
+        private static List<Post> GetPosts(List<DevRhythmUser> users, int count = SeedSettings.PostCount)
         {
             Faker.GlobalUniqueIndex = 0;
 
@@ -82,7 +86,7 @@ namespace DevRhythm.Infrastructure.Data
             return postTags.DistinctBy(c => new { c.PostId, c.TagId }).ToList();
         }
 
-        private static List<Comment> GetComments(List<Post> posts, List<User> users)
+        private static List<Comment> GetComments(List<Post> posts, List<DevRhythmUser> users)
         {
             int count = posts.Count * 2;
             Faker.GlobalUniqueIndex = 0;
@@ -102,7 +106,7 @@ namespace DevRhythm.Infrastructure.Data
 
         }
 
-        private static List<Reply> GetReplies(List<Comment> comments, List<User> users)
+        private static List<Reply> GetReplies(List<Comment> comments, List<DevRhythmUser> users)
         {
             int count = comments.Count * 2;
             Faker.GlobalUniqueIndex = 0;
@@ -119,6 +123,27 @@ namespace DevRhythm.Infrastructure.Data
                     return f.Date.Between(post.CreatedAt, DateTime.Today);
                 })
                 .Generate(count);
+        }
+
+        private static List<DevRhythmIdentityUser> GetIdentityUsers(List<DevRhythmUser> users)
+        {
+            Faker.GlobalUniqueIndex = -1;
+
+            var identityUsers = new Faker<DevRhythmIdentityUser>()
+                .RuleFor(e => e.UserName, f => f.Internet.UserName())
+                .RuleFor(e => e.PasswordHash, (f, e) => new PasswordHasher<IdentityUser>().HashPassword(e, "P@ssw0rd"))
+                .RuleFor(e => e.Email, f => f.Internet.Email())
+                .RuleFor(e => e.EmailConfirmed, f => true)
+                .RuleFor(e => e.PhoneNumber, f => f.Phone.PhoneNumber())
+                .RuleFor(e => e.PhoneNumberConfirmed, f => true)
+                .RuleFor(e => e.DevRhythmUserId, (f, e) =>
+                {
+                    var user = users[f.IndexGlobal];
+                    return user.Id;
+                })
+                .Generate(users.Count);
+
+            return identityUsers;
         }
     }
 }
