@@ -16,80 +16,164 @@
   color: #82C9A8;
   font-size: 140%;
 }
+.identity-main h3 {
+  color: #F0F0F0;
+  font-size: 140%;
+  margin-bottom: 24px;
+}
 
-#account, #registerForm {
-  max-width: 330px;
-  margin-top: 50px;
-  padding: 20px;
-  background-color: rgba(85, 85, 114, 0.5);
-  border-radius: 5px;
-}
-#account h2, #registerForm h2 {
-  color: #82C9A8;
-}
-#account hr, #registerForm hr {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  border: 0;
-  border-top: 1px solid #F0F0F0;
-}
-#account .form-floating, #registerForm .form-floating {
-  position: relative;
-}
-#account .form-floating input, #registerForm .form-floating input {
+.identity-cabinet-main {
   width: 100%;
-  height: 40px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #555572;
+  height: 100vh;
+  padding: 136px 48px 0 48px;
+}
+.identity-cabinet-main h1 {
+  color: #F0F0F0;
+  font-size: 200%;
+}
+.identity-cabinet-main h2 {
+  margin-top: 24px;
+  color: #82C9A8;
+  font-size: 140%;
+}
+.identity-cabinet-main h3 {
+  color: #F0F0F0;
+  font-size: 140%;
+  margin-bottom: 24px;
+}
+
+.profile-form-container {
+  width: 30%;
+}
+.profile-form-container .form-floating {
+  position: relative;
+  margin-bottom: 36px;
+}
+.profile-form-container input {
+  width: 100%;
+  border: 1px solid rgba(240, 240, 240, 0.2);
   border-radius: 5px;
-  background-color: #F0F0F0;
-  color: #1A1A2E;
+  background-color: rgba(85, 85, 114, 0.5);
+  color: #F0F0F0;
+  padding: 18px;
+  transition: border-color 0.3s;
 }
-#account .form-floating input::placeholder, #registerForm .form-floating input::placeholder {
-  visibility: hidden;
-}
-#account .form-floating input:focus, #registerForm .form-floating input:focus {
+.profile-form-container input:focus {
+  outline: none;
   border-color: #82C9A8;
 }
-#account .form-floating input:focus + label, #registerForm .form-floating input:focus + label {
+.profile-form-container label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  margin-top: 8px;
+  color: #555572;
+  pointer-events: none;
+  transition: top 0.3s, font-size 0.3s;
+}
+.profile-form-container input:focus + label, .profile-form-container input:not(:placeholder-shown) + label {
+  top: 10px;
+  font-size: 12px;
+  color: #82C9A8;
+}
+
+.form-logout {
+  color: #F0F0F0;
+  width: 30%;
+}
+
+#account, #registerForm, #change-password-form {
+  max-width: 330px;
+  border-radius: 5px;
+}
+#account .form-floating, #registerForm .form-floating, #change-password-form .form-floating {
+  position: relative;
+}
+#account .form-floating input, #registerForm .form-floating input, #change-password-form .form-floating input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid rgba(240, 240, 240, 0.2);
+  border-radius: 5px;
+  background-color: rgba(85, 85, 114, 0.5);
+  color: #F0F0F0;
+}
+#account .form-floating input::placeholder, #registerForm .form-floating input::placeholder, #change-password-form .form-floating input::placeholder {
+  visibility: hidden;
+}
+#account .form-floating input:focus, #registerForm .form-floating input:focus, #change-password-form .form-floating input:focus {
+  border-color: #82C9A8;
+}
+#account .form-floating input:focus + label, #registerForm .form-floating input:focus + label, #change-password-form .form-floating input:focus + label {
   display: none;
 }
-#account .form-floating input:not(:placeholder-shown) + label, #registerForm .form-floating input:not(:placeholder-shown) + label {
+#account .form-floating input:not(:placeholder-shown) + label, #registerForm .form-floating input:not(:placeholder-shown) + label, #change-password-form .form-floating input:not(:placeholder-shown) + label {
   display: none;
 }
-#account .form-floating label, #registerForm .form-floating label {
+#account .form-floating label, #registerForm .form-floating label, #change-password-form .form-floating label {
   position: absolute;
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
   font-size: 14px;
-  color: #555572;
+  color: rgba(130, 201, 168, 0.5);
 }
-#account .form-floating span, #registerForm .form-floating span {
+#account .form-floating span, #registerForm .form-floating span, #change-password-form .form-floating span {
   font-size: 12px;
   color: #FF6E40;
 }
-#account .checkbox, #registerForm .checkbox {
+#account .checkbox, #registerForm .checkbox, #change-password-form .checkbox {
   margin-bottom: 15px;
   font-size: 14px;
   color: #F0F0F0;
   display: flex;
   align-items: center;
 }
-#account .checkbox label, #registerForm .checkbox label {
+#account .checkbox label, #registerForm .checkbox label, #change-password-form .checkbox label {
   line-height: 10px;
 }
-#account .checkbox label:focus-within, #registerForm .checkbox label:focus-within {
+#account .checkbox label:focus-within, #registerForm .checkbox label:focus-within, #change-password-form .checkbox label:focus-within {
   color: #82C9A8;
 }
-#account .checkbox input, #registerForm .checkbox input {
+#account .checkbox input, #registerForm .checkbox input, #change-password-form .checkbox input {
   height: 12px;
 }
-#account .checkbox input:checked, #registerForm .checkbox input:checked {
+#account .checkbox input:checked, #registerForm .checkbox input:checked, #change-password-form .checkbox input:checked {
   accent-color: #82C9A8;
 }
-#account button, #registerForm button {
+#account div, #registerForm div, #change-password-form div {
+  margin-top: 15px;
+}
+#account div p, #registerForm div p, #change-password-form div p {
+  font-size: 14px;
+  color: #555572;
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.nav-el {
+  margin: 8px 0;
+  width: 100%;
+}
+.nav-el a {
+  padding: 10px;
+  color: #F0F0F0;
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  background-color: rgba(85, 85, 114, 0.5);
+}
+.nav-el a.active {
+  background-color: #FF6E40;
+  color: white;
+}
+
+.nav {
+  width: 200px;
+}
+
+.identity-btn {
   margin-top: 15px;
   background-color: #FF6E40;
   color: #F0F0F0;
@@ -98,18 +182,10 @@
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
+  width: 100%;
 }
-#account button:hover, #registerForm button:hover {
-  background-color: #ff470d;
-}
-#account div, #registerForm div {
-  margin-top: 15px;
-}
-#account div p, #registerForm div p {
-  font-size: 14px;
-  color: #555572;
-  margin: 10px 0;
-  font-size: 12px;
+.identity-btn:hover {
+  color: #1A1A2E;
 }
 nav {
   background-color: #1A1A2E;

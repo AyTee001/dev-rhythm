@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Moq;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Web
 {
@@ -47,9 +48,7 @@ namespace DevRhythm.Web
 
             builder.Services.AddControllers();
 
-            builder.Services.AddRazorPages(options =>
-                {
-                });
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
