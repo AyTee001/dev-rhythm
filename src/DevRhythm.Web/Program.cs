@@ -8,9 +8,8 @@ using Moq;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using DevRhythm.App.Services;
-using DevRhythm.Shared.Interfaces;
 using DevRhythm.Web.Middleware;
-using DevRhythm.Shared.Providers;
+using DevRhythm.Web.Options;
 
 namespace DevRhythm.Web
 {
@@ -26,7 +25,8 @@ namespace DevRhythm.Web
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
-            builder.Services.AddDevRhythmContext(builder.Configuration);
+
+            builder.Services.AddDevRhythmContext(builder.Configuration.GetSection(DbConnectionOptions.Connections).Get<DbConnectionOptions>()!);
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();
 
