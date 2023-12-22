@@ -1,0 +1,43 @@
+﻿@model UserStatusComponentModel
+
+@if (Model.IsUserAuthenticated)
+{
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a asp-area="" asp-controller="" asp-action="" class="m-2">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-area="" asp-controller="" asp-action="" class="m-2">
+                    <i class="fa-solid fa-bell fa-lg"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-area="" asp-controller="" asp-action="" class="m-2">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-page="/Account/Manage/Index">Manage Account</a>
+            </li>
+            <li class="nav-item">
+                <a asp-page="/Account/LogOut">Log out</a>
+            </li>
+        </ul>
+@*         <div class="user d-flex align-items-center justify-content-center">
+            <img src="/images/ben-sweet-2LowviVHZ-E-unsplash.jpg" alt="User Avatar" class="rounded-circle" />
+            <span class="username">Username</span>
+        </div>
+ *@    </div>
+}
+else
+{
+    <div class="not-auth-container">
+        <span>Not logged in? </span>
+        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <span> or </span>
+        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </div>
+}

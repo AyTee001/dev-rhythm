@@ -3,6 +3,7 @@ using DevRhythm.App.Services;
 using DevRhythm.Infrastructure.Data;
 using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Providers;
+using DevRhythm.Web.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Web.Extensions
@@ -23,6 +24,7 @@ namespace DevRhythm.Web.Extensions
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IUserInfoProvider, UserInfoProvider>();
+            services.AddTransient<UserStatusViewComponent>();
         }
     }
 }

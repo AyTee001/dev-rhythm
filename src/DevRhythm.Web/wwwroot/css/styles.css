@@ -236,6 +236,14 @@ header {
   background: transparent;
   border: none;
 }
+
+.navbar-nav li {
+  margin-left: 16px;
+}
+
+.not-auth-container > * {
+  margin-left: 10px;
+}
 #post-section {
   margin-top: 36px;
 }
