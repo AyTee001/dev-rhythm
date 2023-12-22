@@ -1,9 +1,16 @@
-using DevRhythm.App.Interfaces;
 using DevRhythm.App.MappingProfiles;
-using DevRhythm.App.Services;
+using DevRhythm.Core.Entities;
+using DevRhythm.Infrastructure.Data;
 using DevRhythm.Web.Extensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Moq;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using DevRhythm.App.Services;
+using DevRhythm.Shared.Interfaces;
+using DevRhythm.Web.Middleware;
+using DevRhythm.Shared.Providers;
 
 namespace DevRhythm.Web
 {
@@ -23,20 +30,29 @@ namespace DevRhythm.Web
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();
 
+            builder.Services.AddIdentity<User, IdentityRole<long>>()
+                .AddEntityFrameworkStores<DevRhythmDbContext>()
+                .AddDefaultTokenProviders()
+                .AddUserManager<DevRhythmUserManager>()
+                .AddSignInManager<SignInManager<User>>();
+
+            builder.Services.AddScoped(_ => new Mock<IEmailSender>().Object);
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin", builder =>
                 {
                     builder
-                        .AllowAnyOrigin()    // Allow requests from any origin
-                        .AllowAnyMethod()    // Allow any HTTP method
-                        .AllowAnyHeader();   // Allow any HTTP headers
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 });
             });
+
+            builder.Services.AddRazorPages();
+
             var app = builder.Build();
 
-            app.UseLatestDevRhythmDbContext();
-            
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -49,13 +65,23 @@ namespace DevRhythm.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+
             app.UseRouting();
 
+
+            app.UseAuthentication();
+            app.UseMiddleware<UserProviderMiddleware>();
+
             app.UseAuthorization();
+
+            app.UseLatestDevRhythmDbContext();
+
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Post}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }

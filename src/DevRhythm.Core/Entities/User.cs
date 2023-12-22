@@ -1,16 +1,14 @@
-﻿using DevRhythm.Core.Entities.Base;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace DevRhythm.Core.Entities
 {
-    public class User(string userName, string firstName, string lastName, string about, string email, string imageUrl) : Entity 
+    public class User : IdentityUser<long> 
     {
-        public string UserName { get; set; } = userName;
-        public string FirstName { get; set; } = firstName;
-        public string LastName { get; set; } = lastName;
-        public string About { get; set; } = about;
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? About { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string Email { get; set; } = email;
-        public string ImageUrl { get; set; } = imageUrl;
+        public string? ImageUrl { get; set; }
         public int Reputation { get; set; }
         public int PostCount { get; set; }
         public int ThreadCount { get; set; }

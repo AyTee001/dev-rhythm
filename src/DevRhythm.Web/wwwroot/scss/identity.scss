@@ -1,0 +1,217 @@
+﻿@import '_color-vars.scss';
+
+$main-border-radius: 5px;
+$main-width: 30%;
+
+@mixin main-container-mixin {
+    width: 100%;
+    height: 100vh;
+    padding: 136px 48px 0 48px;
+}
+
+@mixin identity-headings-mixin {
+    h1 {
+        color: $dim-white;
+        font-size: 200%;
+    }
+
+    h2 {
+        margin-top: 24px;
+        color: $accent-cambridge-blue;
+        font-size: 140%;
+    }
+
+    h3 {
+        color: $dim-white;
+        font-size: 140%;
+        margin-bottom: 24px;
+    }
+}
+
+@mixin form-label-position-mixin {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+@mixin form-input-background-mixin {
+    width: 100%;
+    border: 1px solid $border-white;
+    border-radius: 5px;
+    background-color: $half-transparent-light-blue-violet;
+    color: $dim-white;
+}
+
+.identity-main {
+    @include main-container-mixin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include identity-headings-mixin;
+}
+
+.identity-cabinet-main {
+    @include main-container-mixin;
+    @include identity-headings-mixin;
+}
+
+.profile-form-container {
+    width: $main-width;
+
+    .form-floating {
+        position: relative;
+        margin-bottom: 36px;
+    }
+
+    input {
+        @include form-input-background-mixin;
+        padding: 18px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: $accent-cambridge-blue;
+    }
+
+    label {
+        @include form-label-position-mixin;
+        margin-top: 8px;
+        color: $light-blue-violet;
+        pointer-events: none;
+        transition: top 0.3s, font-size 0.3s;
+    }
+
+    input:focus + label, input:not(:placeholder-shown) + label {
+        top: 10px;
+        font-size: 12px;
+        color: $accent-cambridge-blue;
+    }
+}
+
+.form-logout{
+    color: $dim-white;
+    width: $main-width;
+}
+
+
+#account, #registerForm, #change-password-form {
+    max-width: 330px;
+    border-radius: $main-border-radius;
+
+    .form-floating {
+        position: relative;
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            @include form-input-background-mixin;
+
+            &::placeholder {
+                visibility: hidden;
+            }
+
+            &:focus {
+                border-color: $accent-cambridge-blue;
+
+                + label {
+                    display: none;
+                }
+            }
+
+            &:not(:placeholder-shown) + label {
+                display: none;
+            }
+        }
+
+        label {
+            @include form-label-position-mixin;
+            font-size: 14px;
+            color: $half-transparent-cambridge-blue;
+        }
+
+        span {
+            font-size: 12px;
+            color: $accent-orange;
+        }
+    }
+
+
+    .checkbox {
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: $dim-white;
+        display: flex;
+        align-items: center;
+
+        label {
+            line-height: 10px;
+
+            &:focus-within {
+                color: $accent-cambridge-blue;
+            }
+        }
+
+        input {
+            height: 12px;
+        }
+
+        input:checked {
+            accent-color: $accent-cambridge-blue;
+        }
+    }
+
+
+    div {
+        margin-top: 15px;
+
+        p {
+            font-size: 14px;
+            color: $light-blue-violet;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+    }
+}
+
+.nav-el {
+    margin: 8px 0;
+    width: 100%;
+
+    a {
+        padding: 10px;
+        color: $dim-white;
+        width: 100%;
+        display: block;
+        border-radius: 8px;
+        background-color: $half-transparent-light-blue-violet;
+
+        &.active {
+            background-color: $accent-orange;
+            color: white;
+        }
+    }
+}
+
+.nav{
+    width: 200px;
+}
+
+.identity-btn {
+    margin-top: 15px;
+    background-color: $accent-orange;
+    color: $dim-white;
+    border: none;
+    border-radius: $main-border-radius;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+
+    &:hover {
+        color: $primary-dark-blue-violet;
+    }
+}
+

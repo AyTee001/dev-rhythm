@@ -2,6 +2,7 @@
 using DevRhythm.Core.Entities;
 using DevRhythm.Infrastructure.Data.Configs;
 using DevRhythm.Infrastructure.Data.SeedDefaults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Infrastructure.Data
@@ -40,15 +41,25 @@ namespace DevRhythm.Infrastructure.Data
             Faker.GlobalUniqueIndex = 0;
 
             return new Faker<User>()
-                .CustomInstantiator(f => new User(f.Internet.UserName(), f.Person.FirstName, f.Person.LastName, f.Lorem.Sentence(), f.Person.Email, SeedConstants.DefaultImagePath))
                 .UseSeed(SeedSettings.UserSeed)
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
+                .RuleFor(e => e.FirstName, f => f.Person.FirstName)
+                .RuleFor(e => e.LastName, f => f.Person.LastName)
+                .RuleFor(e => e.About, f => f.Lorem.Sentence())
+                .RuleFor(e => e.ImageUrl, f => SeedConstants.DefaultImagePath)
                 .RuleFor(e => e.BirthDate, f => f.Person.DateOfBirth)
                 .RuleFor(e => e.PostCount, f => f.Random.Number(0, 20))
                 .RuleFor(e => e.Reputation, f => f.Random.Number(0, 10000000))
                 .RuleFor(e => e.ThreadCount, f => f.Random.Number(1, 20))
                 .RuleFor(e => e.PostCount, f => f.Random.Number(1, 20))
                 .RuleFor(e => e.RegisteredAt, f => f.Date.Between(new DateTime(2019, 1, 1, 0, 0, 0, DateTimeKind.Utc), new DateTime(2021, 12, 31, 0, 0, 0, DateTimeKind.Utc)))
+                .RuleFor(e => e.UserName, f => f.Internet.UserName())
+                .RuleFor(e => e.PasswordHash, (f, e) => new PasswordHasher<IdentityUser<long>>().HashPassword(e, "P@ssw0rd"))
+                .RuleFor(e => e.Email, f => f.Internet.Email())
+                .RuleFor(e => e.EmailConfirmed, f => true)
+                .RuleFor(e => e.PhoneNumber, f => f.Phone.PhoneNumber())
+                .RuleFor(e => e.PhoneNumberConfirmed, f => true)
+
                 .Generate(count);
         }
 
