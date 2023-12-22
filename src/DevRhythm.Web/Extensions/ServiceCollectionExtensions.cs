@@ -24,7 +24,6 @@ namespace DevRhythm.Web.Extensions
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IUserInfoProvider, UserInfoProvider>();
-            services.AddTransient<UserStatusViewComponent>();
         }
     }
 }

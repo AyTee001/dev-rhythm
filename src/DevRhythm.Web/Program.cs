@@ -26,14 +26,9 @@ namespace DevRhythm.Web
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
-            builder.Services.AddScoped<IUserInfoProvider, UserInfoProvider>();
-
             builder.Services.AddDevRhythmContext(builder.Configuration);
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
             builder.Services.AddCustomServices();
-
-            builder.Services.AddHttpContextAccessor();
-            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpContextAccessor>().HttpContext!);
 
             builder.Services.AddIdentity<User, IdentityRole<long>>()
                 .AddEntityFrameworkStores<DevRhythmDbContext>()
@@ -53,8 +48,6 @@ namespace DevRhythm.Web
                         .AllowAnyHeader();
                 });
             });
-
-            builder.Services.AddControllers();
 
             builder.Services.AddRazorPages();
 

@@ -21,7 +21,6 @@ namespace DevRhythm.Infrastructure.Data
         public DbSet<Reply> Replies => Set<Reply>();
         public DbSet<ReplyVote> RepliesVotes => Set<ReplyVote>();
         public DbSet<Tag> Tags => Set<Tag>();
-        public DbSet<User> DevRhythmUsers => Set<User>();
         public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
         public DbSet<UserNotification> UserNotifications => Set<UserNotification>();
 
