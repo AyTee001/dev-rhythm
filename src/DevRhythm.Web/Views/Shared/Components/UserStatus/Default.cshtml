@@ -1,4 +1,7 @@
-﻿@model UserStatusComponentModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model UserStatusComponentModel
+
+@inject IViewLocalizer Localizer
 
 @if (Model.IsUserAuthenticated)
 {
@@ -6,7 +9,7 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a asp-area="" asp-controller="" asp-action="" class="m-2">
-                    <span>Home</span>
+                    <span>@Localizer["Home"]</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -20,10 +23,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-page="/Account/Manage/Index">Manage Account</a>
+                <a asp-page="/Account/Manage/Index">@Localizer["Manage Account"]</a>
             </li>
             <li class="nav-item">
-                <a asp-page="/Account/LogOut">Log out</a>
+                <a asp-page="/Account/LogOut">@Localizer["Log out"]</a>
             </li>
         </ul>
 @*         <div class="user d-flex align-items-center justify-content-center">
@@ -35,9 +38,9 @@
 else
 {
     <div class="not-auth-container">
-        <span>Not logged in? </span>
-        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
-        <span> or </span>
-        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <span>@Localizer["Not logged in?"] </span>
+        <a asp-area="Identity" asp-page="/Account/Login">@Localizer["Login"]</a>
+        <span> @Localizer["or"] </span>
+        <a asp-area="Identity" asp-page="/Account/Register">@Localizer["Register"]</a>
     </div>
 }

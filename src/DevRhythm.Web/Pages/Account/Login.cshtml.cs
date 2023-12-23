@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using DevRhythm.Core.Entities;
 
-namespace DevRhythm.Web.Areas.Identity.Pages.Account
+namespace DevRhythm.Web.Pages.Account
 {
     public class LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger) : PageModel
     {

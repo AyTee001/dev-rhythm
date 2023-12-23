@@ -1,15 +1,12 @@
 using DevRhythm.App.MappingProfiles;
-using DevRhythm.Core.Entities;
-using DevRhythm.Infrastructure.Data;
 using DevRhythm.Web.Extensions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Moq;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using DevRhythm.App.Services;
 using DevRhythm.Web.Middleware;
 using DevRhythm.Web.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace DevRhythm.Web
 {
@@ -24,17 +21,17 @@ namespace DevRhythm.Web
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+                })
+                .AddDataAnnotationsLocalization()
+                .AddViewLocalization();
 
             builder.Services.AddDevRhythmContext(builder.Configuration.GetSection(DbConnectionOptions.Connections).Get<DbConnectionOptions>()!);
+
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
+
             builder.Services.AddCustomServices();
 
-            builder.Services.AddIdentity<User, IdentityRole<long>>()
-                .AddEntityFrameworkStores<DevRhythmDbContext>()
-                .AddDefaultTokenProviders()
-                .AddUserManager<DevRhythmUserManager>()
-                .AddSignInManager<SignInManager<User>>();
+            builder.Services.AddIdentity();
 
             builder.Services.AddScoped(_ => new Mock<IEmailSender>().Object);
 
@@ -51,7 +48,15 @@ namespace DevRhythm.Web
 
             builder.Services.AddRazorPages();
 
+            builder.Services.ConfigureRequestLocalization();
+
+            builder.Services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            });
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -67,6 +72,12 @@ namespace DevRhythm.Web
 
 
             app.UseRouting();
+            app.UseRequestLocalization(options =>
+            {
+                var questStringCultureProvider = options.RequestCultureProviders[0];
+                options.RequestCultureProviders.RemoveAt(0);
+                options.RequestCultureProviders.Insert(2, questStringCultureProvider);
+            });
 
 
             app.UseAuthentication();

@@ -1,4 +1,8 @@
-﻿@model ICollection<DevRhythm.App.DTOs.PostShortDto>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model ICollection<DevRhythm.App.DTOs.PostShortDto>
+
+@inject IViewLocalizer Localizer
+
 @foreach (var post in Model)
 {
     <div class="post-preview-card d-flex flex-column">
@@ -19,6 +23,6 @@
                 <i class="fa-solid fa-caret-down"></i>
             </div>
         </div>
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">Read</a>
+        <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@Localizer["Read"]</a>
     </div>
 }

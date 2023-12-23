@@ -1,4 +1,7 @@
-﻿@model DevRhythm.App.DTOs.PostFullDto
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model DevRhythm.App.DTOs.PostFullDto
+
+@inject IViewLocalizer Localizer
 
 <main class="post-main">
     <div class="heading-container rounded-pill d-flex align-items-center justify-content-between">
@@ -12,7 +15,7 @@
             @await Html.PartialAsync("_TagCollectionPartial", Model.Tags)
         </div>
         <div class="comments d-flex flex-column">
-            <h4 class="section-heading-small">Comments</h4>
+            <h4 class="section-heading-small">@Localizer["Comments"]</h4>
             @foreach (var comment in Model.Comments)
             {
                 <div class="comment-container">
@@ -25,7 +28,7 @@
                     </div>
 
                     <div class="reply-container">
-                        <h5 class="section-heading-small">Replies</h5>
+                        <h5 class="section-heading-small">@Localizer["Replies"]</h5>
                         @foreach (var reply in comment.Replies)
                         {
                             <div class="reply-container">
