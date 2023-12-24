@@ -12,7 +12,7 @@ namespace DevRhythm.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        private static readonly string[] _configureCultureOptions = ["en", "ua"];
+        private static readonly string[] _configureCultureOptions = ["en", "uk"];
         private static readonly string _defaultCulture = "en";
 
         public static void AddDevRhythmContext(this IServiceCollection services, DbConnectionOptions dbOptions) 
@@ -38,17 +38,6 @@ namespace DevRhythm.Web.Extensions
                 .AddDefaultTokenProviders()
                 .AddUserManager<DevRhythmUserManager>()
                 .AddSignInManager<SignInManager<User>>();
-        }
-
-
-        public static void ConfigureRequestLocalization(this IServiceCollection services)
-        {
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                options.SetDefaultCulture(_defaultCulture);
-                options.AddSupportedCultures(_configureCultureOptions);
-                options.AddSupportedUICultures(_configureCultureOptions);
-            });
         }
     }
 }

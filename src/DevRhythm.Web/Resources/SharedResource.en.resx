@@ -117,7 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Create_new_acc" xml:space="preserve">
-    <value>Створіть новий акаунт</value>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="Confirm_password" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Creation_date" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="Current_password" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Email_required" xml:space="preserve">
+    <value>The email field is required</value>
+  </data>
+  <data name="Invalid_email" xml:space="preserve">
+    <value>Invalid email format</value>
+  </data>
+  <data name="Invalid_length_min_max" xml:space="preserve">
+    <value>Field {0} has to contain between {2} and {1} characters</value>
+  </data>
+  <data name="Invalid_password" xml:space="preserve">
+    <value>Invalid password. Should be at least one lowercase, one uppercase letter, and one special character</value>
+  </data>
+  <data name="Invalid_phone" xml:space="preserve">
+    <value>Invalid phone number format</value>
+  </data>
+  <data name="Log_in" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Log_out" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="New_email" xml:space="preserve">
+    <value>New email</value>
+  </data>
+  <data name="New_password" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="No_sort" xml:space="preserve">
+    <value>No sort</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Passwords_not_match" xml:space="preserve">
+    <value>The password and its confirmation do not match</value>
+  </data>
+  <data name="Password_required" xml:space="preserve">
+    <value>The password is required</value>
+  </data>
+  <data name="Phone_number" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="Popularity" xml:space="preserve">
+    <value>Popularity</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Remember_me" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

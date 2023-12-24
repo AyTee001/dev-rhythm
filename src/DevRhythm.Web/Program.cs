@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using DevRhythm.Web.Middleware;
 using DevRhythm.Web.Options;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace DevRhythm.Web
 {
@@ -52,8 +52,6 @@ namespace DevRhythm.Web
 
             builder.Services.AddRazorPages();
 
-            builder.Services.ConfigureRequestLocalization();
-
             builder.Services.AddLocalization(options =>
             {
                 options.ResourcesPath = "Resources";
@@ -78,9 +76,14 @@ namespace DevRhythm.Web
             app.UseRouting();
             app.UseRequestLocalization(options =>
             {
-                var questStringCultureProvider = options.RequestCultureProviders[0];
-                options.RequestCultureProviders.RemoveAt(0);
-                options.RequestCultureProviders.Insert(2, questStringCultureProvider);
+                string[] configureCultureOptions = ["en", "uk"];
+                string defaultCulture = "en";
+
+                var cultures = configureCultureOptions.Select(c => new CultureInfo(c)).ToList();
+
+                options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+                options.SupportedCultures = cultures;
+                options.SupportedUICultures = cultures;
             });
 
 

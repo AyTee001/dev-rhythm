@@ -55,7 +55,7 @@ namespace DevRhythm.Web.Pages.Account.Manage
             /// </summary>
             [Required(ErrorMessage = "Password_required")]
             [DataType(DataType.Password, ErrorMessage = "Invalid_password")]
-            [Display(Name = "Current password")]
+            [Display(Name = "Current_password")]
             public string OldPassword { get; set; }
 
             /// <summary>
@@ -65,7 +65,7 @@ namespace DevRhythm.Web.Pages.Account.Manage
             [Required(ErrorMessage = "Password_required")]
             [StringLength(100, ErrorMessage = "Invalid_length_min_max", MinimumLength = 6)]
             [DataType(DataType.Password, ErrorMessage = "Invalid_password")]
-            [Display(Name = "New password")]
+            [Display(Name = "New_password")]
             public string NewPassword { get; set; }
 
             /// <summary>
@@ -73,7 +73,7 @@ namespace DevRhythm.Web.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password, ErrorMessage = "Invalid_password")]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Confirm_password")]
             [Compare("NewPassword", ErrorMessage = "Passwords_not_match")]
             public string ConfirmPassword { get; set; }
         }

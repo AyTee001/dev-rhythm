@@ -5,7 +5,7 @@
 
 @model LogoutModel
 @{
-    ViewData["Title"] = Localizer["Log out"];
+    ViewData["Title"] = Localizer["Log_out"];
 }
 
 <main class="identity-cabinet-main">
@@ -14,12 +14,12 @@
         if (User.Identity?.IsAuthenticated ?? false)
         {
             <form class="form-logout" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="identity-btn">@Localizer["Click here to Logout"]</button>
+                <button type="submit" class="identity-btn">@Localizer["Click_to_log_out"]</button>
             </form>
         }
         else
         {
-            <h2>@Localizer["You have successfully logged out of the application"]</h2>
+            <h2>@Localizer["Log_out_success"]</h2>
         }
     }
 </main>

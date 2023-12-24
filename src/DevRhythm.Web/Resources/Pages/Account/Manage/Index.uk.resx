@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Please choose your username" xml:space="preserve">
+  <data name="Choose_username" xml:space="preserve">
     <value>Будь ласка, оберіть ім'я користувача</value>
   </data>
-  <data name="Please enter your phone number" xml:space="preserve">
+  <data name="Enter_phone" xml:space="preserve">
     <value>Будь ласка, введіть свій номер телефону</value>
   </data>
 </root>

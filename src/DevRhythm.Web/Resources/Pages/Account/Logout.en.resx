@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Create_new_acc" xml:space="preserve">
-    <value>Створіть новий акаунт</value>
+  <data name="Click_to_log_out" xml:space="preserve">
+    <value>Click here to Logout</value>
+  </data>
+  <data name="Log_out" xml:space="preserve">
+    <value>Log out of account</value>
+  </data>
+  <data name="Log_out_success" xml:space="preserve">
+    <value>You have successfully logged out of the application</value>
   </data>
 </root>

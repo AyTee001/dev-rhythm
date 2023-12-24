@@ -71,7 +71,7 @@ namespace DevRhythm.Web.Pages.Account.Manage
             /// </summary>
             [Required(ErrorMessage = "Email_required")]
             [EmailAddress(ErrorMessage = "Invalid_email")]
-            [Display(Name = "New email")]
+            [Display(Name = "New_email")]
             public string NewEmail { get; set; }
         }
 

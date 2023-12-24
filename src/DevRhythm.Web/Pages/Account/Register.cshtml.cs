@@ -95,7 +95,7 @@ namespace DevRhythm.Web.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password, ErrorMessage = "Invalid_password")]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Confirm_password")]
             [Compare("Password", ErrorMessage = "Passwords_not_match")]
             public string ConfirmPassword { get; set; }
         }

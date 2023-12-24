@@ -58,7 +58,7 @@ namespace DevRhythm.Web.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Phone(ErrorMessage = "Invali_phone")]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Phone_number")]
             public string PhoneNumber { get; set; }
         }
 

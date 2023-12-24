@@ -14,7 +14,7 @@
 
     <div>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>@Localizer["Create a new account"]</h2>
+            <h2>@Localizer["Create_new_acc"]</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
@@ -29,7 +29,7 @@
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">@HtmlLocalizer["Confirm password"]</label>
+                <label asp-for="Input.ConfirmPassword">@HtmlLocalizer["Confirm_password"]</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="identity-btn">@HtmlLocalizer["Register"]</button>

@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Change email" xml:space="preserve">
+  <data name="Change_email" xml:space="preserve">
     <value>Змінити email</value>
   </data>
-  <data name="Manage Email" xml:space="preserve">
-    <value>Управління електронною поштою</value>
-  </data>
-  <data name="Please enter new email" xml:space="preserve">
-    <value>Введіть новий email</value>
-  </data>
-  <data name="Please enter your email" xml:space="preserve">
+  <data name="Enter_email" xml:space="preserve">
     <value>Введіть email</value>
   </data>
-  <data name="Send verification email" xml:space="preserve">
+  <data name="Enter_new_email" xml:space="preserve">
+    <value>Введіть новий email</value>
+  </data>
+  <data name="Manage_email" xml:space="preserve">
+    <value>Управління електронною поштою</value>
+  </data>
+  <data name="Send_verification" xml:space="preserve">
     <value>Відправити email на підтвердження</value>
   </data>
 </root>
