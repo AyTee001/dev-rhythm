@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@inject IViewLocalizer Localizer
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+
+    var cultureItems = LocOptions.Value.SupportedUICultures?
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.TwoLetterISOLanguageName })
+        .ToList();
+}
+
+@if (requestCulture is not null)
+{
+    <form asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@Context.Request.Path" method="post" class="d-flex align-items-center justify-content-center">
+        <i class="fa-solid fa-globe dd-icon" aria-label="@Localizer["localization_settings"]"></i>
+        <select class="select-main" name="culture" onchange="this.form.submit();"
+                          asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                          asp-items="cultureItems"></select>
+    </form>
+}

@@ -441,15 +441,13 @@ aside {
   padding: 8px;
 }
 
-.sort-section {
-  margin-top: 24px;
-}
-.sort-section label {
-  padding: 8px;
+.dd-icon {
+  font-size: 120%;
   color: #F0F0F0;
 }
-.sort-section select {
-  padding: 8px;
+
+.select-main {
+  padding: 4px;
   margin: 4px;
   border: 1px solid rgba(240, 240, 240, 0.2);
   border-radius: 4px;
@@ -457,15 +455,23 @@ aside {
   color: #F0F0F0;
   outline: none;
 }
-.sort-section select option {
+.select-main option {
   background-color: #1A1A2E;
   color: #F0F0F0;
 }
-.sort-section select:hover {
+.select-main:hover {
   border-color: #82C9A8;
 }
-.sort-section select:focus {
+.select-main:focus {
   border-color: #FF6E40;
+}
+
+.sort-section {
+  margin-top: 24px;
+}
+.sort-section label {
+  padding: 8px;
+  color: #F0F0F0;
 }
 .post-main {
   padding: 136px 36px 36px 36px;

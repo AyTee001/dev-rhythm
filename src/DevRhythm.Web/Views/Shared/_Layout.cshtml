@@ -32,6 +32,9 @@
                 @await Component.InvokeAsync(typeof(DevRhythm.Web.ViewComponents.UserStatusViewComponent))
             </div>
         </nav>
+        <div>
+            @await Html.PartialAsync("_SetCulturePartial")
+        </div>
     </header>
     @RenderBody()
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
