@@ -69,8 +69,8 @@ namespace DevRhythm.Web.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Email_required")]
+            [EmailAddress(ErrorMessage = "Invalid_email")]
             [Display(Name = "New email")]
             public string NewEmail { get; set; }
         }

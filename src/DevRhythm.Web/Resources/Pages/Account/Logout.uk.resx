@@ -121,7 +121,7 @@
     <value>Тисніть сюди щоб вийти</value>
   </data>
   <data name="Log out" xml:space="preserve">
-    <value>Вийти</value>
+    <value>Вихід</value>
   </data>
   <data name="You have successfully logged out of the application" xml:space="preserve">
     <value>Ви успішно вийшли з акаунту</value>

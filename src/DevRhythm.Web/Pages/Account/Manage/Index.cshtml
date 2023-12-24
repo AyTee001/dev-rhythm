@@ -4,9 +4,10 @@
 @model IndexModel
 
 @inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> HtmlLocalizer
 
 @{
-    ViewData["Title"] = Localizer["Profile"];
+    ViewData["Title"] = HtmlLocalizer["Profile"];
     ViewData["ActivePage"] = ManageNavPages.Index;
     Layout = "_Layout";
 }
@@ -25,7 +26,7 @@
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="identity-btn">@Localizer["Save"]</button>
+            <button id="update-profile-button" type="submit" class="identity-btn">@HtmlLocalizer["Save"]</button>
         </form>
     </div>
 

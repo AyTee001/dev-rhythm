@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @model ICollection<DevRhythm.App.DTOs.PostShortDto>
 
-@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<DevRhythm.Web.SharedResource> HtmlLocalizer
 
 @foreach (var post in Model)
 {
@@ -23,6 +23,6 @@
                 <i class="fa-solid fa-caret-down"></i>
             </div>
         </div>
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@Localizer["Read"]</a>
+        <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@HtmlLocalizer["Read"]</a>
     </div>
 }

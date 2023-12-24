@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using DevRhythm.Web.Middleware;
 using DevRhythm.Web.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 
 namespace DevRhythm.Web
 {
@@ -22,7 +23,10 @@ namespace DevRhythm.Web
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 })
-                .AddDataAnnotationsLocalization()
+                .AddDataAnnotationsLocalization(options => {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                    })
                 .AddViewLocalization();
 
             builder.Services.AddDevRhythmContext(builder.Configuration.GetSection(DbConnectionOptions.Connections).Get<DbConnectionOptions>()!);
