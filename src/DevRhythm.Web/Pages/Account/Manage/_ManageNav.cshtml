@@ -1,9 +1,13 @@
-﻿@inject SignInManager<DevRhythm.Core.Entities.User> SignInManager
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject SignInManager<DevRhythm.Core.Entities.User> SignInManager
+
+@inject IHtmlLocalizer<SharedResource> HtmlLocalizer
+
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
 <ul class="nav nav-pills flex-column">
-    <li class="nav-el nav-item"><a class="@ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-el nav-item"><a class="@ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-el nav-item"><a class="@ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+    <li class="nav-el nav-item"><a class="@ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">@HtmlLocalizer["Profile"]</a></li>
+    <li class="nav-el nav-item"><a class="@ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">@HtmlLocalizer["Email"]</a></li>
+    <li class="nav-el nav-item"><a class="@ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">@HtmlLocalizer["Password"]</a></li>
 </ul>

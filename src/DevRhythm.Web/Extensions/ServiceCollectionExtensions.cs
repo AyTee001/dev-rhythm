@@ -1,15 +1,20 @@
 ﻿using DevRhythm.App.Interfaces;
 using DevRhythm.App.Services;
+using DevRhythm.Core.Entities;
 using DevRhythm.Infrastructure.Data;
 using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Providers;
 using DevRhythm.Web.Options;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        private static readonly string[] _configureCultureOptions = ["en", "uk"];
+        private static readonly string _defaultCulture = "en";
+
         public static void AddDevRhythmContext(this IServiceCollection services, DbConnectionOptions dbOptions) 
         {
             services.AddDbContext<DevRhythmDbContext>(options =>
@@ -24,6 +29,15 @@ namespace DevRhythm.Web.Extensions
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IUserInfoProvider, UserInfoProvider>();
+        }
+
+        public static void AddIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole<long>>()
+                .AddEntityFrameworkStores<DevRhythmDbContext>()
+                .AddDefaultTokenProviders()
+                .AddUserManager<DevRhythmUserManager>()
+                .AddSignInManager<SignInManager<User>>();
         }
     }
 }

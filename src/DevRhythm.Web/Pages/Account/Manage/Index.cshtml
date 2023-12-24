@@ -1,7 +1,13 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+
 @model IndexModel
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> HtmlLocalizer
+
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = HtmlLocalizer["Profile"];
     ViewData["ActivePage"] = ManageNavPages.Index;
     Layout = "_Layout";
 }
@@ -12,15 +18,15 @@
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Username" placeholder="Please choose your username." />
+                <input asp-for="Username" placeholder="@Localizer["Choose_username"]" />
                 <label asp-for="Username" class="form-label"></label>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" placeholder="Please enter your phone number." />
+                <input asp-for="Input.PhoneNumber" placeholder="@Localizer["Enter_phone"]" />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="identity-btn">Save</button>
+            <button id="update-profile-button" type="submit" class="identity-btn">@HtmlLocalizer["Save"]</button>
         </form>
     </div>
 

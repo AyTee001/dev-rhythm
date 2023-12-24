@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using DevRhythm.Core.Entities;
 
-namespace DevRhythm.Web.Areas.Identity.Pages.Account
+namespace DevRhythm.Web.Pages.Account
 {
     public class LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger) : PageModel
     {
@@ -59,23 +59,23 @@ namespace DevRhythm.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Email_required")]
+            [EmailAddress(ErrorMessage = "Invalid_email")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [DataType(DataType.Password)]
+            [Required(ErrorMessage = "Password_required")]
+            [DataType(DataType.Password, ErrorMessage = "Invalid_password")]
             public string Password { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Remember_me")]
             public bool RememberMe { get; set; }
         }
 

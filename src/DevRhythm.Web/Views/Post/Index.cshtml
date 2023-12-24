@@ -1,12 +1,12 @@
-﻿@model DevRhythm.Web.Models.MainPostPageModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using DevRhythm.Shared.Enums
+@model DevRhythm.Web.Models.MainPostPageModel
+
+@inject IViewLocalizer Localizer
 
 <div class="aside-main d-flex justify-content-end">
     <aside class="side-bar position-fixed p-3">
-        <ul class="nav nav-pills flex-column mb-auto list-unstyled p-1 aside-nav">
-            <li class="nav-item">
-            </li>
-        </ul>
-        <h3 class="filter-h3">Filter by tags</h3>
+        <h3 class="filter-h3">@Localizer["Filter by tags"]</h3>
         <div class="tag-filter-section scrollable-container">
             @foreach (var tag in Model.Tags)
             {
@@ -17,9 +17,9 @@
             }
         </div>
         <div class="sort-section d-flex flex-column">
-            <label for="SortProperty">Sort criteria:</label>
+            <label for="SortProperty">@Localizer["Sort criteria:"]</label>
             <select id="SortProperty" asp-items="Html.GetEnumSelectList<DevRhythm.Shared.Enums.SortProperty>()"></select>
-            <label for="SortProperty">Sort order:</label>
+            <label for="SortProperty">@Localizer["Sort order:"]</label>
             <select id="SortOrder" asp-items="Html.GetEnumSelectList<DevRhythm.Shared.Enums.SortOrder>()"></select>
         </div>
     </aside>
