@@ -4,9 +4,9 @@ namespace DevRhythm.Shared.Enums
 {
     public enum SortProperty
     {
-        [Display(Name = "No sort")]
+        [Display(Name = "No_sort")]
         None,
-        [Display(Name = "Creation date")]
+        [Display(Name = "Creation_date")]
         CreatedAt,
         [Display(Name = "Popularity")]
         VoteResult
