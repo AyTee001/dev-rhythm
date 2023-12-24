@@ -6,14 +6,21 @@ using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Providers;
 using DevRhythm.Web.Options;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace DevRhythm.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        private static readonly string[] _configureCultureOptions = ["en", "uk"];
         private static readonly string _defaultCulture = "en";
+
+        private static readonly List<CultureInfo> _supportedCultures =
+            [
+                new CultureInfo(_defaultCulture),
+                new CultureInfo("uk")
+            ];
 
         public static void AddDevRhythmContext(this IServiceCollection services, DbConnectionOptions dbOptions) 
         {
@@ -38,6 +45,16 @@ namespace DevRhythm.Web.Extensions
                 .AddDefaultTokenProviders()
                 .AddUserManager<DevRhythmUserManager>()
                 .AddSignInManager<SignInManager<User>>();
+        }
+
+        public static void ConfigureRequestLocalizationOptions(this IServiceCollection services)
+        {
+
+            services.Configure<RequestLocalizationOptions>(options => {
+                options.DefaultRequestCulture = new RequestCulture(_defaultCulture);
+                options.SupportedCultures = _supportedCultures;
+                options.SupportedUICultures = _supportedCultures;
+            });
         }
     }
 }

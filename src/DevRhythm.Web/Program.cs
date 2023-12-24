@@ -8,6 +8,7 @@ using DevRhythm.Web.Middleware;
 using DevRhythm.Web.Options;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace DevRhythm.Web
 {
@@ -51,6 +52,7 @@ namespace DevRhythm.Web
             });
 
             builder.Services.AddRazorPages();
+            builder.Services.ConfigureRequestLocalizationOptions();
 
             builder.Services.AddLocalization(options =>
             {
@@ -74,17 +76,7 @@ namespace DevRhythm.Web
 
 
             app.UseRouting();
-            app.UseRequestLocalization(options =>
-            {
-                string[] configureCultureOptions = ["en", "uk"];
-                string defaultCulture = "en";
-
-                var cultures = configureCultureOptions.Select(c => new CultureInfo(c)).ToList();
-
-                options.DefaultRequestCulture = new RequestCulture(defaultCulture);
-                options.SupportedCultures = cultures;
-                options.SupportedUICultures = cultures;
-            });
+            app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 
             app.UseAuthentication();
