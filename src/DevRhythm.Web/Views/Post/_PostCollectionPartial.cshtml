@@ -3,6 +3,10 @@
 
 @inject IHtmlLocalizer<DevRhythm.Web.SharedResource> HtmlLocalizer
 
+@{
+       var userStringId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+}
+
 @foreach (var post in Model)
 {
     <div class="post-preview-card d-flex flex-column">
@@ -16,13 +20,13 @@
         <div class="tag-section">
             @await Html.PartialAsync("_TagCollectionPartial", post.Tags)
         </div>
-        <div class="vote-result text-center rounded-pill d-flex align-items-center justify-content-start">
-            @post.VoteResult
-            <div class="vote-arrow-container d-flex flex-column justify-content-start">
-                <i class="fa-solid fa-caret-up"></i>
-                <i class="fa-solid fa-caret-down"></i>
-            </div>
-        </div>
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@HtmlLocalizer["Read"]</a>
+        @await Html.PartialAsync("_VotePartial", new VotePartialModel{
+                VoteType = DevRhythm.Shared.Enums.VoteType.PostVote,
+                VoteResult = post.VoteResult,
+                EntityId = post.Id,
+                UserId = long.TryParse(userStringId, out long userId) ? userId : null
+            });
+            <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@HtmlLocalizer["Read"]</a>
     </div>
 }
+
