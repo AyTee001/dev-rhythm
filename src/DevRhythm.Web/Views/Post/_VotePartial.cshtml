@@ -1,0 +1,17 @@
+﻿@model VotePartialModel
+
+<div class="vote-result text-center rounded-pill d-flex align-items-center justify-content-start">
+    <span id="vote-result">@Model.VoteResult</span>
+    @if(Model.UserId is not null)
+    {
+        <div class="vote-arrow-container d-flex flex-column justify-content-start">
+            <input type="hidden" id="vote-data-@Model.Guid" value='@Json.Serialize(Model)' />
+            <button id="upvote-btn-@Model.Guid" class="vote-btn @(Model.IsUpvoted ? "voted" : "")" onclick="doUpvote('@Model.Guid')">
+                <i class="fa-solid fa-caret-up"></i>
+            </button>
+            <button id="downvote-btn-@Model.Guid" class="vote-btn @(Model.IsDownvoted ? "downvoted" : "")" onclick="doDownvote('@Model.Guid')">
+                <i class="fa-solid fa-caret-down"></i>
+            </button>
+        </div>
+    }
+</div>

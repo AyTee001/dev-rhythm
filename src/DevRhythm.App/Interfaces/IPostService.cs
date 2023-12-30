@@ -6,7 +6,7 @@ namespace DevRhythm.App.Interfaces
 {
     public interface IPostService
     {
-        Task<ICollection<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds);
+        Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds);
         Task<PostFullDto> GetPostByIdAsync(long id);
     }
 }

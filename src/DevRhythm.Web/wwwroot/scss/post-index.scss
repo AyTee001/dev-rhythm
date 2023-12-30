@@ -252,3 +252,19 @@ aside {
         color: $dim-white;
     }
 }
+
+.vote-btn{
+    background: transparent;
+    border: none;
+    color: $dim-white;
+    padding: 0;
+    margin: 0;
+}
+
+.voted{
+    color: $accent-cambridge-blue;
+}
+
+.downvoted{
+    color: $accent-orange;
+}

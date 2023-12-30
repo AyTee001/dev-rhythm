@@ -8,7 +8,7 @@ namespace DevRhythm.Infrastructure.Data.Configs
     {
         public void Configure(EntityTypeBuilder<CommentVote> builder)
         {
-            builder.HasKey(e => new { e.UserId, e.CommentId });
+            builder.HasKey(e => new { e.UserId, e.EntityId });
 
             builder.HasOne(e => e.User)
                 .WithMany()
@@ -17,7 +17,7 @@ namespace DevRhythm.Infrastructure.Data.Configs
 
             builder.HasOne(e => e.Comment)
                 .WithMany()
-                .HasForeignKey(e => e.CommentId);
+                .HasForeignKey(e => e.EntityId);
         }
     }
 }

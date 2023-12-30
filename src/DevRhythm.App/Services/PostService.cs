@@ -7,16 +7,18 @@ using DevRhythm.Infrastructure.Data;
 using DevRhythm.Shared.Entities;
 using DevRhythm.Shared.Enums;
 using DevRhythm.Shared.Exceptions;
+using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Settings;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace DevRhythm.App.Services
 {
-    public class PostService(DevRhythmDbContext context, IMapper mapper) 
+    public class PostService(DevRhythmDbContext context, IMapper mapper, IUserInfoProvider userInfoProvider) 
         : BaseService(context, mapper), 
         IPostService
     {
+        private readonly IUserInfoProvider _userInfo = userInfoProvider;
         public async Task<PostFullDto> GetPostByIdAsync(long id)
         {
             var post = await _context.Posts
@@ -33,7 +35,7 @@ namespace DevRhythm.App.Services
             return _mapper.Map<PostFullDto>(post);
         }
 
-        public async Task<ICollection<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds)
+        public async Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds)
         {
             var posts = _context.Posts
                 .Include(p => p.Author)
@@ -45,7 +47,7 @@ namespace DevRhythm.App.Services
                 posts = posts.Where(p => tagIds.Intersect(p.Tags.Select(t => t.Id)).Any());
             }
 
-            if(sortSettings is not null && sortSettings.SortProperty != SortProperty.None)
+            if (sortSettings is not null && sortSettings.SortProperty != SortProperty.None)
             {
                 posts = OrderPosts(posts, sortSettings);
             }
@@ -56,7 +58,16 @@ namespace DevRhythm.App.Services
                 .Take(pageSettings.PageSize);
             }
 
-                return _mapper.Map<List<PostShortDto>>(await posts.ToListAsync());
+            var postList =_mapper.Map<List<PostShortDto>>(await posts.ToListAsync());
+
+            return postList.Select(x =>
+            {
+                var vote = _context.PostVotes.FirstOrDefault(y => y.UserId == _userInfo.Id && y.EntityId == x.Id);
+
+                x.HasUserUpvoted = vote is not null && vote.IsUpvote;
+                x.HasUserDownvoted = vote is not null && !vote.IsUpvote;
+                return x;
+            });
         }
 
         private static IOrderedQueryable<Post> OrderPosts(IQueryable<Post> posts, SortSettings sortSettings)
