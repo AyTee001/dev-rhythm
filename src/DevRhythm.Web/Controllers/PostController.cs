@@ -53,7 +53,7 @@ namespace DevRhythm.Web.Controllers
             return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = pageGetDto.PostCount }, pageGetDto.SortSettings, pageGetDto.TagIds));
         }
 
-        private async Task<ICollection<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids)
+        private async Task<IEnumerable<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids)
         {
             var posts = await _postService.GetPostPreviewsAsync(pageSettings, sortSettings, tagids);
             return posts;

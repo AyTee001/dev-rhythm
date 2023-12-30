@@ -9,5 +9,7 @@
         public string? PreviewContent { get; set; }
         public DateTime? CreatedAt { get; set; }
         public ICollection<TagShortDto> Tags { get; set; } = new List<TagShortDto>();
+        public bool HasUserUpvoted { get; set; }
+        public bool HasUserDownvoted { get; set;}
     }
 }

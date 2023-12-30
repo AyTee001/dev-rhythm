@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\_VotePartial.cshtml" />
     <Content Remove="wwwroot\ts-scripts\posts.ts" />
+    <Content Remove="wwwroot\ts-scripts\voting.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +40,19 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\ts-scripts\posts.ts" />
+    <TypeScriptCompile Include="wwwroot\ts-scripts\voting.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Shared\_VotePartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Shared\_VotePartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Post\_VotePartial.cshtml" />
   </ItemGroup>
 
 </Project>
