@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@model ICollection<DevRhythm.App.DTOs.PostShortDto>
+@model IEnumerable<DevRhythm.App.DTOs.PostShortDto>
 
 @inject IHtmlLocalizer<DevRhythm.Web.SharedResource> HtmlLocalizer
 
@@ -20,13 +20,16 @@
         <div class="tag-section">
             @await Html.PartialAsync("_TagCollectionPartial", post.Tags)
         </div>
-        @await Html.PartialAsync("_VotePartial", new VotePartialModel{
+         @await Html.PartialAsync("_VotePartial", new VotePartialModel{
+                Guid = Guid.NewGuid(),
                 VoteType = DevRhythm.Shared.Enums.VoteType.PostVote,
                 VoteResult = post.VoteResult,
                 EntityId = post.Id,
-                UserId = long.TryParse(userStringId, out long userId) ? userId : null
+                UserId = long.TryParse(userStringId, out long userId) ? userId : null,
+                IsDownvoted = post.HasUserDownvoted,
+                IsUpvoted = post.HasUserUpvoted
             });
-            <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@HtmlLocalizer["Read"]</a>
+         <a asp-controller="Post" asp-action="ShowPost" asp-route-postId="@post.Id" class="read-link rounded-pill">@HtmlLocalizer["Read"]</a>
     </div>
 }
 

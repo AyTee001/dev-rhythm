@@ -5,17 +5,13 @@
     @if(Model.UserId is not null)
     {
         <div class="vote-arrow-container d-flex flex-column justify-content-start">
-            <input type="hidden" id="vote-data" value='@Json.Serialize(Model)' />
-            <button id="upvote-btn" class="vote-btn" onclick="doUpvote()">
+            <input type="hidden" id="vote-data-@Model.Guid" value='@Json.Serialize(Model)' />
+            <button id="upvote-btn-@Model.Guid" class="vote-btn @(Model.IsUpvoted ? "voted" : "")" onclick="doUpvote('@Model.Guid')">
                 <i class="fa-solid fa-caret-up"></i>
             </button>
-            <button id="downvote-btn" class="vote-btn" onclick="doDownvote()">
+            <button id="downvote-btn-@Model.Guid" class="vote-btn @(Model.IsDownvoted ? "downvoted" : "")" onclick="doDownvote('@Model.Guid')">
                 <i class="fa-solid fa-caret-down"></i>
             </button>
         </div>
     }
 </div>
-
-@section Scripts {
-    <script src="~/js/voting.js"></script>
-}

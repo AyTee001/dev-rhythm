@@ -1,13 +1,17 @@
-﻿function doUpvote () {
-    vote(true);
+﻿function doUpvote (guid: string) {
+    vote(true, guid);
 } 
-function doDownvote() {
-    vote(false);
+function doDownvote(guid: string) {
+    vote(false, guid);
 }
 
-function vote(isUpvote: boolean) {
+function vote(isUpvote: boolean, guid: string) {
+    const voteDataSelector = `#vote-data-${guid}`;
+    const upvoteBtnSelector = `#upvote-btn-${guid}`;
+    const downvoteBtnSelector = `#downvote-btn-${guid}`;
 
-    let voteData = JSON.parse($('#vote-data').val() as string) as VoteModel;
+    let voteData = JSON.parse($(voteDataSelector).val() as string) as VoteModel;
+    console.log(voteData);
 
     $.ajax({
         url: '/Vote/UpdateVote',
@@ -20,7 +24,13 @@ function vote(isUpvote: boolean) {
             IsUpvote: isUpvote
         }),
         success: function (data) {
-            console.log("success");
+            if (isUpvote) {
+                $(upvoteBtnSelector).toggleClass('voted', !$(upvoteBtnSelector).hasClass('voted'));
+                $(downvoteBtnSelector).toggleClass('downvoted', false);
+            } else {
+                $(upvoteBtnSelector).toggleClass('voted', false);
+                $(downvoteBtnSelector).toggleClass('downvoted', !$(downvoteBtnSelector).hasClass('downvoted'));
+            }
         },
         error: function (error) {
             console.error('Error updating data:', error);
