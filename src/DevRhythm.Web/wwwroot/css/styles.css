@@ -244,6 +244,37 @@ header {
 .not-auth-container > * {
   margin-left: 10px;
 }
+
+.toast-container {
+  z-index: 100;
+  bottom: 0;
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.toast {
+  background-color: #1A1A2E;
+  color: #82C9A8;
+  width: 30%;
+}
+
+.toast-header {
+  background-color: #555572;
+  color: #F0F0F0;
+  padding: 8px;
+  width: 100%;
+}
+.toast-header span {
+  margin-right: 8px;
+}
+.toast-header button {
+  background: transparent;
+  font-size: 200%;
+  font-weight: 600;
+  border: none;
+}
 #post-section {
   margin-top: 36px;
 }

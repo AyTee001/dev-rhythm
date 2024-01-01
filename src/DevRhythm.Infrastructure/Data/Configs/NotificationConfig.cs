@@ -11,6 +11,10 @@ namespace DevRhythm.Infrastructure.Data.Configs
             builder.HasOne(e => e.Sender)
                 .WithMany()
                 .HasForeignKey(e => e.SenderId);
+
+            builder.HasOne(e => e.Post)
+                .WithMany()
+                .HasForeignKey(e => e.PostId);
         }
     }
 }

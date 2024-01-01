@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Shared\_VotePartial.cshtml" />
+    <Content Remove="wwwroot\ts-scripts\notification.ts" />
     <Content Remove="wwwroot\ts-scripts\posts.ts" />
     <Content Remove="wwwroot\ts-scripts\voting.ts" />
   </ItemGroup>
@@ -39,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\ts-scripts\notification.ts" />
     <TypeScriptCompile Include="wwwroot\ts-scripts\posts.ts" />
     <TypeScriptCompile Include="wwwroot\ts-scripts\voting.ts" />
   </ItemGroup>

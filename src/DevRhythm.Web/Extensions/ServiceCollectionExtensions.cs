@@ -37,6 +37,7 @@ namespace DevRhythm.Web.Extensions
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IUserInfoProvider, UserInfoProvider>();
             services.AddScoped<IVoteService, VoteService>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
 
         public static void AddIdentity(this IServiceCollection services)

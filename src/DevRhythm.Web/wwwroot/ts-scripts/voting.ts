@@ -11,7 +11,6 @@ function vote(isUpvote: boolean, guid: string) {
     const downvoteBtnSelector = `#downvote-btn-${guid}`;
 
     let voteData = JSON.parse($(voteDataSelector).val() as string) as VoteModel;
-    console.log(voteData);
 
     $.ajax({
         url: '/Vote/UpdateVote',

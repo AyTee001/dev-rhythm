@@ -11,6 +11,7 @@ namespace DevRhythm.App.MappingProfiles
             CreateMap<Post, PostShortDto>()
                 .ForMember(dest => dest.PreviewContent, opt => opt.MapFrom(e => e.Content.Length <= 250 ? e.Content : e.Content.Substring(0, 250)));
             CreateMap<Post, PostFullDto>();
+            CreateMap<Post, PostNotificationDto>();
         } 
     }
 }

@@ -63,3 +63,36 @@ header {
 .not-auth-container > *{
     margin-left: 10px;
 }
+
+.toast-container{
+    z-index: 100;
+    bottom: 0;
+    padding: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.toast {
+    background-color: $primary-dark-blue-violet;
+    color: $accent-cambridge-blue;
+    width: 30%;
+}
+
+.toast-header {
+    background-color: $light-blue-violet;
+    color: $dim-white;
+    padding: 8px;
+    width: 100%;
+
+    span{
+        margin-right: 8px;
+    }
+
+    button{
+        background: transparent;
+        font-size: 200%;
+        font-weight: 600;
+        border: none;
+    }
+}

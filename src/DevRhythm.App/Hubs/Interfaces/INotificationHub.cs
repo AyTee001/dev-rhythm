@@ -1,9 +1,9 @@
-﻿using DevRhythm.Core.Entities;
+﻿using DevRhythm.App.DTOs;
 
 namespace DevRhythm.Infrastructure.Hubs.Interfaces
 {
     public interface INotificationHub
     {
-        Task SendNotificationAsync(Notification notification);
+        Task SendNotificationAsync(NotificationDto notification);
     }
 }

@@ -9,7 +9,6 @@ function vote(isUpvote, guid) {
     const upvoteBtnSelector = `#upvote-btn-${guid}`;
     const downvoteBtnSelector = `#downvote-btn-${guid}`;
     let voteData = JSON.parse($(voteDataSelector).val());
-    console.log(voteData);
     $.ajax({
         url: '/Vote/UpdateVote',
         method: 'POST',
