@@ -55,6 +55,11 @@ namespace DevRhythm.App.Services
             }
         }
 
+        public async Task<int> CountUnreadNotificationsForUserAsync(long userId)
+        {
+            return await _context.UserNotifications.CountAsync(x => x.ReceiverId == userId);
+        }
+
         public async Task<ICollection<NotificationDto>> GetNotificationsByUserIdAsync(long userId)
         {
             var currUserId = _userInfoProvider.Id ?? throw new NotFoundException(nameof(User), userId);
@@ -84,6 +89,10 @@ namespace DevRhythm.App.Services
         public void SendNotification(NotificationDto notification)
         {
             if(notification.ReceiverId is not null)
+            {
+                _notificationHubContext.Clients.Group(notification.ReceiverId.ToString()!).SendNotificationAsync(notification);
+            }
+            else
             {
                 _notificationHubContext.Clients.All.SendNotificationAsync(notification);
             }

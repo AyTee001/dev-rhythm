@@ -280,6 +280,11 @@ header {
   font-weight: 600;
   border: none;
 }
+
+.badge {
+  background-color: #FF6E40;
+  color: #1A1A2E;
+}
 #post-section {
   margin-top: 36px;
 }

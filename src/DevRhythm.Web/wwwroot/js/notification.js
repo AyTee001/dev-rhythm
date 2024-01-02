@@ -1,6 +1,15 @@
-var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-var toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl, option)
+$(document).ready(function () {
+    let $notificationBadge = $("#notificationBadge");
+
+    let currentCount = parseInt($notificationBadge.text(), 10) || 0;
+
+    if (currentCount === 0) {
+        $notificationBadge.hide();
+    }
+    else {
+        $notificationBadge.show();
+    }
+
 });
 
 const connection = new signalR.HubConnectionBuilder()
@@ -21,6 +30,8 @@ function notificationReceived(notification) {
         contentType: 'application/json',
         data: JSON.stringify(notification),
         success: function (data) {
+            incrementBadgeNotificationCount();
+
             var $toast = $(data).appendTo(".toast-container");
 
             var closeButton = $toast.find('.close');
@@ -40,6 +51,19 @@ function notificationReceived(notification) {
         },
     });
 }
+
+function incrementBadgeNotificationCount() {
+    const $badge = $("#notificationBadge");
+
+    let currentCount = parseInt($badge.text(), 10) || 0;
+
+    currentCount++;
+
+    $badge.text(currentCount);
+
+    $badge.show();
+}
+
 var NotificationType;
 (function (NotificationType) {
     NotificationType[NotificationType["VoteNotification"] = 0] = "VoteNotification";

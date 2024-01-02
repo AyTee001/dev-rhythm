@@ -2,6 +2,7 @@
 using DevRhythm.App.DTOs;
 using DevRhythm.App.Interfaces;
 using DevRhythm.App.Services.Base;
+using DevRhythm.App.Services.Helpers;
 using DevRhythm.Core.Entities;
 using DevRhythm.Core.Entities.Base;
 using DevRhythm.Core.Enums;
@@ -22,6 +23,7 @@ namespace DevRhythm.App.Services
             {
                 case VoteType.PostVote:
                     await ManageVoteAsync<PostVote>(newVoteDto);
+                    await IssuePostVoteNotificationAsync(newVoteDto);
                     break;
                 case VoteType.CommentVote:
                     await ManageVoteAsync<CommentVote>(newVoteDto);
@@ -31,19 +33,6 @@ namespace DevRhythm.App.Services
                     break;
             }
 
-            var post = _context.Posts.FirstOrDefault(x => x.Id == newVoteDto.EntityId) ?? throw new NotFoundException(nameof(Post), newVoteDto.EntityId);
-
-            var newNotificationDto = new NotificationDto
-            {
-                ReceiverId = post.CreatedBy,
-                Message = "Your post was " + (newVoteDto.IsUpvote ? "upvoted" : "downvoted") + " by this user",
-                SentAt = DateTime.UtcNow,
-                NotificationType = NotificationType.VoteNotification,
-                PostDto = _mapper.Map<PostNotificationDto>(post),
-                Sender = _mapper.Map<UserNotificationDto>(_context.Users.FirstOrDefault(x => x.Id == newVoteDto.UserId))
-            };
-
-            _notificationService.SendNotification(newNotificationDto);
         }
         private async Task ManageVoteAsync<T>(NewVoteDto newVoteDto) where T : Vote
         {
@@ -68,6 +57,26 @@ namespace DevRhythm.App.Services
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        private async Task IssuePostVoteNotificationAsync(NewVoteDto newVoteDto)
+        {
+            var post = _context.Posts.FirstOrDefault(x => x.Id == newVoteDto.EntityId) 
+                ?? throw new NotFoundException(nameof(Post), newVoteDto.EntityId);
+
+            var newNotificationDto = new NotificationDto
+            {
+                ReceiverId = post.CreatedBy,
+                Message = NotificationMessageHelper.GetVoteNotificationMessage(newVoteDto.IsUpvote, newVoteDto.VoteType),
+                SentAt = DateTime.UtcNow,
+                NotificationType = NotificationType.VoteNotification,
+                PostDto = _mapper.Map<PostNotificationDto>(post),
+                Sender = _mapper.Map<UserNotificationDto>(_context.Users.FirstOrDefault(x => x.Id == newVoteDto.UserId))
+            };
+
+            await _notificationService.AddNotificationToStorageAsync(newNotificationDto);
+            _notificationService.SendNotification(newNotificationDto);
+
         }
     }
 }
