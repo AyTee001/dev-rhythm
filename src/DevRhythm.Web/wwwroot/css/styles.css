@@ -251,7 +251,9 @@ header {
   padding: 24px;
   width: 100%;
   display: flex;
-  justify-content: end;
+  flex-direction: column;
+  align-items: end;
+  position: fixed;
 }
 
 .toast {
@@ -263,8 +265,11 @@ header {
 .toast-header {
   background-color: #555572;
   color: #F0F0F0;
-  padding: 8px;
   width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 .toast-header span {
   margin-right: 8px;

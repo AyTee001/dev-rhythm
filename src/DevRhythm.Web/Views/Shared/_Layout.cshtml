@@ -36,54 +36,10 @@
             @await Html.PartialAsync("_SetCulturePartial")
         </div>
     </header>
-    <div class="toast-container position-absolute"></div>
+    <div class="toast-container"></div>
     @RenderBody()
     <script src="~/js/signalr.js"></script>
-    <script>
-        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-        var toastList = toastElList.map(function (toastEl) {
-            return new bootstrap.Toast(toastEl, option)
-        });
-
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/notificationHub")
-            .build();
-
-
-        connection.on("SendNotificationAsync", (notification) => {
-            console.log(notification);
-            notificationReceived(notification);
-        });
-
-        connection.start().catch(() => console.log("Error"));
-
-        function notificationReceived(notification) {
-            $.ajax({
-                url: '/Notifications/RenderNotification',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(notification),
-                success: function (data) {
-                    var $toast = $(data).appendTo(".toast-container");
-
-                    $toast.toast({
-                        autohide: true,
-                        delay: 5000
-                    }).toast('show').on('hidden.bs.toast', function () {
-                        $(this).remove();
-                    });
-                },
-                error: function (err) {
-                    console.log(err);
-                },
-            });
-        }
-        var NotificationType;
-        (function (NotificationType) {
-            NotificationType[NotificationType["VoteNotification"] = 0] = "VoteNotification";
-        })(NotificationType || (NotificationType = {}));
-
-    </script>
+    <script src="~/js/notification.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
