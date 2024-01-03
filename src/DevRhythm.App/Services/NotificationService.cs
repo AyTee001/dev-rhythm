@@ -74,6 +74,7 @@ namespace DevRhythm.App.Services
             var notificationDtos = notifications.OrderByDescending(n => n.Notification!.SentAt).ThenByDescending(n => n.IsRead).Select(n =>
                 new NotificationDto
                 {
+                    Id = n.NotificationId,
                     NotificationType = n.Notification!.NotificationType,
                     Sender = _mapper.Map<UserNotificationDto>(n.Notification.Sender),
                     SentAt = n.Notification.SentAt,
@@ -90,6 +91,12 @@ namespace DevRhythm.App.Services
         public async Task MarkNotificationsAsReadAsync(long userId)
         {
             await _context.UserNotifications.Where(n => n.ReceiverId == userId).ForEachAsync(x => x.IsRead = true);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task MarkNotificationAsReadByIdAsync(long notificationId, long userId)
+        {
+            await _context.UserNotifications.Where(n => n.ReceiverId == userId && n.NotificationId == notificationId).ForEachAsync(x => x.IsRead = true);
             await _context.SaveChangesAsync();
         }
 

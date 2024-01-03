@@ -12,7 +12,8 @@ namespace DevRhythm.App.MappingProfiles
                 .ForMember(dest => dest.SenderId, opt => opt.MapFrom(e => e.Sender!.Id))
                 .ForMember(dest => dest.Post, opt => opt.Ignore())
                 .ForMember(dest => dest.PostId, opt => opt.MapFrom(x => x.PostDto!.Id))
-                .ForMember(dest => dest.Sender, opt => opt.Ignore());
+                .ForMember(dest => dest.Sender, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         }
     }

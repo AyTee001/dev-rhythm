@@ -22,20 +22,24 @@ namespace DevRhythm.App.Services
             switch (newVoteDto.VoteType)
             {
                 case VoteType.PostVote:
-                    await ManageVoteAsync<PostVote>(newVoteDto);
-                    await IssuePostVoteNotificationAsync(newVoteDto);
+                    if (await AddVoteAsync<PostVote>(newVoteDto))
+                    {
+                        await IssuePostVoteNotificationAsync(newVoteDto);
+                    };
                     break;
                 case VoteType.CommentVote:
-                    await ManageVoteAsync<CommentVote>(newVoteDto);
+                    await AddVoteAsync<CommentVote>(newVoteDto);
                     break;
                 case VoteType.ReplyVote:
-                    await ManageVoteAsync<ReplyVote>(newVoteDto);
+                    await AddVoteAsync<ReplyVote>(newVoteDto);
                     break;
             }
 
         }
-        private async Task ManageVoteAsync<T>(NewVoteDto newVoteDto) where T : Vote
+        private async Task<bool> AddVoteAsync<T>(NewVoteDto newVoteDto) where T : Vote
         {
+            bool hasNewVoteBeenAdded = true;
+
             var existingVote = _context.Set<T>()
                     .Where(x => x.UserId == newVoteDto.UserId 
                         && x.EntityId == newVoteDto.EntityId)
@@ -50,13 +54,15 @@ namespace DevRhythm.App.Services
             else if (existingVote.IsUpvote == newVoteDto.IsUpvote)
             {
                 _context.Set<T>().Remove(existingVote);
+                hasNewVoteBeenAdded = false;
             }
             else
             {
                 existingVote.IsUpvote = newVoteDto.IsUpvote;
             }
-
             await _context.SaveChangesAsync();
+
+            return hasNewVoteBeenAdded;
         }
 
         private async Task IssuePostVoteNotificationAsync(NewVoteDto newVoteDto)
