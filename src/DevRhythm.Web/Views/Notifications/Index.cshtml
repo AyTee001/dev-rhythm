@@ -1,0 +1,12 @@
+﻿@model ICollection<DevRhythm.App.DTOs.NotificationDto>
+
+<main id="notifications-main" class="content-main d-flex flex-column align-items-center">
+    @foreach (var notification in Model)
+    {
+        @await Html.PartialAsync("_NotificationPartial", notification)
+    }
+</main>
+
+@section Scripts {
+    <script src="~/js/notification-view.js"></script>
+}

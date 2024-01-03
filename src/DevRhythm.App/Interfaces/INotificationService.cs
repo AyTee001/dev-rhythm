@@ -8,5 +8,6 @@ namespace DevRhythm.App.Interfaces
         Task AddNotificationToStorageAsync(NotificationDto notification);
         Task<ICollection<NotificationDto>> GetNotificationsByUserIdAsync(long userId);
         Task<int> CountUnreadNotificationsForUserAsync(long userId);
+        Task MarkNotificationsAsReadAsync(long userId);
     }
 }

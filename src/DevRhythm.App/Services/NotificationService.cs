@@ -57,7 +57,7 @@ namespace DevRhythm.App.Services
 
         public async Task<int> CountUnreadNotificationsForUserAsync(long userId)
         {
-            return await _context.UserNotifications.CountAsync(x => x.ReceiverId == userId);
+            return await _context.UserNotifications.CountAsync(x => x.ReceiverId == userId && x.IsRead == false);
         }
 
         public async Task<ICollection<NotificationDto>> GetNotificationsByUserIdAsync(long userId)
@@ -71,19 +71,26 @@ namespace DevRhythm.App.Services
                 .Include(e => e.Notification)
                     .ThenInclude(e => e!.Post);
 
-            var notificationDtos = notifications.Select(n =>
+            var notificationDtos = notifications.OrderByDescending(n => n.Notification!.SentAt).ThenByDescending(n => n.IsRead).Select(n =>
                 new NotificationDto
                 {
                     NotificationType = n.Notification!.NotificationType,
                     Sender = _mapper.Map<UserNotificationDto>(n.Notification.Sender),
                     SentAt = n.Notification.SentAt,
                     Message = n.Notification.Message,
-                    PostDto = _mapper.Map<PostNotificationDto>(n.Notification.Post),
-                    ReceiverId = userId
+                    PostDto =  _mapper.Map<PostNotificationDto>(n.Notification.Post),
+                    ReceiverId = userId,
+                    IsRead = n.IsRead
                 }
             );
 
             return await notificationDtos.ToListAsync();
+        }
+
+        public async Task MarkNotificationsAsReadAsync(long userId)
+        {
+            await _context.UserNotifications.Where(n => n.ReceiverId == userId).ForEachAsync(x => x.IsRead = true);
+            await _context.SaveChangesAsync();
         }
 
         public void SendNotification(NotificationDto notification)

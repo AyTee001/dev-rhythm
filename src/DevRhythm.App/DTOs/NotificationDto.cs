@@ -8,6 +8,7 @@ namespace DevRhythm.App.DTOs
         public string? Message { get; set; }
         public NotificationType NotificationType { get; set; }
         public DateTime SentAt { get; set; }
+        public bool IsRead { get; set; }
         public UserNotificationDto? Sender { get; set; }
         public PostNotificationDto? PostDto { get; set; }
     }

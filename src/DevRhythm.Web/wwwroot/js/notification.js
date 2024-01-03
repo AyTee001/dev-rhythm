@@ -25,7 +25,7 @@ connection.start().catch(() => console.log("Error"));
 
 function notificationReceived(notification) {
     $.ajax({
-        url: '/Notifications/RenderNotification',
+        url: '/Notifications/RenderToastNotification',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(notification),

@@ -15,10 +15,22 @@ namespace DevRhythm.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var isUserSignedIn = _signInManager.IsSignedIn(HttpContext.User);
+
+            if (!isUserSignedIn)
+            {
+                return View(new UserStatusComponentModel { IsUserAuthenticated = false });
+            }
+
+            if (!long.TryParse(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier), out long userId))
+            {
+                return View(new UserStatusComponentModel { IsUserAuthenticated = true });
+            }
+
             var model = new UserStatusComponentModel
             {
-                IsUserAuthenticated = isUserSignedIn,
-                UserUnreadNotificationCount = isUserSignedIn ?  await _notificationService.CountUnreadNotificationsForUserAsync(long.Parse(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!)) : 0
+                IsUserAuthenticated = true,
+                UserUnreadNotificationCount = await _notificationService.CountUnreadNotificationsForUserAsync(userId),
+                CurrentUserId = userId
             };
 
             return View(model);
