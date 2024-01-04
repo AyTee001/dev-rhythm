@@ -1,4 +1,7 @@
-﻿const connectionNotificationIndex = new signalR.HubConnectionBuilder()
+﻿import * as signalR from "@microsoft/signalr"
+
+
+const connectionNotificationIndex = new signalR.HubConnectionBuilder()
     .withUrl("/notificationHub")
     .build();
 
@@ -19,7 +22,7 @@ function appendNotification(notification) {
             $("#notifications-main").prepend(data);
 
             connectionNotificationIndex.invoke("MarkNotificationAsReadByIdAsync", notification.id, notification.receiverId)
-            .catch(error => console.error(error));
+                .catch(error => console.error(error));
         },
         error: function (err) {
             console.log(err);

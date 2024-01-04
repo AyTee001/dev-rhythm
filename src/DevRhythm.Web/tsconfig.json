@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noEmitOnError": true,
     "removeComments": false,
     "sourceMap": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "module": "NodeNext",
+    "allowJs": true
   },
   "include": [ "./wwwroot/ts-scripts/**/*.ts" ],
   "exclude": [

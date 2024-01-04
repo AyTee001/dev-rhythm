@@ -1,9 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 function doUpvote(guid) {
     vote(true, guid);
 }
 function doDownvote(guid) {
     vote(false, guid);
 }
+window.doUpvote = doUpvote;
+window.doDownvote = doDownvote;
 function vote(isUpvote, guid) {
     const voteDataSelector = `#vote-data-${guid}`;
     const upvoteBtnSelector = `#upvote-btn-${guid}`;
@@ -40,3 +44,4 @@ var VoteType;
     VoteType[VoteType["CommentVote"] = 1] = "CommentVote";
     VoteType[VoteType["ReplyVote"] = 2] = "ReplyVote";
 })(VoteType || (VoteType = {}));
+//# sourceMappingURL=voting.js.map

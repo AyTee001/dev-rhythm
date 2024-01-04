@@ -1,3 +1,4 @@
+﻿import * as signalR from "@microsoft/signalr"
 $(document).ready(function () {
     let $notificationBadge = $("#notificationBadge");
 
@@ -23,7 +24,7 @@ connection.on("SendNotificationAsync", (notification) => {
 
 connection.start().catch(() => console.log("Error"));
 
-function notificationReceived(notification) {
+function notificationReceived(notification: any) {
     $.ajax({
         url: '/Notifications/RenderToastNotification',
         method: 'POST',
@@ -31,7 +32,7 @@ function notificationReceived(notification) {
         data: JSON.stringify(notification),
         success: function (data) {
             incrementBadgeNotificationCount();
-
+            console.log(data);
             var $toast = $(data).appendTo(".toast-container");
 
             var closeButton = $toast.find('.close');

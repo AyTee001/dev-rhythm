@@ -5,6 +5,9 @@ function doDownvote(guid: string) {
     vote(false, guid);
 }
 
+(window as any).doUpvote = doUpvote;
+(window as any).doDownvote = doDownvote;
+
 function vote(isUpvote: boolean, guid: string) {
     const voteDataSelector = `#vote-data-${guid}`;
     const upvoteBtnSelector = `#upvote-btn-${guid}`;
