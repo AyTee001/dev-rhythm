@@ -17,12 +17,9 @@ namespace DevRhythm.Infrastructure.Hubs
             }
         }
 
-        public async Task MarkNotificationAsReadByIdAsync(string notificationId, string userId)
+        public async Task MarkNotificationAsReadByIdAsync(long notificationId, long userId)
         {
-            if(long.TryParse(notificationId, out long nId) && long.TryParse(userId, out long uId))
-            {
-                await _notificationService.MarkNotificationAsReadByIdAsync(nId, uId);
-            }
+            await _notificationService.MarkNotificationAsReadByIdAsync(notificationId, userId);
         }
     }
 }

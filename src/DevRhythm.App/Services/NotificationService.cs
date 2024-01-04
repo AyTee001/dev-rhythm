@@ -46,6 +46,8 @@ namespace DevRhythm.App.Services
 
                 await _context.SaveChangesAsync();
 
+                notificationDto.Id = notification.Id;
+
                 await transaction.CommitAsync();
             }
             catch
@@ -74,7 +76,7 @@ namespace DevRhythm.App.Services
             var notificationDtos = notifications.OrderByDescending(n => n.Notification!.SentAt).ThenByDescending(n => n.IsRead).Select(n =>
                 new NotificationDto
                 {
-                    Id = n.NotificationId,
+                    Id = n.Notification!.Id,
                     NotificationType = n.Notification!.NotificationType,
                     Sender = _mapper.Map<UserNotificationDto>(n.Notification.Sender),
                     SentAt = n.Notification.SentAt,

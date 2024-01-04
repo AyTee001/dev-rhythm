@@ -17,6 +17,9 @@ function appendNotification(notification) {
         data: JSON.stringify(notification),
         success: function (data) {
             $("#notifications-main").prepend(data);
+
+            connectionNotificationIndex.invoke("MarkNotificationAsReadByIdAsync", notification.id, notification.receiverId)
+            .catch(error => console.error("Error invoking MarkNotificationAsReadByIdAsync:", error));
         },
         error: function (err) {
             console.log(err);

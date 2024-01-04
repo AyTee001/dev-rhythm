@@ -33,7 +33,7 @@ namespace DevRhythm.Web
 
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
 
-            builder.Services.AddSignalR()
+            builder.Services.AddSignalR(options => options.EnableDetailedErrors = true)
                 .AddJsonProtocol(options =>
                 {
                     options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
