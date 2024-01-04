@@ -2,6 +2,7 @@
 const glob = require("glob");
 
 module.exports = {
+    mode: "development",
     entry: {
         layout: getPathsToFiles("./wwwroot/ts-scripts/Layout/*.ts"),
         notification: getPathsToFiles("./wwwroot/ts-scripts/Notification/*.ts"),
