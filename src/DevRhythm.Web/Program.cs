@@ -6,9 +6,8 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using DevRhythm.Web.Middleware;
 using DevRhythm.Web.Options;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using DevRhythm.Infrastructure.Hubs;
 
 namespace DevRhythm.Web
 {
@@ -33,6 +32,13 @@ namespace DevRhythm.Web
             builder.Services.AddDevRhythmContext(builder.Configuration.GetSection(DbConnectionOptions.Connections).Get<DbConnectionOptions>()!);
 
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(PostProfile)));
+
+            builder.Services.AddSignalR(options => options.EnableDetailedErrors = true)
+                .AddJsonProtocol(options =>
+                {
+                    options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
+
 
             builder.Services.AddCustomServices();
 
@@ -86,6 +92,7 @@ namespace DevRhythm.Web
 
             app.UseLatestDevRhythmDbContext();
 
+            app.MapHub<NotificationHub>("/notificationHub");
 
             app.MapControllerRoute(
                 name: "default",

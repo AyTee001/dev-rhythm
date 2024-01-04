@@ -1,14 +1,14 @@
 /// <binding ProjectOpened='sass-to-css:watch, watch-ts-scripts' />
-"use strict";
-const gulp = require("gulp"),
+'use strict';
+const gulp = require('gulp'),
     sass = require('gulp-sass')(require('sass')),
     concat = require('gulp-concat'),
-    ts = require('gulp-typescript'),
-    plumber = require('gulp-plumber');
+    plumber = require('gulp-plumber'),
+    webpackStream = require('webpack-stream'),
+    webpackConfig = require('./webpack.config.js');
 
-const tsProject = ts.createProject('tsconfig.json');
-const tsPath = './wwwroot/ts-scripts/**/*.ts';
 const scssPath = './wwwroot/scss/**/*.scss';
+const tsPath = './wwwroot/ts-scripts/**/*.ts';
 
 gulp.task('sass-to-css', async function () {
     return gulp.src(scssPath)
@@ -22,14 +22,12 @@ gulp.task('sass-to-css:watch', function () {
     gulp.watch(scssPath, gulp.series('sass-to-css'));
 });
 
-gulp.task('ts-compile', function () {
-    const tsResult = gulp.src(tsPath).pipe(tsProject());
-
-    return tsResult.js
-        .pipe(plumber())
-        .pipe(gulp.dest('./wwwroot/js'));
+gulp.task('webpack', function () {
+    return gulp.src(tsPath)
+        .pipe(webpackStream(webpackConfig))
+        .pipe(gulp.dest(webpackConfig.output.path));
 });
 
-gulp.task('watch-ts-scripts', function () {
-    gulp.watch(tsPath, gulp.series('ts-compile'));
+gulp.task('webpack:watch', function () {
+    gulp.watch(tsPath, gulp.series('webpack'));
 });

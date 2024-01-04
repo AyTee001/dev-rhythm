@@ -63,3 +63,46 @@ header {
 .not-auth-container > *{
     margin-left: 10px;
 }
+
+.toast-container {
+    z-index: 100;
+    bottom: 0;
+    padding: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: fixed;
+}
+
+.toast {
+    background-color: $primary-dark-blue-violet;
+    color: $accent-cambridge-blue;
+    width: 30%;
+}
+
+.toast-header {
+    background-color: $light-blue-violet;
+    color: $dim-white;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    span{
+        margin-right: 8px;
+    }
+
+    button{
+        background: transparent;
+        font-size: 200%;
+        font-weight: 600;
+        border: none;
+    }
+}
+
+.badge{
+    background-color: $accent-orange;
+    color: $primary-dark-blue-violet;
+}

@@ -1,15 +1,20 @@
-function doUpvote(guid) {
+﻿function doUpvote (guid: string) {
     vote(true, guid);
-}
-function doDownvote(guid) {
+} 
+function doDownvote(guid: string) {
     vote(false, guid);
 }
-function vote(isUpvote, guid) {
+
+(window as any).doUpvote = doUpvote;
+(window as any).doDownvote = doDownvote;
+
+function vote(isUpvote: boolean, guid: string) {
     const voteDataSelector = `#vote-data-${guid}`;
     const upvoteBtnSelector = `#upvote-btn-${guid}`;
     const downvoteBtnSelector = `#downvote-btn-${guid}`;
-    let voteData = JSON.parse($(voteDataSelector).val());
-    console.log(voteData);
+
+    let voteData = JSON.parse($(voteDataSelector).val() as string) as VoteModel;
+
     $.ajax({
         url: '/Vote/UpdateVote',
         method: 'POST',
@@ -24,8 +29,7 @@ function vote(isUpvote, guid) {
             if (isUpvote) {
                 $(upvoteBtnSelector).toggleClass('voted', !$(upvoteBtnSelector).hasClass('voted'));
                 $(downvoteBtnSelector).toggleClass('downvoted', false);
-            }
-            else {
+            } else {
                 $(upvoteBtnSelector).toggleClass('voted', false);
                 $(downvoteBtnSelector).toggleClass('downvoted', !$(downvoteBtnSelector).hasClass('downvoted'));
             }
@@ -34,11 +38,18 @@ function vote(isUpvote, guid) {
             console.error('Error updating data:', error);
         }
     });
+
 }
-var VoteType;
-(function (VoteType) {
-    VoteType[VoteType["PostVote"] = 0] = "PostVote";
-    VoteType[VoteType["CommentVote"] = 1] = "CommentVote";
-    VoteType[VoteType["ReplyVote"] = 2] = "ReplyVote";
-})(VoteType || (VoteType = {}));
-//# sourceMappingURL=voting.js.map
+
+enum VoteType {
+    PostVote = 0,
+    CommentVote = 1,
+    ReplyVote = 2
+}
+
+interface VoteModel {
+    voteType: VoteType,
+    voteResult: number,
+    entityId: number,
+    userId: number
+}

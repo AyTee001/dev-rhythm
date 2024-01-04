@@ -9,17 +9,18 @@
     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a asp-area="" asp-controller="" asp-action="" class="m-2">
+                <a asp-controller="" asp-action="" class="m-2">
                     <span>@Localizer["Home"]</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-area="" asp-controller="" asp-action="" class="m-2">
+                <a asp-controller="Notifications" asp-action="ShowNotifications" asp-route-userId="@Model.CurrentUserId" class="m-2">
                     <i class="fa-solid fa-bell fa-lg"></i>
+                    <span id="notificationBadge" class="badge">@Model.UserUnreadNotificationCount</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-area="" asp-controller="" asp-action="" class="m-2">
+                <a asp-controller="" asp-action="" class="m-2">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </li>

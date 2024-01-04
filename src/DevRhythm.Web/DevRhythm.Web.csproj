@@ -8,11 +8,13 @@
 
   <ItemGroup>
     <Content Remove="Views\Shared\_VotePartial.cshtml" />
+    <Content Remove="wwwroot\ts-scripts\index.ts" />
+    <Content Remove="wwwroot\ts-scripts\Notification\notification-view.ts" />
     <Content Remove="wwwroot\ts-scripts\posts.ts" />
     <Content Remove="wwwroot\ts-scripts\voting.ts" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
@@ -39,8 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\ts-scripts\posts.ts" />
-    <TypeScriptCompile Include="wwwroot\ts-scripts\voting.ts" />
+    <TypeScriptCompile Include="wwwroot\ts-scripts\Layout\notification.ts" />
+    <TypeScriptCompile Include="wwwroot\ts-scripts\Notification\notification-view.ts" />
+    <TypeScriptCompile Include="wwwroot\ts-scripts\Post\posts.ts" />
+    <TypeScriptCompile Include="wwwroot\ts-scripts\Layout\voting.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +57,10 @@
 
   <ItemGroup>
     <None Include="Views\Post\_VotePartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

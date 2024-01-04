@@ -244,6 +244,80 @@ header {
 .not-auth-container > * {
   margin-left: 10px;
 }
+
+.toast-container {
+  z-index: 100;
+  bottom: 0;
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  position: fixed;
+}
+
+.toast {
+  background-color: #1A1A2E;
+  color: #82C9A8;
+  width: 30%;
+}
+
+.toast-header {
+  background-color: #555572;
+  color: #F0F0F0;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.toast-header span {
+  margin-right: 8px;
+}
+.toast-header button {
+  background: transparent;
+  font-size: 200%;
+  font-weight: 600;
+  border: none;
+}
+
+.badge {
+  background-color: #FF6E40;
+  color: #1A1A2E;
+}
+.notification {
+  width: 30%;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.notification-header {
+  padding: 16px;
+  color: #F0F0F0;
+  border-start-start-radius: 6px;
+  border-start-end-radius: 6px;
+}
+
+.read {
+  background-color: #555572;
+}
+
+.unread {
+  background-color: rgba(130, 201, 168, 0.5);
+}
+
+.notification-body {
+  background-color: rgba(85, 85, 114, 0.5);
+  padding: 16px;
+  border-end-start-radius: 6px;
+  border-end-end-radius: 6px;
+}
+.notification-body span, .notification-body a {
+  line-height: 120%;
+}
+.notification-body span {
+  color: #F0F0F0;
+}
 #post-section {
   margin-top: 36px;
 }
@@ -489,12 +563,6 @@ aside {
 .downvoted {
   color: #FF6E40;
 }
-.post-main {
-  padding: 136px 36px 36px 36px;
-  height: calc(100vh - 100px);
-  width: 80%;
-}
-
 .heading-container {
   background-color: rgba(85, 85, 114, 0.5);
   padding: 16px 24px;
@@ -589,4 +657,10 @@ body {
 }
 body input[type=search]::-webkit-search-cancel-button {
   -webkit-appearance: none;
+}
+
+.content-main {
+  padding: 136px 36px 36px 36px;
+  height: calc(100vh - 100px);
+  width: 100%;
 }

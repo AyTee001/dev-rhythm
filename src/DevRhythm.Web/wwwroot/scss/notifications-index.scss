@@ -1,0 +1,39 @@
+﻿@import '_color-vars.scss';
+
+$notificatoin-radius: 6px;
+
+.notification{
+    width: 30%;
+    border-radius: $notificatoin-radius;
+    margin-bottom: 16px;
+}
+
+.notification-header {
+    padding: 16px;
+    color: $dim-white;
+    border-start-start-radius: $notificatoin-radius;
+    border-start-end-radius: $notificatoin-radius;
+}
+
+.read {
+    background-color: $light-blue-violet;
+}
+
+.unread {
+    background-color: $half-transparent-cambridge-blue;
+}
+
+.notification-body {
+    background-color: $half-transparent-light-blue-violet;
+    padding: 16px;
+    border-end-start-radius: $notificatoin-radius;
+    border-end-end-radius: $notificatoin-radius;
+
+    span, a {
+        line-height: 120%;
+    }
+
+    span {
+        color: $dim-white;
+    }
+}

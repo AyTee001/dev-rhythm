@@ -1,0 +1,16 @@
+﻿@model DevRhythm.App.DTOs.NotificationDto
+
+<div class="notification">
+    <div class="notification-header @(Model.IsRead ? "read" : "unread")">
+        <span>@Model.Sender?.UserName</span>
+        <span>@Model.SentAt.ToString("HH:mm:ss")</span>
+    </div>
+    <div class="notification-body">
+        <span>@Model.Message</span>
+        <br />
+        @if (Model.NotificationType == DevRhythm.Core.Enums.NotificationType.VoteNotification)
+        {
+            <a asp-action="ShowPost" asp-controller="Post" asp-route-id="@Model.PostDto?.Id"> Post: @Model.PostDto?.Heading</a>
+        }
+    </div>
+</div>
