@@ -1,7 +1,6 @@
 ﻿@model ICollection<DevRhythm.App.DTOs.NotificationDto>
 
 <main id="notifications-main" class="content-main d-flex flex-column align-items-center">
-    <input type="hidden" id="userId" name="userId" value="@Model.FirstOrDefault()?.ReceiverId" />
     @foreach (var notification in Model)
     {
         @await Html.PartialAsync("_NotificationPartial", notification)

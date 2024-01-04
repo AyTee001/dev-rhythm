@@ -1,4 +1,5 @@
 ﻿using DevRhythm.Shared.Enums;
+using DevRhythm.Shared.Exceptions;
 
 namespace DevRhythm.App.Services.Helpers
 {
@@ -11,7 +12,7 @@ namespace DevRhythm.App.Services.Helpers
                 VoteType.ReplyVote => "reply",
                 VoteType.PostVote => "post",
                 VoteType.CommentVote => "comment",
-                _ => "entity"
+                _ => throw new NotFoundException(nameof(VoteType))
             };
            
             return $"Your {entityType} was " + (isUpvote ? "upvoted" : "downvoted") + " by this user";
