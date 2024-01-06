@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DevRhythm.App\DevRhythm.App.csproj" />
     <ProjectReference Include="..\DevRhythm.Infrastructure\DevRhythm.Infrastructure.csproj" />
+    <ProjectReference Include="..\DevRhythm.Shared\DevRhythm.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

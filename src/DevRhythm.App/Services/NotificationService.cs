@@ -7,9 +7,8 @@ using DevRhythm.Core.Entities;
 using DevRhythm.Infrastructure.Data;
 using DevRhythm.Infrastructure.Hubs;
 using DevRhythm.Infrastructure.Hubs.Interfaces;
-using DevRhythm.Shared.Enums;
+using DevRhythm.Core.Enums;
 using DevRhythm.Shared.Exceptions;
-using DevRhythm.Shared.Interfaces;
 using Hangfire;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +17,9 @@ namespace DevRhythm.App.Services
 {
     public class NotificationService(IHubContext<NotificationHub, INotificationHub> notificationHubContext, 
         DevRhythmDbContext context, 
-        IMapper mapper,
-        IUserInfoProvider userInfoProvider) : BaseService(context, mapper), INotificationService
+        IMapper mapper) : BaseService(context, mapper), INotificationService
     {
         private readonly IHubContext<NotificationHub, INotificationHub> _notificationHubContext = notificationHubContext;
-        private readonly IUserInfoProvider _userInfoProvider = userInfoProvider;
 
         public async Task AddNotificationToStorageAsync(NotificationDto notificationDto)
         {
@@ -65,9 +62,9 @@ namespace DevRhythm.App.Services
             return await _context.UserNotifications.CountAsync(x => x.ReceiverId == userId && x.IsRead == false);
         }
 
-        public async Task<ICollection<NotificationDto>> GetNotificationsByUserIdAsync(long userId)
+        public async Task<FullNotificationUserDataDto> GetNotificationsByUserIdAsync(long userId)
         {
-            var currUserId = _userInfoProvider.Id ?? throw new NotFoundException(nameof(User), userId);
+            var user = _context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new NotFoundException(nameof(User), userId);
 
             var notifications = _context.UserNotifications
                 .Where(x => x.ReceiverId == userId)
@@ -90,7 +87,11 @@ namespace DevRhythm.App.Services
                 }
             );
 
-            return await notificationDtos.ToListAsync();
+            return new FullNotificationUserDataDto {
+                UserId = userId,
+                Notifications = await notificationDtos.ToListAsync(),
+                NotificationCleaningPeriod = user.NotificationCleaningPeriod
+            };
         }
 
         public async Task MarkNotificationsAsReadAsync(long userId)
@@ -119,6 +120,8 @@ namespace DevRhythm.App.Services
 
         public void SetCleanAllNotificationByUserIdJob(long userId, NotificationCleaningPeriod notificationCleaningPeriod)
         {
+            var user = _context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new NotFoundException(nameof(User), userId);
+
             string jobName = $"{userId}{JobNames.NotificationCleaningJob}";
             if (notificationCleaningPeriod == NotificationCleaningPeriod.None)
             {
@@ -129,6 +132,9 @@ namespace DevRhythm.App.Services
             RecurringJob.AddOrUpdate(jobName, 
                 () => RemoveNotificationsByUserIdAsync(userId), 
                 NotificationCleaningPeriodParser.ParsePeriodToCronExpression(notificationCleaningPeriod));
+
+            user.NotificationCleaningPeriod = notificationCleaningPeriod;
+            _context.SaveChanges();
         }
 
         public async Task RemoveNotificationsByUserIdAsync(long userId)

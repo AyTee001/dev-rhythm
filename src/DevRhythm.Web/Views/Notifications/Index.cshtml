@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-@model DevRhythm.Web.Models.NotificationsIndexModel
+@model DevRhythm.App.DTOs.FullNotificationUserDataDto
 
 @inject IViewLocalizer Localizer
 
@@ -9,9 +9,9 @@
     <div id="cleaning-preferences-pane" class="sort-section d-flex flex-column flex-grow-0">
         <input type="hidden" id="userIdNotificationCleaningPreference" value="@Model.UserId"/>
         <label for="SortProperty">@Localizer["Cleanup_frequency"]</label>
-        <select class="select-main" id="notificationCleaningPeriod" asp-items="Html.GetEnumSelectList<DevRhythm.Shared.Enums.NotificationCleaningPeriod>()"></select>
+        <select class="select-main" id="notificationCleaningPeriod" asp-items="Html.GetEnumSelectList<DevRhythm.Core.Enums.NotificationCleaningPeriod>()"></select>
     </div>
-    <div class="d-flex flex-column align-items-center flex-grow-1">
+    <div class="notifications-container d-flex flex-column align-items-center flex-grow-1">
         @foreach (var notification in Model.Notifications ?? [])
         {
             @await Html.PartialAsync("_NotificationPartial", notification)

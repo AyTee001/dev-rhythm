@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DevRhythm.Shared.Enums
+namespace DevRhythm.Core.Enums
 {
     public enum NotificationCleaningPeriod
     {

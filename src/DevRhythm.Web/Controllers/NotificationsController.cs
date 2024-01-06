@@ -26,13 +26,9 @@ namespace DevRhythm.Web.Controllers
         [HttpGet("all/{userId}")]
         public async Task<IActionResult> ShowNotifications([FromRoute]long userId)
         {
-            var notifications = await _notificationService.GetNotificationsByUserIdAsync(userId);
+            var notificationDto = await _notificationService.GetNotificationsByUserIdAsync(userId);
             await _notificationService.MarkNotificationsAsReadAsync(userId);
-            return View("Index", new NotificationsIndexModel
-            {
-                UserId = long.Parse(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!),
-                Notifications = notifications
-            });
+            return View("Index", notificationDto);
         }
 
         public IActionResult SetUpCleaningJob([FromBody] NotificationCleaningDto notificationCleaningModel)

@@ -38,7 +38,7 @@ function appendNotification(notification) {
         contentType: "application/json",
         data: JSON.stringify(notification),
         success: function (data) {
-            $("#notifications-main").prepend(data);
+            $("#notifications-container").prepend(data);
             connectionNotificationIndex.invoke("MarkNotificationAsReadByIdAsync", notification.id, notification.receiverId)
                 .catch(error => console.error(error));
         },

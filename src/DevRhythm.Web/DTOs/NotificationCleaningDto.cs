@@ -1,4 +1,4 @@
-﻿using DevRhythm.Shared.Enums;
+﻿using DevRhythm.Core.Enums;
 
 namespace DevRhythm.Web.DTOs
 {
