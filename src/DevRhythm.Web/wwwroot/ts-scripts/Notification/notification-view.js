@@ -33,9 +33,9 @@ connectionNotificationIndex.on("SendNotificationAsync", (notification) => {
 connectionNotificationIndex.start().catch(() => console.log("Error"));
 function appendNotification(notification) {
     $.ajax({
-        url: '/Notifications/RenderNotification',
-        method: 'POST',
-        contentType: 'application/json',
+        url: "/Notifications/RenderNotification",
+        method: "POST",
+        contentType: "application/json",
         data: JSON.stringify(notification),
         success: function (data) {
             $("#notifications-main").prepend(data);

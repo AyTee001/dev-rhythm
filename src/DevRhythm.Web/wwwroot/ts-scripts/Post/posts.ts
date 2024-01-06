@@ -8,15 +8,15 @@ const POST_COUNT_PER_PAGE = 10;
 function loadMorePosts(tagIds: number[]): void {
 
     const settings: SortSettings = {
-        sortProperty: $('#SortProperty').val() as number,
-        sortOrder: $('#SortOrder').val() as number
+        sortProperty: $("#SortProperty").val() as number,
+        sortOrder: $("#SortOrder").val() as number
     }
     if (!loading && !isEnd) {
         loading = true;
         $.ajax({
-            url: '/Post/GetPosts',
-            method: 'POST',
-            contentType: 'application/json',
+            url: "/Post/GetPosts",
+            method: "POST",
+            contentType: "application/json",
             data: JSON.stringify({
                 PageNumber: currentPage + 1,
                 TagIds: tagIds,
@@ -25,7 +25,7 @@ function loadMorePosts(tagIds: number[]): void {
             }),
             success: function (data: any) {
                 if (data) {
-                    $('#post-section').append(data);
+                    $("#post-section").append(data);
                     currentPage++;
                     loading = false;
                 } else {
@@ -39,9 +39,9 @@ function loadMorePosts(tagIds: number[]): void {
     }
 }
 
-selectedTagsInput.on('change', reloadposts);
+selectedTagsInput.on("change", reloadposts);
 
-$(window).on('scroll', function () {
+$(window).on("scroll", function () {
     if ($(window).scrollTop() >= $(document).height() - $(window).height() - SCROLL_THRESHOLD) {
         loadMorePosts(getAllCheckedTags());
     }
@@ -55,9 +55,9 @@ function getPostsByTag(tagId: number) {
     resetPosts();
 
     let targetTag = $(`#tag_${tagId}`);
-    selectedTagsInput.not(targetTag).prop('checked', false);
+    selectedTagsInput.not(targetTag).prop("checked", false);
 
-    targetTag.prop('checked', true);
+    targetTag.prop("checked", true);
 
     loadMorePosts([tagId]);
 }
@@ -65,11 +65,11 @@ function getPostsByTag(tagId: number) {
 function resetPosts() {
     currentPage = 0;
     isEnd = false;
-    $('#post-section').empty();
+    $("#post-section").empty();
 }
 
 function getAllCheckedTags() {
-    return selectedTagsInput.filter(':checked').map(function (this: HTMLInputElement) {
+    return selectedTagsInput.filter(":checked").map(function (this: HTMLInputElement) {
         return parseInt($(this).val()) as number;
     }).get();
 }
@@ -79,7 +79,7 @@ function reloadposts() {
     loadMorePosts(getAllCheckedTags());
 }
 
-$("#SortProperty, #SortOrder").on('change', reloadposts);
+$("#SortProperty, #SortOrder").on("change", reloadposts);
 
 enum SortProperty {
     None = 0,

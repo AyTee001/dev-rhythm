@@ -43,22 +43,22 @@ connection.on("SendNotificationAsync", (notification) => {
 connection.start().catch(() => console.log("Error"));
 function notificationReceived(notification) {
     $.ajax({
-        url: '/Notifications/RenderToastNotification',
-        method: 'POST',
-        contentType: 'application/json',
+        url: "/Notifications/RenderToastNotification",
+        method: "POST",
+        contentType: "application/json",
         data: JSON.stringify(notification),
         success: function (data) {
             incrementBadgeNotificationCount();
             console.log(data);
             var $toast = $(data).appendTo(".toast-container");
-            var closeButton = $toast.find('.close');
-            closeButton.on('click', function () {
+            var closeButton = $toast.find(".close");
+            closeButton.on("click", function () {
                 $toast.remove();
             });
             $toast.toast({
                 autohide: true,
                 delay: 5000
-            }).toast('show').on('hidden.bs.toast', function () {
+            }).toast("show").on("hidden.bs.toast", function () {
                 $(this).remove();
             });
         },
@@ -77,9 +77,9 @@ function incrementBadgeNotificationCount() {
 $("#notificationCleaningPeriod").on('change', function () {
     console.log($("#notificationCleaningPeriod").val());
     $.ajax({
-        url: '/Notifications/SetUpCleaningJob',
-        method: 'POST',
-        contentType: 'application/json',
+        url: "/Notifications/SetUpCleaningJob",
+        method: "POST",
+        contentType: "application/json",
         data: JSON.stringify({
             userId: $("#userIdNotificationCleaningPreference").val(),
             notificationCleaningPeriod: $("#notificationCleaningPeriod").val()

@@ -8,15 +8,17 @@ function doDownvote(guid) {
 }
 window.doUpvote = doUpvote;
 window.doDownvote = doDownvote;
+const votedClassName = "voted";
+const downvotedClassName = "downvoted";
 function vote(isUpvote, guid) {
     const voteDataSelector = `#vote-data-${guid}`;
     const upvoteBtnSelector = `#upvote-btn-${guid}`;
     const downvoteBtnSelector = `#downvote-btn-${guid}`;
     let voteData = JSON.parse($(voteDataSelector).val());
     $.ajax({
-        url: '/Vote/UpdateVote',
-        method: 'POST',
-        contentType: 'application/json',
+        url: "/Vote/UpdateVote",
+        method: "POST",
+        contentType: "application/json",
         data: JSON.stringify({
             VoteType: voteData.voteType,
             EntityId: voteData.entityId,
@@ -25,16 +27,16 @@ function vote(isUpvote, guid) {
         }),
         success: function (data) {
             if (isUpvote) {
-                $(upvoteBtnSelector).toggleClass('voted', !$(upvoteBtnSelector).hasClass('voted'));
-                $(downvoteBtnSelector).toggleClass('downvoted', false);
+                $(upvoteBtnSelector).toggleClass(votedClassName, !$(upvoteBtnSelector).hasClass(votedClassName));
+                $(downvoteBtnSelector).toggleClass(downvotedClassName, false);
             }
             else {
-                $(upvoteBtnSelector).toggleClass('voted', false);
-                $(downvoteBtnSelector).toggleClass('downvoted', !$(downvoteBtnSelector).hasClass('downvoted'));
+                $(upvoteBtnSelector).toggleClass(votedClassName, false);
+                $(downvoteBtnSelector).toggleClass(downvotedClassName, !$(downvoteBtnSelector).hasClass(downvotedClassName));
             }
         },
         error: function (error) {
-            console.error('Error updating data:', error);
+            console.error("Error updating data:", error);
         }
     });
 }
