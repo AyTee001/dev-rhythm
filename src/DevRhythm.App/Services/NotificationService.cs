@@ -2,12 +2,15 @@
 using DevRhythm.App.DTOs;
 using DevRhythm.App.Interfaces;
 using DevRhythm.App.Services.Base;
+using DevRhythm.App.Services.Helpers;
 using DevRhythm.Core.Entities;
 using DevRhythm.Infrastructure.Data;
 using DevRhythm.Infrastructure.Hubs;
 using DevRhythm.Infrastructure.Hubs.Interfaces;
+using DevRhythm.Shared.Enums;
 using DevRhythm.Shared.Exceptions;
 using DevRhythm.Shared.Interfaces;
+using Hangfire;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -112,6 +115,25 @@ namespace DevRhythm.App.Services
             {
                 _notificationHubContext.Clients.All.SendNotificationAsync(notification);
             }
+        }
+
+        public void SetCleanAllNotificationByUserIdJob(long userId, NotificationCleaningPeriod notificationCleaningPeriod)
+        {
+            if(notificationCleaningPeriod == NotificationCleaningPeriod.None)
+            {
+                RecurringJob.RemoveIfExists($"{userId}-notificationCleaning");
+                return;
+            }
+
+            RecurringJob.AddOrUpdate($"{userId}-notificationCleaning", 
+                () => RemoveNotificationsByUserIdAsync(userId), 
+                NotificationCleaningPeriodParser.ParsePeriodToCronExpression(notificationCleaningPeriod));
+        }
+
+        public async Task RemoveNotificationsByUserIdAsync(long userId)
+        {
+            _context.RemoveRange(_context.UserNotifications.Where(x => x.ReceiverId == userId && x.IsRead == true));
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DevRhythm.App.DTOs;
+using DevRhythm.Shared.Enums;
 
 namespace DevRhythm.App.Interfaces
 {
@@ -10,5 +11,7 @@ namespace DevRhythm.App.Interfaces
         Task<int> CountUnreadNotificationsForUserAsync(long userId);
         Task MarkNotificationAsReadByIdAsync(long notificationId, long userId);
         Task MarkNotificationsAsReadAsync(long userId);
+        void SetCleanAllNotificationByUserIdJob(long userId, NotificationCleaningPeriod notificationCleaningPeriod);
+        Task RemoveNotificationsByUserIdAsync(long userId);
     }
 }

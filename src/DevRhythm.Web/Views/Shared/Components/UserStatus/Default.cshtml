@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-page="/Account/Manage/Index">@Localizer["Manage Account"]</a>
+                <a asp-page="/Account/Manage/Index">@Localizer["Manage_account"]</a>
             </li>
             <li class="nav-item">
                 <a asp-page="/Account/LogOut">@HtmlLocalizer["Log_out"]</a>
@@ -40,7 +40,7 @@
 else
 {
     <div class="not-auth-container">
-        <span>@Localizer["Not logged in?"] </span>
+        <span>@Localizer["Not_logged_in"] </span>
         <a asp-area="Identity" asp-page="/Account/Login">@HtmlLocalizer["Log_in"]</a>
         <span> @Localizer["or"] </span>
         <a asp-area="Identity" asp-page="/Account/Register">@HtmlLocalizer["Register"]</a>

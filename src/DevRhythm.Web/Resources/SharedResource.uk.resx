@@ -129,6 +129,9 @@
   <data name="Current_password" xml:space="preserve">
     <value>Поточний пароль</value>
   </data>
+  <data name="Daily_clean" xml:space="preserve">
+    <value>Щоденне очищення</value>
+  </data>
   <data name="Descending" xml:space="preserve">
     <value>За спаданням</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Log_out" xml:space="preserve">
     <value>Вийти</value>
   </data>
+  <data name="Monthly_clean" xml:space="preserve">
+    <value>Щомісячне очищення</value>
+  </data>
   <data name="New_email" xml:space="preserve">
     <value>Новий email</value>
   </data>
   <data name="New_password" xml:space="preserve">
     <value>Новий пароль</value>
+  </data>
+  <data name="No_clean" xml:space="preserve">
+    <value>Не очищати</value>
   </data>
   <data name="No_sort" xml:space="preserve">
     <value>Не сортувати</value>
@@ -197,5 +206,8 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Ім'я користувача</value>
+  </data>
+  <data name="Weekly_clean" xml:space="preserve">
+    <value>Щотижневе очищення</value>
   </data>
 </root>

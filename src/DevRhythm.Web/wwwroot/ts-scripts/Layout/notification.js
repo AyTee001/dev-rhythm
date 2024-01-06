@@ -74,8 +74,19 @@ function incrementBadgeNotificationCount() {
     $badge.text(currentCount);
     $badge.show();
 }
-var NotificationType;
-(function (NotificationType) {
-    NotificationType[NotificationType["VoteNotification"] = 0] = "VoteNotification";
-})(NotificationType || (NotificationType = {}));
+$("#notificationCleaningPeriod").on('change', function () {
+    console.log($("#notificationCleaningPeriod").val());
+    $.ajax({
+        url: '/Notifications/SetUpCleaningJob',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            userId: $("#userIdNotificationCleaningPreference").val(),
+            notificationCleaningPeriod: $("#notificationCleaningPeriod").val()
+        }),
+        error: function (err) {
+            console.log(err);
+        },
+    });
+});
 //# sourceMappingURL=notification.js.map

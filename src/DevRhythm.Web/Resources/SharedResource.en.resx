@@ -129,6 +129,9 @@
   <data name="Current_password" xml:space="preserve">
     <value>Current password</value>
   </data>
+  <data name="Daily_clean" xml:space="preserve">
+    <value>Daily cleanup</value>
+  </data>
   <data name="Descending" xml:space="preserve">
     <value>Descending</value>
   </data>
@@ -156,11 +159,17 @@
   <data name="Log_out" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Monthly_clean" xml:space="preserve">
+    <value>Monthly cleanup</value>
+  </data>
   <data name="New_email" xml:space="preserve">
     <value>New email</value>
   </data>
   <data name="New_password" xml:space="preserve">
     <value>New password</value>
+  </data>
+  <data name="No_clean" xml:space="preserve">
+    <value>No cleanup</value>
   </data>
   <data name="No_sort" xml:space="preserve">
     <value>No sort</value>
@@ -197,5 +206,8 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="Weekly_clean" xml:space="preserve">
+    <value>Weekly cleanup</value>
   </data>
 </root>

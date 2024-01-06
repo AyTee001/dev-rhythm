@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Filter_by_tags" xml:space="preserve">
-    <value>Фільтр за тегами</value>
-  </data>
-  <data name="Sort_criteria" xml:space="preserve">
-    <value>Сортувати за:</value>
-  </data>
-  <data name="Sort_order" xml:space="preserve">
-    <value>Порядок:</value>
+  <data name="Cleanup_frequency" xml:space="preserve">
+    <value>Встановіть частоту очищення прочитаних вами повідомлень</value>
   </data>
 </root>
