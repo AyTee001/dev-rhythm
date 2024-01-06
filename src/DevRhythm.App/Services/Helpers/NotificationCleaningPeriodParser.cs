@@ -11,7 +11,7 @@ namespace DevRhythm.App.Services.Helpers
                 NotificationCleaningPeriod.Daily => "0 0 * * *",
                 NotificationCleaningPeriod.Weekly => "0 0 * * 0",
                 NotificationCleaningPeriod.Monthly => "0 0 1 * *",
-                _ => throw new ArgumentException("No such time period")
+                _ => throw new ArgumentException("Cannot set such period")
             };
         }
     }
