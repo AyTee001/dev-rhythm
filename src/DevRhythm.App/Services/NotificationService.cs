@@ -119,13 +119,14 @@ namespace DevRhythm.App.Services
 
         public void SetCleanAllNotificationByUserIdJob(long userId, NotificationCleaningPeriod notificationCleaningPeriod)
         {
-            if(notificationCleaningPeriod == NotificationCleaningPeriod.None)
+            string jobName = $"{userId}{JobNames.NotificationCleaningJob}";
+            if (notificationCleaningPeriod == NotificationCleaningPeriod.None)
             {
-                RecurringJob.RemoveIfExists($"{userId}-notificationCleaning");
+                RecurringJob.RemoveIfExists(jobName);
                 return;
             }
 
-            RecurringJob.AddOrUpdate($"{userId}-notificationCleaning", 
+            RecurringJob.AddOrUpdate(jobName, 
                 () => RemoveNotificationsByUserIdAsync(userId), 
                 NotificationCleaningPeriodParser.ParsePeriodToCronExpression(notificationCleaningPeriod));
         }

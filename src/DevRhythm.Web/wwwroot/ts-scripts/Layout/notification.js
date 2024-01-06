@@ -50,8 +50,8 @@ function notificationReceived(notification) {
         success: function (data) {
             incrementBadgeNotificationCount();
             console.log(data);
-            var $toast = $(data).appendTo(".toast-container");
-            var closeButton = $toast.find(".close");
+            const $toast = $(data).appendTo(".toast-container");
+            const closeButton = $toast.find(".close");
             closeButton.on("click", function () {
                 $toast.remove();
             });
