@@ -5,6 +5,7 @@ using DevRhythm.Infrastructure.Data;
 using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Providers;
 using DevRhythm.Web.Options;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,18 @@ namespace DevRhythm.Web.Extensions
                 options.SupportedCultures = _supportedCultures;
                 options.SupportedUICultures = _supportedCultures;
             });
+        }
+
+        public static void ConfigureHangfireServer(this IServiceCollection services, DbConnectionOptions dbOptions)
+        {
+
+            services.AddHangfire(config => config
+                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                    .UseSimpleAssemblyNameTypeSerializer()
+                    .UseRecommendedSerializerSettings()
+                    .UseSqlServerStorage(dbOptions.HangfireDbConnection));
+
+            services.AddHangfireServer();
         }
     }
 }

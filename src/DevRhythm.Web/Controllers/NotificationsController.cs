@@ -1,6 +1,9 @@
 ﻿using DevRhythm.App.DTOs;
 using DevRhythm.App.Interfaces;
+using DevRhythm.Web.DTOs;
+using DevRhythm.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DevRhythm.Web.Controllers
 {
@@ -23,9 +26,23 @@ namespace DevRhythm.Web.Controllers
         [HttpGet("all/{userId}")]
         public async Task<IActionResult> ShowNotifications([FromRoute]long userId)
         {
-            var notifications = await _notificationService.GetNotificationsByUserIdAsync(userId);
+            var notificationDto = await _notificationService.GetNotificationsByUserIdAsync(userId);
             await _notificationService.MarkNotificationsAsReadAsync(userId);
-            return View("Index", notifications);
+            return View("Index", notificationDto);
+        }
+
+        public IActionResult SetUpCleaningJob([FromBody] NotificationCleaningDto notificationCleaningModel)
+        {
+            try
+            {
+                _notificationService.SetCleanAllNotificationByUserIdJob(notificationCleaningModel.UserId, notificationCleaningModel.NotificationCleaningPeriod);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

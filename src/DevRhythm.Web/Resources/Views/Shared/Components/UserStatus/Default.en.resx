@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Filter_by_tags" xml:space="preserve">
-    <value>Фільтр за тегами</value>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
-  <data name="Sort_criteria" xml:space="preserve">
-    <value>Сортувати за:</value>
+  <data name="Manage_account" xml:space="preserve">
+    <value>Manage Account</value>
   </data>
-  <data name="Sort_order" xml:space="preserve">
-    <value>Порядок:</value>
+  <data name="Not_logged_in" xml:space="preserve">
+    <value>Not loggen in?</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>or</value>
   </data>
 </root>

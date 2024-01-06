@@ -8,6 +8,7 @@ using DevRhythm.Web.Middleware;
 using DevRhythm.Web.Options;
 using Microsoft.Extensions.Options;
 using DevRhythm.Infrastructure.Hubs;
+using Hangfire;
 
 namespace DevRhythm.Web
 {
@@ -39,8 +40,9 @@ namespace DevRhythm.Web
                     options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
-
             builder.Services.AddCustomServices();
+
+            builder.Services.ConfigureHangfireServer(builder.Configuration.GetSection(DbConnectionOptions.Connections).Get<DbConnectionOptions>()!);
 
             builder.Services.AddIdentity();
 
@@ -80,6 +82,7 @@ namespace DevRhythm.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseHangfireDashboard();
 
             app.UseRouting();
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
@@ -99,6 +102,8 @@ namespace DevRhythm.Web
                 pattern: "{controller=Post}/{action=Index}/{id?}");
 
             app.MapRazorPages();
+
+            app.MapHangfireDashboard();
 
             app.Run();
         }
