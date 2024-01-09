@@ -29,13 +29,15 @@ namespace DevRhythm.App.Services
                         .ThenInclude(a => a.Author)
                 .Include(c => c.Comments)
                     .ThenInclude(c => c.Author)
+                .AsSplitQuery()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new NotFoundException(nameof(Post), id);
 
             return _mapper.Map<PostFullDto>(post);
         }
 
-        public async Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds)
+        public async Task<IReadOnlyList<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds)
         {
             var posts = _context.Posts
                 .Include(p => p.Author)
@@ -58,16 +60,22 @@ namespace DevRhythm.App.Services
                 .Take(pageSettings.PageSize);
             }
 
-            var postList =_mapper.Map<List<PostShortDto>>(await posts.ToListAsync());
+            var postsWithVotes = posts 
+                .GroupJoin(_context.PostVotes,
+                    p => p.Id, pv => pv.EntityId,
+                    (p, pv) => new { Post = p, Votes = pv })
+                .Select(x => new { x.Post, CurrentUserVote = x.Votes.SingleOrDefault(x => x.UserId == _userInfo.Id) });
+
+
+            var postList = await postsWithVotes.ToListAsync();
 
             return postList.Select(x =>
             {
-                var vote = _context.PostVotes.FirstOrDefault(y => y.UserId == _userInfo.Id && y.EntityId == x.Id);
-
-                x.HasUserUpvoted = vote is not null && vote.IsUpvote;
-                x.HasUserDownvoted = vote is not null && !vote.IsUpvote;
-                return x;
-            });
+                var postDto = _mapper.Map<PostShortDto>(x.Post);
+                postDto.HasUserUpvoted = x.CurrentUserVote is not null && x.CurrentUserVote.IsUpvote;
+                postDto.HasUserDownvoted = x.CurrentUserVote is not null && !x.CurrentUserVote.IsUpvote;
+                return postDto;
+            }).ToList().AsReadOnly();
         }
 
         private static IOrderedQueryable<Post> OrderPosts(IQueryable<Post> posts, SortSettings sortSettings)

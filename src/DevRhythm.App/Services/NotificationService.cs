@@ -62,7 +62,7 @@ namespace DevRhythm.App.Services
             return await _context.UserNotifications.CountAsync(x => x.ReceiverId == userId && x.IsRead == false);
         }
 
-        public async Task<ICollection<NotificationDto>> GetNotificationsByUserIdAsync(long userId)
+        public async Task<IReadOnlyList<NotificationDto>> GetNotificationsByUserIdAsync(long userId)
         {
             var currUserId = _userInfoProvider.Id ?? throw new NotFoundException(nameof(User), userId);
 
@@ -92,13 +92,18 @@ namespace DevRhythm.App.Services
 
         public async Task MarkNotificationsAsReadAsync(long userId)
         {
-            await _context.UserNotifications.Where(n => n.ReceiverId == userId).ForEachAsync(x => x.IsRead = true);
+            await _context.UserNotifications.Where(n => n.ReceiverId == userId && n.IsRead == false).ForEachAsync(x => x.IsRead = true);
             await _context.SaveChangesAsync();
         }
 
         public async Task MarkNotificationAsReadByIdAsync(long notificationId, long userId)
         {
-            await _context.UserNotifications.Where(n => n.ReceiverId == userId && n.NotificationId == notificationId).ForEachAsync(x => x.IsRead = true);
+            var notification = await _context.UserNotifications
+                .FirstOrDefaultAsync(n => n.ReceiverId == userId && n.NotificationId == notificationId) 
+                ?? throw new NotFoundException(nameof(Notification), notificationId);
+
+            notification.IsRead = true;
+
             await _context.SaveChangesAsync();
         }
 

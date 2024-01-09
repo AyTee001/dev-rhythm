@@ -4,6 +4,6 @@ namespace DevRhythm.App.Interfaces
 {
     public interface ITagService
     {
-        public Task<ICollection<TagFilterDto>> GetTagsForFilterAsync();
+        public Task<IReadOnlyList<TagFilterDto>> GetTagsForFilterAsync();
     }
 }

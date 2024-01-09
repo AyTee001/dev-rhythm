@@ -9,7 +9,7 @@ namespace DevRhythm.App.Services
 {
     public class TagService(DevRhythmDbContext context, IMapper mapper) : BaseService(context, mapper), ITagService
     {
-        public async Task<ICollection<TagFilterDto>> GetTagsForFilterAsync()
+        public async Task<IReadOnlyList<TagFilterDto>> GetTagsForFilterAsync()
         {
             return await _context.Tags.AsNoTracking()
                          .Select(tag => _mapper.Map<TagFilterDto>(tag))

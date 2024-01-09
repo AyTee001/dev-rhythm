@@ -44,7 +44,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Achievements");
+                    b.ToTable("Achievements", (string)null);
                 });
 
             modelBuilder.Entity("DevRhythm.Core.Entities.Comment", b =>
@@ -74,7 +74,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
 
                     b.HasData(
                         new
@@ -1694,7 +1694,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("CommentsVotes");
+                    b.ToTable("CommentsVotes", (string)null);
                 });
 
             modelBuilder.Entity("DevRhythm.Core.Entities.Notification", b =>
@@ -1726,7 +1726,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("DevRhythm.Core.Entities.Post", b =>
@@ -1758,7 +1758,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
 
                     b.HasData(
                         new
@@ -2675,7 +2675,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("PostTags");
+                    b.ToTable("PostTags", (string)null);
 
                     b.HasData(
                         new
@@ -4080,7 +4080,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("PostVotes");
+                    b.ToTable("PostVotes", (string)null);
                 });
 
             modelBuilder.Entity("DevRhythm.Core.Entities.Reply", b =>
@@ -4110,7 +4110,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("Replies");
+                    b.ToTable("Replies", (string)null);
 
                     b.HasData(
                         new
@@ -7330,7 +7330,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("RepliesVotes");
+                    b.ToTable("RepliesVotes", (string)null);
                 });
 
             modelBuilder.Entity("DevRhythm.Core.Entities.Tag", b =>
@@ -7347,7 +7347,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
 
                     b.HasData(
                         new
@@ -8024,7 +8024,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("AchievementId");
 
-                    b.ToTable("UserAchievements");
+                    b.ToTable("UserAchievements", (string)null);
                 });
 
             modelBuilder.Entity("DevRhythm.Core.Entities.UserNotification", b =>
@@ -8042,7 +8042,7 @@ namespace DevRhythm.Infrastructure.Migrations
 
                     b.HasIndex("NotificationId");
 
-                    b.ToTable("UserNotifications");
+                    b.ToTable("UserNotifications", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>

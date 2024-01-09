@@ -6,7 +6,7 @@ namespace DevRhythm.App.Interfaces
     {
         void SendNotification(NotificationDto notification);
         Task AddNotificationToStorageAsync(NotificationDto notification);
-        Task<ICollection<NotificationDto>> GetNotificationsByUserIdAsync(long userId);
+        Task<IReadOnlyList<NotificationDto>> GetNotificationsByUserIdAsync(long userId);
         Task<int> CountUnreadNotificationsForUserAsync(long userId);
         Task MarkNotificationAsReadByIdAsync(long notificationId, long userId);
         Task MarkNotificationsAsReadAsync(long userId);
