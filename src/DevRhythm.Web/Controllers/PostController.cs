@@ -7,6 +7,7 @@ using DevRhythm.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 namespace DevRhythm.Web.Controllers
 {
@@ -57,6 +58,25 @@ namespace DevRhythm.Web.Controllers
         {
             var posts = await _postService.GetPostPreviewsAsync(pageSettings, sortSettings, tagids);
             return posts;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> CreatePost()
+        {
+            return View(nameof(CreatePost), new PostCreateDto
+                {
+                    Tags = [.. (await _tagService.GetTagsForFilterAsync())]
+                });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddNewPost(PostCreateDto postCreate)
+        {
+            await _postService.AddNewPostAsync(postCreate);
+
+            return RedirectToAction("Index");
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

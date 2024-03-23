@@ -7,11 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevRhythm.Infrastructure.Data
 {
-    public class DevRhythmDbContext : IdentityDbContext<User, IdentityRole<long>, long>
+    public class DevRhythmDbContext(DbContextOptions<DevRhythmDbContext> options, IUserInfoProvider userInfoProvider) : IdentityDbContext<User, IdentityRole<long>, long>(options)
     {
-        private readonly IUserInfoProvider _userInfoProvider;
+        private readonly IUserInfoProvider _userInfoProvider = userInfoProvider;
 
-        public DbSet<Achievement> Achievements => Set<Achievement>();
         public DbSet<Comment> Comments => Set<Comment>();
         public DbSet<CommentVote> CommentsVotes => Set<CommentVote>();
         public DbSet<Notification> Notifications => Set<Notification>();
@@ -21,13 +20,7 @@ namespace DevRhythm.Infrastructure.Data
         public DbSet<Reply> Replies => Set<Reply>();
         public DbSet<ReplyVote> RepliesVotes => Set<ReplyVote>();
         public DbSet<Tag> Tags => Set<Tag>();
-        public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
         public DbSet<UserNotification> UserNotifications => Set<UserNotification>();
-
-        public DevRhythmDbContext(DbContextOptions<DevRhythmDbContext> options, IUserInfoProvider userInfoProvider) : base(options) 
-        { 
-            _userInfoProvider = userInfoProvider;
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

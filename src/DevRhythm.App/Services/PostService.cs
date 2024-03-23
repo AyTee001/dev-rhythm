@@ -14,10 +14,11 @@ using System.Linq.Expressions;
 
 namespace DevRhythm.App.Services
 {
-    public class PostService(DevRhythmDbContext context, IMapper mapper, IUserInfoProvider userInfoProvider) 
+    public class PostService(DevRhythmDbContext context, IMapper mapper, IUserInfoProvider userInfoProvider, ITagService tagService) 
         : BaseService(context, mapper), 
         IPostService
     {
+        private readonly ITagService _tagService = tagService;
         private readonly IUserInfoProvider _userInfo = userInfoProvider;
         public async Task<PostFullDto> GetPostByIdAsync(long id)
         {
@@ -68,6 +69,31 @@ namespace DevRhythm.App.Services
                 x.HasUserDownvoted = vote is not null && !vote.IsUpvote;
                 return x;
             });
+        }
+
+        public async Task<Post> AddNewPostAsync(PostCreateDto postCreateDto)
+        {
+            var post = _mapper.Map<Post>(postCreateDto);
+
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _context.Posts.Add(post);
+
+                await _context.SaveChangesAsync();
+
+                await _tagService.AddPostTagsAsync(postCreateDto.Tags.Where(x => x.IsChecked).Select(x => x.Id), post.Id);
+
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+
+            transaction.Commit();
+
+            return post;
         }
 
         private static IOrderedQueryable<Post> OrderPosts(IQueryable<Post> posts, SortSettings sortSettings)

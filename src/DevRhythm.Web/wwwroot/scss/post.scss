@@ -68,3 +68,79 @@ a{
 .reply-container{
     margin-bottom: 8px;
 }
+
+.post-create-form {
+    display: flex;
+    width: 100%;
+    padding: 1.2rem;
+
+    label {
+        color: $accent-cambridge-blue;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 16px 24px;
+        width: fit-content;
+        background: linear-gradient(90deg, $accent-orange 0%, $accent-cambridge-blue 100%);
+        color: $primary-dark-blue-violet;
+        font-weight: 800;
+        border: none;
+        border-radius: 12px;
+    }
+}
+
+.new-post-textarea {
+    resize: none;
+    min-height: 300px;
+    padding: 24px;
+
+}
+
+.new-post-heading-input, .new-post-textarea {
+    border: none;
+    background-color: $half-transparent-light-blue-violet;
+    border-radius: 12px;
+    color: $dim-white;
+
+    &:focus {
+        color: $dim-white;
+        outline: none;
+    }
+}
+
+.new-post-heading-input{
+    padding: 16px;
+}
+
+.post-create-tags-container {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%;
+    padding: 24px;
+    border: none;
+    background-color: $half-transparent-light-blue-violet;
+    border-radius: 12px;
+
+    .checkbox-wrapper{
+        margin: 4px;
+    }
+}
+
+.post-create-form-main-content {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+    > * {
+        margin-bottom: 16px;
+    }
+
+    label{
+        font-size: 1.2rem;
+    }
+}

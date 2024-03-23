@@ -22,10 +22,6 @@ namespace DevRhythm.Infrastructure.Data.Configs
                 .WithOne(e => e.Author)
                 .HasForeignKey(e => e.CreatedBy)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(e => e.Achievements)
-                .WithOne()
-                .HasForeignKey(e => e.UserId);
         }
     }
 }

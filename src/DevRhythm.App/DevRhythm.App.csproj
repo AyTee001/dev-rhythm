@@ -12,7 +12,6 @@
     <PackageReference Include="Hangfire.Core" Version="1.8.7" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.8.7" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
-    <PackageReference Include="OpenSearch.Client" Version="1.6.0" />
   </ItemGroup>
 
   <ItemGroup>
