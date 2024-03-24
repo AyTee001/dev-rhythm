@@ -5,6 +5,7 @@ using DevRhythm.Shared.Settings;
 using DevRhythm.Web.DTOs;
 using DevRhythm.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using static System.Net.WebRequestMethods;
@@ -16,8 +17,9 @@ namespace DevRhythm.Web.Controllers
         private readonly IPostService _postService = postService;
         private readonly ITagService _tagService = tagService;
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string keyword = "")
         {
+            ViewBag.QueryString = keyword;
             return View(
                 new MainPostPageModel
                 {
@@ -48,15 +50,21 @@ namespace DevRhythm.Web.Controllers
             return View("Post", await _postService.GetPostByIdAsync(postId));
         }
 
+        [Authorize, HttpGet("SearchPosts")]
+        public IActionResult SearchPosts([FromQuery]string keyword)
+        {
+            return RedirectToAction("Index", new { keyword });
+        }
+
         [HttpPost]
         public async Task<ActionResult> GetPosts([FromBody] PageGetDto pageGetDto)
         {
-            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = pageGetDto.PostCount }, pageGetDto.SortSettings, pageGetDto.TagIds));
+            return PartialView("_PostCollectionPartial", await GetPostCollectionChunk(new PageSettings { PageNumber = pageGetDto.PageNumber, PageSize = pageGetDto.PostCount }, pageGetDto.SortSettings, pageGetDto.TagIds, pageGetDto.Keyword));
         }
 
-        private async Task<IEnumerable<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids)
+        private async Task<IEnumerable<PostShortDto>> GetPostCollectionChunk(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagids, string keyword = "")
         {
-            var posts = await _postService.GetPostPreviewsAsync(pageSettings, sortSettings, tagids);
+            var posts = await _postService.GetPostPreviewsAsync(pageSettings, sortSettings, tagids, keyword);
             return posts;
         }
 

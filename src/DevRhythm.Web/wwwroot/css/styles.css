@@ -696,6 +696,41 @@ a:hover {
 .post-create-form-main-content label {
   font-size: 1.2rem;
 }
+
+.highlight {
+  color: #FF6E40;
+  font-weight: 800;
+}
+
+.search-query-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  padding: 10px;
+  background-color: rgba(85, 85, 114, 0.5);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: #F0F0F0;
+  margin-top: 24px;
+  margin-left: 24px;
+}
+.search-query-container span {
+  font-size: 14px;
+}
+.search-query-container #search-keyword {
+  margin-left: 8px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.search-query-container a {
+  color: #FF6E40;
+  text-decoration: none;
+}
+.search-query-container a .fa-xmark {
+  font-size: 16px;
+  margin-left: 5px;
+}
 html {
   font-size: 14px;
   font-family: "Poppins", sans-serif;

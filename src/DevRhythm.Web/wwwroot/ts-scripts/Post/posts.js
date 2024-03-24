@@ -11,6 +11,7 @@ function loadMorePosts(tagIds) {
         sortProperty: $("#SortProperty").val(),
         sortOrder: $("#SortOrder").val()
     };
+    const keyword = $("#search-keyword").text();
     if (!loading && !isEnd) {
         loading = true;
         $.ajax({
@@ -21,11 +22,29 @@ function loadMorePosts(tagIds) {
                 PageNumber: currentPage + 1,
                 TagIds: tagIds,
                 PostCount: POST_COUNT_PER_PAGE,
-                SortSettings: settings
+                SortSettings: settings,
+                Keyword: keyword ? keyword : ""
             }),
             success: function (data) {
                 if (data) {
                     $("#post-section").append(data);
+                    $(".post-preview-card").each(function () {
+                        const $this = $(this);
+                        // Highlight main content
+                        const postContent = $this.find(".post-content").html() || "";
+                        const highlightedContent = highlightSearchQuery(keyword, postContent);
+                        $this.find(".post-content").html(highlightedContent);
+                        // Highlight heading
+                        const heading = $this.find(".post-heading").html() || "";
+                        const highlightedHeading = highlightSearchQuery(keyword, heading);
+                        $this.find(".post-heading").html(highlightedHeading);
+                        // Highlight tags
+                        $this.find(".tag").each(function () {
+                            const tagText = $(this).text();
+                            const highlightedTag = highlightSearchQuery(keyword, tagText);
+                            $(this).html(highlightedTag);
+                        });
+                    });
                     currentPage++;
                     loading = false;
                 }
@@ -39,6 +58,14 @@ function loadMorePosts(tagIds) {
         });
     }
 }
+function highlightSearchQuery(query, html) {
+    // Create a regular expression to match the search query
+    const regex = new RegExp(query, 'gi');
+    // Replace occurrences of the query with the highlighted version
+    const highlightedHtml = html.replace(regex, `<span class="highlight">$&</span>`);
+    console.log(highlightedHtml);
+    return highlightedHtml;
+}
 selectedTagsInput.on("change", reloadposts);
 $(window).on("scroll", function () {
     if ($(window).scrollTop() >= $(document).height() - $(window).height() - SCROLL_THRESHOLD) {
@@ -48,13 +75,6 @@ $(window).on("scroll", function () {
 $(function () {
     loadMorePosts(getAllCheckedTags());
 });
-function getPostsByTag(tagId) {
-    resetPosts();
-    let targetTag = $(`#tag_${tagId}`);
-    selectedTagsInput.not(targetTag).prop("checked", false);
-    targetTag.prop("checked", true);
-    loadMorePosts([tagId]);
-}
 function resetPosts() {
     currentPage = 0;
     isEnd = false;

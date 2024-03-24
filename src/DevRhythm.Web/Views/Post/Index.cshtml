@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using DevRhythm.Shared.Enums
 @model DevRhythm.Web.Models.MainPostPageModel
-
+@{
+    string queryString = ViewBag?.QueryString ?? string.Empty;
+}
 @inject IViewLocalizer Localizer
 
 <div class="aside-main d-flex justify-content-end">
@@ -25,6 +27,16 @@
     </aside>
     <div class="main-container">
         <main role="main" class="pb-3">
+            @if (!string.IsNullOrWhiteSpace(queryString))
+            {
+                <div class="search-query-container">
+                    <span>Currently searching for:</span>
+                    <span id="search-keyword">@queryString</span>
+                    <a asp-action="Index">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                </div>
+            }
             <div id="post-section" class="d-flex flex-column align-items-center">
             </div>
         </main>

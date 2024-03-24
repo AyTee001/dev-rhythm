@@ -10,6 +10,7 @@ using DevRhythm.Shared.Exceptions;
 using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Settings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Kerberos;
 using System.Linq.Expressions;
 
 namespace DevRhythm.App.Services
@@ -36,12 +37,19 @@ namespace DevRhythm.App.Services
             return _mapper.Map<PostFullDto>(post);
         }
 
-        public async Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds)
+        public async Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds, string keyword = "")
         {
             var posts = _context.Posts
                 .Include(p => p.Author)
                 .Include(p => p.Tags)
                 .AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                posts = posts.Where(x => x.Tags.Any(x => x.Name.Contains(keyword))
+                    || x.Content.Contains(keyword)
+                    || x.Heading.Contains(keyword));
+            }
 
             if (tagIds.Count != 0)
             {
