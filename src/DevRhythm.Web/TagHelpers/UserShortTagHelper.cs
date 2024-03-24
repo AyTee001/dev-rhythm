@@ -32,9 +32,6 @@ namespace DevRhythm.Web.TagHelpers
                 var reputation = new TagBuilder("span");
                 reputation.AddCssClass("reputation");
 
-                reputation.InnerHtml.AppendHtml("<i class=\"fa-solid fa-trophy\"></i>");
-                reputation.InnerHtml.AppendHtml($"<span>{User.Reputation}</span>");
-
                 userShortInfoTag.InnerHtml.AppendHtml(reputation);
 
                 container.InnerHtml.AppendHtml(userShortInfoTag);

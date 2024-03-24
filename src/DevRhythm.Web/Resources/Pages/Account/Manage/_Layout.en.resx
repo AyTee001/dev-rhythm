@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Change_acc_settings" xml:space="preserve">
-    <value>nt settings here</value>
+    <value>Change settings here</value>
   </data>
   <data name="Manage_acc" xml:space="preserve">
     <value>Manage your account</value>

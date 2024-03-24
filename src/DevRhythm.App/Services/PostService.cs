@@ -10,14 +10,16 @@ using DevRhythm.Shared.Exceptions;
 using DevRhythm.Shared.Interfaces;
 using DevRhythm.Shared.Settings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Kerberos;
 using System.Linq.Expressions;
 
 namespace DevRhythm.App.Services
 {
-    public class PostService(DevRhythmDbContext context, IMapper mapper, IUserInfoProvider userInfoProvider) 
+    public class PostService(DevRhythmDbContext context, IMapper mapper, IUserInfoProvider userInfoProvider, ITagService tagService) 
         : BaseService(context, mapper), 
         IPostService
     {
+        private readonly ITagService _tagService = tagService;
         private readonly IUserInfoProvider _userInfo = userInfoProvider;
         public async Task<PostFullDto> GetPostByIdAsync(long id)
         {
@@ -35,12 +37,19 @@ namespace DevRhythm.App.Services
             return _mapper.Map<PostFullDto>(post);
         }
 
-        public async Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds)
+        public async Task<IEnumerable<PostShortDto>> GetPostPreviewsAsync(PageSettings? pageSettings, SortSettings? sortSettings, ICollection<long> tagIds, string keyword = "")
         {
             var posts = _context.Posts
                 .Include(p => p.Author)
                 .Include(p => p.Tags)
                 .AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                posts = posts.Where(x => x.Tags.Any(x => x.Name.Contains(keyword))
+                    || x.Content.Contains(keyword)
+                    || x.Heading.Contains(keyword));
+            }
 
             if (tagIds.Count != 0)
             {
@@ -68,6 +77,31 @@ namespace DevRhythm.App.Services
                 x.HasUserDownvoted = vote is not null && !vote.IsUpvote;
                 return x;
             });
+        }
+
+        public async Task<Post> AddNewPostAsync(PostCreateDto postCreateDto)
+        {
+            var post = _mapper.Map<Post>(postCreateDto);
+
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _context.Posts.Add(post);
+
+                await _context.SaveChangesAsync();
+
+                await _tagService.AddPostTagsAsync(postCreateDto.Tags.Where(x => x.IsChecked).Select(x => x.Id), post.Id);
+
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+
+            transaction.Commit();
+
+            return post;
         }
 
         private static IOrderedQueryable<Post> OrderPosts(IQueryable<Post> posts, SortSettings sortSettings)

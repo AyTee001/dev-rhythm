@@ -11,6 +11,8 @@ function loadMorePosts(tagIds: number[]): void {
         sortProperty: $("#SortProperty").val() as number,
         sortOrder: $("#SortOrder").val() as number
     }
+
+    const keyword = $("#search-keyword").text() as string;
     if (!loading && !isEnd) {
         loading = true;
         $.ajax({
@@ -21,11 +23,32 @@ function loadMorePosts(tagIds: number[]): void {
                 PageNumber: currentPage + 1,
                 TagIds: tagIds,
                 PostCount: POST_COUNT_PER_PAGE,
-                SortSettings: settings
+                SortSettings: settings,
+                Keyword: keyword ? keyword : ""
             }),
             success: function (data: any) {
                 if (data) {
                     $("#post-section").append(data);
+                    $(".post-preview-card").each(function () {
+                        const $this: JQuery<HTMLElement> = $(this);
+
+                        // Highlight main content
+                        const postContent: string = $this.find(".post-content").html() || "";
+                        const highlightedContent: string = highlightSearchQuery(keyword, postContent);
+                        $this.find(".post-content").html(highlightedContent);
+
+                        // Highlight heading
+                        const heading: string = $this.find(".post-heading").html() || "";
+                        const highlightedHeading: string = highlightSearchQuery(keyword, heading);
+                        $this.find(".post-heading").html(highlightedHeading);
+
+                        // Highlight tags
+                        $this.find(".tag").each(function () {
+                            const tagText: string = $(this).text();
+                            const highlightedTag: string = highlightSearchQuery(keyword, tagText);
+                            $(this).html(highlightedTag);
+                        });
+                    });
                     currentPage++;
                     loading = false;
                 } else {
@@ -39,6 +62,16 @@ function loadMorePosts(tagIds: number[]): void {
     }
 }
 
+function highlightSearchQuery(query: string, html: string): string {
+    // Create a regular expression to match the search query
+    const regex = new RegExp(query, 'gi');
+
+    // Replace occurrences of the query with the highlighted version
+    const highlightedHtml = html.replace(regex, `<span class="highlight">$&</span>`);
+    console.log(highlightedHtml);
+    return highlightedHtml;
+}
+
 selectedTagsInput.on("change", reloadposts);
 
 $(window).on("scroll", function () {
@@ -50,17 +83,6 @@ $(window).on("scroll", function () {
 $(function () {
     loadMorePosts(getAllCheckedTags());
 });
-
-function getPostsByTag(tagId: number) {
-    resetPosts();
-
-    let targetTag = $(`#tag_${tagId}`);
-    selectedTagsInput.not(targetTag).prop("checked", false);
-
-    targetTag.prop("checked", true);
-
-    loadMorePosts([tagId]);
-}
 
 function resetPosts() {
     currentPage = 0;

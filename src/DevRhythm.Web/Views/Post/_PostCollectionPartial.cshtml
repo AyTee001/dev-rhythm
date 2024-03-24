@@ -14,8 +14,8 @@
             <user-short-info user="post.Author"></user-short-info>
         </div>
         <div class="main-preview-content">
-            <h3>@post.Heading</h3>
-            <p>@post.PreviewContent</p>
+            <h3 class="post-heading">@post.Heading</h3>
+            <p class="post-content">@post.PreviewContent</p>
         </div>
         <div class="tag-section">
             @await Html.PartialAsync("_TagCollectionPartial", post.Tags)

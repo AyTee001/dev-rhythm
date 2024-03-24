@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model DevRhythm.App.DTOs.PostCreateDto
+@inject IViewLocalizer Localizer
+
+<main class="content-main">
+    <form method="post" action="AddNewPost" role="create" class="post-create-form">
+        <div class="post-create-form-main-content">
+            <label asp-for="@Model.Heading">Heading</label>
+            <input asp-for="@Model.Heading" placeholder="Enter your cool post heading" required class="new-post-heading-input">
+
+            <label asp-for="@Model.Content">Content</label>
+            <textarea asp-for="@Model.Content" required placeholder="What is on your mind?" class="new-post-textarea"></textarea>
+
+
+            <button type="submit">Create</button>
+        </div>
+
+        <div class="post-create-tags-container">
+            @for (int i = 0; i < Model.Tags.Count; i++)
+            {
+                @Html.HiddenFor(m => m.Tags[i].Id)
+                <div class="checkbox-wrapper">
+                    @Html.CheckBoxFor(m => m.Tags[i].IsChecked)
+                    @Html.LabelFor(m => m.Tags[i].IsChecked, Model.Tags[i].Name)
+                </div>
+            }
+        </div>
+
+    </form>
+</main>

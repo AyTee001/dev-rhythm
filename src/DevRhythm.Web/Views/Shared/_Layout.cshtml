@@ -22,11 +22,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="search-bar d-flex justify-content-center p-2 m-3 gradient-border-mask">
-                    <form method="post" action="" role="search" class="container-fluid d-flex align-items-center justify-content-between">
-                            <input type="search" placeholder="Search" aria-label="Search for content">
-                            <button class="search-button" aria-label="Search" type="submit">
-                                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-                            </button>
+                    <form method="get" action="/SearchPosts" role="search" class="container-fluid d-flex align-items-center justify-content-between">
+                        <input name="keyword" type="search" placeholder="Search" aria-label="Search for content">
+                        <button class="search-button" aria-label="Search" type="submit">
+                            <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                        </button>
                     </form>
                 </div>
                 @await Component.InvokeAsync(typeof(DevRhythm.Web.ViewComponents.UserStatusViewComponent))
